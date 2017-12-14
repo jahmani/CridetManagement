@@ -1,0 +1,21 @@
+<!-- Generated template for the TreeViewRowComponent component -->
+<ion-item-sliding [style.padding-left]="(depth * 20) + 'px'">
+  <ion-item>
+    <ion-icon style="padding-right: 5px" [name]="getIconName()" (click)="toggleExpand()"></ion-icon>
+    <span (click)="onNodeClicked(node)"  class="node-title">{{node.data.name}}</span>
+  </ion-item>
+    <ion-item-options>
+        <button primary (click)="onNodeEditClicked(node)">
+        <ion-icon name="text"></ion-icon>
+        Edit
+      </button>
+    </ion-item-options>
+  </ion-item-sliding>
+<div>
+  <tree-view-list  *ngIf="hasSons() && node.ext.$isExpanded"
+  [nodes]="node.ext.$sons"
+  (nodeSelected)="onNodeClicked($event)"
+  (nodeEditClicked)="onNodeEditClicked($event)"
+  [depth]="depth+1">
+</tree-view-list>
+</div>

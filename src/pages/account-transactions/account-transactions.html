@@ -1,0 +1,38 @@
+<!--
+  Generated template for the AccountTransactionsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>AccountTransactions</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>     
+    </div>
+  <ion-list>
+    <ion-item text-wrap
+      *ngFor="let transSnapshot of transSnapshotsArray|async"
+      (click)="presentEditTransactionModal(transSnapshot)"  >
+
+      <ion-icon name="person" item-left></ion-icon>
+      <h2>{{transSnapshot.data.type == 1 ? 'له': 'عليه'}}/ {{transSnapshot.ext?.catigory?.data.name}}</h2>
+      <ion-note>{{transSnapshot.data.date | date}} </ion-note>
+      <h2 item-right>{{transSnapshot.data.type * transSnapshot.data.ammount}}</h2>
+    </ion-item>
+  </ion-list>
+  <ion-fab right bottom>
+    <button ion-fab mini color="primary"><ion-icon name="create"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab mini (click)="presentNewTransactionModal(-1)"> عليه</button>
+      <button ion-fab mini (click)="presentNewTransactionModal(1)"> له</button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

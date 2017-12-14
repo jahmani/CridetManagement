@@ -1,0 +1,52 @@
+<!--
+  Generated template for the EditAccount component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>EditAccount</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form novalidate ng-submit="onSubmit()" [formGroup]="form">
+    <ion-list>
+      <ion-item [class.invalid]="!nameControl.valid && (nameControl.touched || submitAttempt)">
+        <ion-label floating>Name</ion-label>
+        <ion-input formControlName="name" type="text" ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="nameControl.touched || submitAttempt">
+        <p *ngIf="nameControl.hasError('required')" class="err">* name is rquired</p>
+        <p *ngIf="nameControl.hasError('maxlength')" class="err">* maximum name length is 50!</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>City</ion-label>
+        <ion-input type="text" formControlName="city"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Mobile</ion-label>
+        <ion-input type="text" formControlName="mobile"></ion-input>
+      </ion-item>
+    </ion-list>
+
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <!--  <ion-col *ngIf="accountCopy.$key"><button ion-button full (click)="remove()" color="danger">remove</button></ion-col> -->
+      <ion-col>
+        <button type="button" ion-button full (click)="onCancel()" color="light">cancel</button>
+      </ion-col>
+      <ion-col>
+        <button type="submit" ion-button full (click)="onSubmit(form)" color="primary"> save</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

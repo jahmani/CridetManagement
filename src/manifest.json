@@ -1,13 +1,15 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "Cridet Debt Mangement",
+  "short_name": "CridetDebt",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
-    "src": "assets/imgs/logo.png",
+    "src": "./assets/imgs/icon.png",
     "sizes": "512x512",
     "type": "image/png"
   }],
   "background_color": "#4e8ef7",
-  "theme_color": "#4e8ef7"
+  "theme_color": "#4e8ef7",
+  "gcm_sender_id": "103953800507", // this value is always the same
+  "gcm_user_visible_only": true
 }

@@ -1,0 +1,7 @@
+<!-- Generated template for the TreeViewListComponent component -->
+ <tree-view-row
+  *ngFor="let node of nodes" [node]="node"
+  (nodeSelected)="onNodeClicked($event)"
+  (nodeEditClicked)="onNodeEditClicked($event)"
+  [depth]="depth">
+</tree-view-row>

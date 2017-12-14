@@ -8,11 +8,12 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+...
+  <user-profile [user]="auth.user | async" 
+  (googleLogin)="auth.googleLogin()"
+  (signout)="auth.signOut()"></user-profile>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <button ion-button (click)="auth.googleLogin()">Connect to Google</button>
+  <button ion-button (click)="goLogInPage()">Email Signin</button>
+  
 </ion-content>

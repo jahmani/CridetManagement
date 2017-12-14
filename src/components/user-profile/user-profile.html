@@ -1,0 +1,21 @@
+<!-- Generated template for the UserProfileComponent component -->
+
+<div *ngIf="user; then authenticated else guest">
+page not found
+</div>
+
+
+<ng-template #guest>
+  <h3>Howdy, Guest</h3>
+  <p>Log in to get started</p>
+</ng-template>
+
+<ng-template #authenticated>
+  <div *ngIf="user">
+  <h3>Howdy, {{user.displayName||user.email}}</h3>
+  <img src="{{user.photoURL}}" alt="">
+  <p>UID : {{user.uid }}</p>
+
+  <button ion-button (click)="onSignout()">Signout</button>
+</div>
+</ng-template>  

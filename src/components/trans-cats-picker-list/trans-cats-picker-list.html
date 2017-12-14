@@ -1,0 +1,19 @@
+<!-- Generated template for the TransCatsPickerListComponent component -->
+<ion-header>
+<ion-navbar>
+    <ion-title>transCatsPickerList</ion-title>
+    <button ion-button (click)="onCancel()" >
+        <ion-icon name="close"></ion-icon>
+      </button>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding> 
+    <tree-view-list 
+    [nodes]="transactionRootCat?.ext.$sons"
+    [depth]="0"
+    (nodeSelected)="onNodeSelected($event)">
+  </tree-view-list>
+  </ion-content>
