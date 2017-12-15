@@ -25,8 +25,8 @@ export class MyApp {
       { title: 'Signup', component: "SignupPage" },
       { title: 'Accounts', component: "AccountsListPage" },
       { title: "Cats", component: "TransactionCatsPage" },
-      { title: "UserSettingsPage", component: "UserSettingsPage" }
-    //  { title: "UserSettingsPage", component: "UserSettingsPage" }
+      { title: "UserSettingsPage", component: "UserSettingsPage" },
+      { title: "UserStoresPage", component: "UserStoresPage" }
     //  { title: "UserSettingsPage", component: "UserSettingsPage" }
     //  { title: "UserSettingsPage", component: "UserSettingsPage" }
     ];

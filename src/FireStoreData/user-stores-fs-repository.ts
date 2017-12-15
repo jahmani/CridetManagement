@@ -5,6 +5,7 @@ import { AngularFirestore } from "angularfire2/firestore";
 import { AuthService } from "../app/core/auth";
 import { conatctPaths } from "./util";
 import { StoresFsRepository } from "./stores-fs-repository";
+import { Observable } from "rxjs/Observable";
 
 
 
@@ -15,9 +16,15 @@ export class UserStoresFsRepository extends FsRepository<UserStore> {
     super(afs, conatctPaths(
       "users"
       , auth.currentUser.uid
-      , "activeStores"))
+      , "stores"))
     console.log('Hello UserStoresFsRepository Provider');
   }
+  get FormatedList(): Observable<ExtendedData<UserStore>[]> {
+    return this.List().flatMap((stores) => {
+      return Promise.all(this.getStores(stores))
+    })
+  }
+
   getStores(extUserStores: ExtendedData<UserStore>[]) {
     return extUserStores.map((extUserStore) => {
       return this.storeInfoFsRepository.getOnce(extUserStore.id).then((store) => {
