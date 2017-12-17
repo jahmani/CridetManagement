@@ -11,7 +11,7 @@ import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({segment: 'accounts-list'})
 @Component({
   selector: 'page-accounts-list',
   templateUrl: 'accounts-list.html',

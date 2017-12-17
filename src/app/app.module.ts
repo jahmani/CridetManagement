@@ -22,12 +22,14 @@ import { MessagingService } from '../providers/messaging-service/messaging-servi
 import { UserService } from '../providers/user-service/user-service';
 import { FirestoreDataModule } from '../FireStoreData/firestoreData.module';
 
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage
     ],
+    
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),

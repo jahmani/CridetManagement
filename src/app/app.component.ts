@@ -3,29 +3,33 @@ import { Nav } from 'ionic-angular';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { AccountsListPage } from '../pages/accounts-list/accounts-list';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
-  rootPage: any = HomePage;
-
-  pages: Array<{ title: string, component: any }>;
-
+  rootPage: any = "TabsPage";
+  storePages: Array<{ title: string, component: any }>;
+  userPages: Array<{ title: string, component: any }>;
+  
   constructor() {
 
     // used for an example of ngFor and navigation
-    this.pages = [
-
+    this.storePages = [
       { title: 'StoreUsersPage', component: "StoreUsersPage" },
       { title: 'Home', component: HomePage },
-      { title: 'Login', component: "LoginPage" },
-      { title: 'Signup', component: "SignupPage" },
       { title: 'Accounts', component: "AccountsListPage" },
       { title: "Cats", component: "TransactionCatsPage" },
       { title: "UserSettingsPage", component: "UserSettingsPage" },
+    //  { title: "UserSettingsPage", component: "UserSettingsPage" }
+    //  { title: "UserSettingsPage", component: "UserSettingsPage" }
+    ];
+
+    this.userPages = [
+      { title: 'Login', component: "LoginPage" },
+      { title: 'Signup', component: "SignupPage" },
       { title: "UserStoresPage", component: "UserStoresPage" }
     //  { title: "UserSettingsPage", component: "UserSettingsPage" }
     //  { title: "UserSettingsPage", component: "UserSettingsPage" }
@@ -33,9 +37,10 @@ export class MyApp {
 
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  openStorePage(page) {
+    this.nav.setRoot("TabsPage", page);
+    }
+    openUserPage(page) {
+      this.nav.setRoot(page.component);
+      }
   }
-}

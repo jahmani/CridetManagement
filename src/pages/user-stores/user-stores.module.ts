@@ -4,7 +4,7 @@ import { UserStoresPage } from './user-stores';
 
 @NgModule({
   declarations: [
-    UserStoresPage,
+    UserStoresPage ,
   ],
   imports: [
     IonicPageModule.forChild(UserStoresPage),

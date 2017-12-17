@@ -40,11 +40,14 @@ export class AccountTransactionsPage {
   }
 
   presentEditTransactionModal(transSnapshot : ExtendedData<Transaction>) {
+    this.navCtrl.push("EditTransactionPage",{ transSnapshot })
+/*    
     let editTransactionModal = this.modalController.create("EditTransactionPage", { transSnapshot });
     editTransactionModal.onDidDismiss(data => {
       console.log(data);
     });
      editTransactionModal.present();
+     */
   }
 
 

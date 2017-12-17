@@ -26,11 +26,21 @@ import { StoresFsRepository } from "./stores-fs-repository";
 var UserStoresFsRepository = (function (_super) {
     __extends(UserStoresFsRepository, _super);
     function UserStoresFsRepository(afs, auth, storeInfoFsRepository) {
-        var _this = _super.call(this, afs, conatctPaths("users", auth.currentUser.uid, "activeStores")) || this;
+        var _this = _super.call(this, afs, conatctPaths("users", auth.currentUser.uid, "stores")) || this;
         _this.storeInfoFsRepository = storeInfoFsRepository;
         console.log('Hello UserStoresFsRepository Provider');
         return _this;
     }
+    Object.defineProperty(UserStoresFsRepository.prototype, "FormatedList", {
+        get: function () {
+            var _this = this;
+            return this.List().flatMap(function (stores) {
+                return Promise.all(_this.getStores(stores));
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
     UserStoresFsRepository.prototype.getStores = function (extUserStores) {
         var _this = this;
         return extUserStores.map(function (extUserStore) {

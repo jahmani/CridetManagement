@@ -21,6 +21,7 @@ import { Injectable } from "@angular/core";
 import { FsRepository } from "./fs-repository";
 import { AngularFirestore } from "angularfire2/firestore";
 import { StorePathConfig } from "../StoreData/StorePathConfig";
+import * as firebase from "firebase/app";
 var StoresFsRepository = (function (_super) {
     __extends(StoresFsRepository, _super);
     function StoresFsRepository(afs) {
@@ -28,6 +29,26 @@ var StoresFsRepository = (function (_super) {
         console.log('Hello StoreUsersFsRepository Provider');
         return _this;
     }
+    StoresFsRepository.prototype.createNewStore = function (ownerUid, storeName) {
+        if (storeName === void 0) { storeName = "new Store"; }
+        var storeInfo = { name: storeName };
+        var storeUser = {
+            canRead: true,
+            canWrite: true,
+            isEnabled: true,
+            role: "owner"
+        };
+        var batch = firebase.firestore().batch();
+        var storeDoc = firebase.firestore().collection(StorePathConfig.basePath).doc();
+        var storeId = storeDoc.id;
+        var userDoc = firebase.firestore().doc('users/userId');
+        var storeUserDoc = storeDoc.collection("users").doc(ownerUid);
+        var userStoreDoc = userDoc.collection("stores").doc(storeId);
+        batch.set(storeDoc, { storeInfo: storeInfo });
+        batch.set(storeUserDoc, storeUser);
+        batch.set(userStoreDoc, {});
+        batch.commit();
+    };
     return StoresFsRepository;
 }(FsRepository));
 StoresFsRepository = __decorate([
