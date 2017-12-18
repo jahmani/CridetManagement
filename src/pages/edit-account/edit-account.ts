@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController, Content } from 'ionic-angular';
 import { AccountInfo, ExtendedData } from '../../interfaces/data-models';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { Observable } from 'rxjs/Observable';
@@ -20,7 +20,6 @@ export class EditAccountPage {
 
   accSnapshot: ExtendedData<AccountInfo>;
   accountId: string;
-
   constructor(public navCtrl: NavController
     , private afsr: AccountsFsRepository
     , private viewController: ViewController

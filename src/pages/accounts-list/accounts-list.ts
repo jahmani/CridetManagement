@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, ModalController, AlertController} from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { AccountInfo, ExtendedData } from '../../interfaces/data-models';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
+import { TitleServiceProvider } from '../../providers/title-service/title-service';
 
 /**
  * Generated class for the AccountsListPage page.
@@ -24,7 +25,8 @@ export class AccountsListPage {
       public navCtrl: NavController
     , private afsr : AccountsFsRepository
     , private modalController : ModalController
-    , private alertController : AlertController) {
+    , private alertController : AlertController
+    , @Optional() private titleService: TitleServiceProvider) {
     this.accounts = this.afsr.List();
    // this.accounts.subscribe(console.log)
   }
@@ -35,11 +37,7 @@ export class AccountsListPage {
   }
   
   presentEditAccountModal(accSnapshot : ExtendedData<AccountInfo>) {
-    let editAcountModal = this.modalController.create("EditAccountPage", { accSnapshot });
-    editAcountModal.onDidDismiss(data => {
-      console.log(data);
-    });
-     editAcountModal.present();
+    this.navCtrl.push("EditAccountPage",{ accSnapshot })
   }
   presentNewAccountModal() {
     return this.presentEditAccountModal({ id:null,data:{} as AccountInfo })
@@ -62,8 +60,13 @@ export class AccountsListPage {
   }
 
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad AccountsListPage');
+    if (this.titleService){
+      this.titleService.setNav(this.navCtrl)
+      this.titleService.setTitle("حساب ")
+    }
+
   }
 
 }

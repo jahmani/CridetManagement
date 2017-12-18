@@ -14,56 +14,56 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class EditTransactionFormComponent {
 
-  @Input() transaction:Transaction;
-  @Input() transCatsRoot : ExtendedData<TransactionCatigory>
-  @Input() transCatsMap : ExtMap<ExtendedData<TransactionCatigory>>
-  
+  @Input() transaction: Transaction;
+  @Input() transCatsRoot: ExtendedData<TransactionCatigory>
+  @Input() transCatsMap: ExtMap<ExtendedData<TransactionCatigory>>
+
   @Output() update: EventEmitter<Transaction> = new EventEmitter();
   @Output() cancel: EventEmitter<Transaction> = new EventEmitter();
-  
-  form : FormGroup
-  submitAttempt :boolean = false
-  constructor(private fb : FormBuilder) {
+
+  form: FormGroup
+  submitAttempt: boolean = false
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group(
       {
-        type:['', Validators.compose([Validators.required])],
-        date:'',
-        ammount:['',Validators.compose([Validators.required,Validators.min(0.00001),Validators.max(999999999)])],
-        notice :'',
-        catigoryId:''
+        type: ['', Validators.compose([Validators.required])],
+        date: '',
+        ammount: ['', Validators.compose([Validators.required, Validators.min(0.00001), Validators.max(999999999)])],
+        notice: '',
+        catigoryId: ''
       }
     );
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     console.log(this.transaction)
     this.form.patchValue(this.transaction)
-    }
-  
-    get ammountCtrl (){
-      return this.form.get('ammount')
-    }
-    dismiss() {
-      let data = { account: this.transaction };
-    }
-  
+  }
 
-    onCancel() {
-      this.cancel.emit(this.transaction);
-    }
-  
-    private onSave(value) {
-      this.update.emit(value)
-    }
-   
-    onSubmit({ value, valid }: { value: Transaction, valid: boolean }) {
-      console.log(value, valid);
-      this.submitAttempt = true
-      if (valid)
-        this.onSave(value);
-      //throw "please take care , invalid form"
-    }
-    onCatigoryChange(cat){
-      console.log(cat)
-    }
+  get ammountCtrl() {
+    return this.form.get('ammount')
+  }
+  dismiss() {
+    let data = { account: this.transaction };
+  }
+
+
+  onCancel() {
+    this.cancel.emit(this.transaction);
+  }
+
+  private onSave(value) {
+    this.update.emit(value)
+  }
+
+  onSubmit({ value, valid }: { value: Transaction, valid: boolean }) {
+    console.log(value, valid);
+    this.submitAttempt = true
+    if (valid)
+      this.onSave(value);
+    //throw "please take care , invalid form"
+  }
+  onCatigoryChange(cat) {
+    console.log(cat)
+  }
 }

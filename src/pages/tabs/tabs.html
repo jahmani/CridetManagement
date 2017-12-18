@@ -5,17 +5,21 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-          </button>
-      <ion-title>{{title}} </ion-title>
-    </ion-navbar>
-  </ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons *ngIf="canGoBack|async " end>
+    <button (click)="goBack()"  ion-button icon-only>
+      <ion-icon name="arrow-back"></ion-icon>
+    </button></ion-buttons>
+    <ion-title>{{title|async}} </ion-title>
+  </ion-navbar>
+</ion-header>
 
 <ion-content no-padding>
-    <ion-tabs>
-        
-  <ion-tab  [root]="tabRoot" tabsHideOnSubPages="true" tabUrlPath="store" tabTitle="About2" tabIcon="information-circle"></ion-tab>
-    </ion-tabs>
+  <ion-tabs>
+
+    <ion-tab [root]="tabRoot" tabsHideOnSubPages="true" tabUrlPath="store" tabTitle="About2" tabIcon="information-circle"></ion-tab>
+  </ion-tabs>
 </ion-content>

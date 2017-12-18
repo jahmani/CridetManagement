@@ -21,6 +21,7 @@ import { ComponentsModule } from '../components/components.module';
 import { MessagingService } from '../providers/messaging-service/messaging-service';
 import { UserService } from '../providers/user-service/user-service';
 import { FirestoreDataModule } from '../FireStoreData/firestoreData.module';
+import { TitleServiceProvider } from '../providers/title-service/title-service';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { FirestoreDataModule } from '../FireStoreData/firestoreData.module';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TCatigoriesFsRepositoryProvider,
-    UserService,MessagingService
+    UserService,MessagingService,
+    TitleServiceProvider
   ]
 })
 export class AppModule {}

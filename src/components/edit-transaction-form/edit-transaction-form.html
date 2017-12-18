@@ -1,8 +1,9 @@
 <!-- Generated template for the EditTransactionFormComponent component -->
-
+  
 <ion-content padding>
   <form novalidate ng-submit="onSubmit()" [formGroup]="form">
     <ion-list>
+
       <ion-item [class.invalid]="!ammountCtrl.valid && (ammountCtrl.touched || submitAttempt)">
         <ion-label floating>Ammount</ion-label>
         <ion-input formControlName="ammount" type="number"></ion-input>
@@ -29,7 +30,6 @@
         formControlName="catigoryId"></trans-cat-picker>
       </ion-item>
     </ion-list>
-
   </form>
 </ion-content>
 
@@ -37,7 +37,6 @@
 <ion-footer>
   <ion-grid>
     <ion-row>
-      <!--  <ion-col *ngIf="accountCopy.$key"><button ion-button full (click)="remove()" color="danger">remove</button></ion-col> -->
       <ion-col>
         <button type="button" ion-button full (click)="onCancel()" color="light">cancel</button>
       </ion-col>

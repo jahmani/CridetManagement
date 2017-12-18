@@ -1,5 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams,TabButton } from 'ionic-angular';
+import { Component} from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TitleServiceProvider } from '../../providers/title-service/title-service';
+import { Observable } from 'rxjs/Observable';
+import { ViewController } from 'ionic-angular/navigation/view-controller';
+import { Tabs } from 'ionic-angular/components/tabs/tabs';
 
 /**
  * Generated class for the TabsPage page.
@@ -8,32 +12,52 @@ import { IonicPage, NavController, NavParams,TabButton } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage({segment: 'tabs'})
+ 
+@IonicPage({ segment: 'tabs' })
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html',
+  providers: [TitleServiceProvider]
 })
+
 export class TabsPage {
-  @ViewChild('.tabbar') tabBar : ElementRef
-  tabBarElements
-  title : string = "Store Title"
-  constructor(public navCtrl: NavController,
-     public navParams: NavParams) {
-         //get all tabs elements
-         let paramTabRoot =  this.navParams.get("component")
-         let paramTitle =  this.navParams.get("title")
-         this.tabRoot = paramTabRoot|| this.tabRoot
-         this.title = paramTitle || this. title
-    if (document.querySelector('.tabbar')) {
-      this.tabBarElements = document.querySelectorAll('.tabbar.show-tabbar');
-    }
+  
+  title: Observable<string>
+  subNavCtrl : NavController
+  canGoBack: Observable<boolean> = Observable.of(false)
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private titleService: TitleServiceProvider,
+    viewCtrl: ViewController ) {
+    let paramTabRoot = this.navParams.get("component")
+    this.tabRoot = paramTabRoot || this.tabRoot
+    this.title = this.titleService.title
+    this.canGoBack = this.titleService.nav.flatMap((nav) => {
+      if (!nav)
+        return Observable.of(false)
+      this.subNavCtrl = nav
+      const first = nav.first()
+      return nav.viewDidEnter.map((view) => {
+        const can = view != first
+        return can
+      })
+    })
 
   }
-  tabRoot ="AccountsListPage"
+
+  tabRoot = "AccountsListPage"
   ionViewDidEnter() {
     console.log('ionViewDidLoad TabsPage')
-    }
+    const childNavs: Tabs[] = this.navCtrl.getActiveChildNavs()
+    const tabs: Tabs = childNavs[0]
+    tabs.setTabbarHidden(true)
+  }
 
-  
+  goBack(){
+    if(this.subNavCtrl)
+      return this.subNavCtrl.pop()
+  }
 
 }

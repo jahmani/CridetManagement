@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter,OnChanges } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import { Component, Input, Output, EventEmitter, OnChanges, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ExtendedData, AccountInfo } from '../../interfaces/data-models';
+import { Content } from 'ionic-angular';
 
 /*
   Generated class for the EditAccount component.
@@ -15,33 +16,40 @@ import { ExtendedData, AccountInfo } from '../../interfaces/data-models';
 
 export class EditAccountComponent {
 
-  @Input() account:ExtendedData<AccountInfo>;
+  @Input() account: ExtendedData<AccountInfo>;
   @Output() update: EventEmitter<ExtendedData<AccountInfo>> = new EventEmitter();
   @Output() remove: EventEmitter<ExtendedData<AccountInfo>> = new EventEmitter();
   @Output() cancel: EventEmitter<ExtendedData<AccountInfo>> = new EventEmitter();
   key: string
-  form : FormGroup
-  submitAttempt :boolean = false
-  constructor(private fb : FormBuilder) {
+  form: FormGroup
+  submitAttempt: boolean = false
+  @ViewChild(Content) content: Content;
+  
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group(
       {
-        name:['', Validators.compose([Validators.required, Validators.maxLength(50)])],
-        city:'',
-        mobile:'',
+        name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+        city: '',
+        mobile: '',
 
       }
     );
   }
+  ngAfterViewChecked () {
+    this.content.resize()
+  }
 
-  ngOnChanges(){
+  ngOnChanges() {
     console.log(this.account)
     this.form.patchValue(this.account.data)
-    }
-  
-    get nameControl(): FormControl
-    {
-      return this.form.get("name") as FormControl
-    }
+    if(this.content)
+    this.content.resize()
+    
+  }
+
+  get nameControl(): FormControl {
+    return this.form.get("name") as FormControl
+  }
 
 
   dismiss() {
@@ -59,8 +67,8 @@ export class EditAccountComponent {
     let account = this.prepairForSave(value);
     this.update.emit(account)
   }
-  private prepairForSave(value:AccountInfo): ExtendedData<AccountInfo> {
-    return {id:this.account.id,data:value}
+  private prepairForSave(value: AccountInfo): ExtendedData<AccountInfo> {
+    return { id: this.account.id, data: value }
   }
   onSubmit({ value, valid }: { value: ExtendedData<AccountInfo>, valid: boolean }) {
     console.log(value, valid);

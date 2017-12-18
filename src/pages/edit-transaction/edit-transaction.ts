@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Transaction, ExtendedData, TransactionCatigory, ExtMap } from '../../interfaces/data-models';
+import { Transaction, ExtendedData, TransactionCatigory, ExtMap, AccountInfo } from '../../interfaces/data-models';
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
 import { Observable } from 'rxjs/Observable';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
+import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
+import { TitleServiceProvider } from '../../providers/title-service/title-service';
 
 /**
  * Generated class for the EditTransactionPage page.
@@ -21,13 +23,16 @@ export class EditTransactionPage {
 
   transSnapshot: ExtendedData<Transaction>;
   accountId: string;
+  account:AccountInfo
   transCatsRoot :  Observable<ExtendedData<TransactionCatigory>>
   transCatsMap :  Observable<ExtMap<ExtendedData<TransactionCatigory>>>
   constructor(public navCtrl: NavController
     , private afsr: TransactionsFsRepository
+    , private accountsRep: AccountsFsRepository
     , private viewController: ViewController
     , public navParams: NavParams
-    , private tCatsFSR : TCatigoriesFsRepositoryProvider) {
+    , private tCatsFSR : TCatigoriesFsRepositoryProvider,
+    @Optional() private titleService: TitleServiceProvider) {
 
     this.transSnapshot = this.navParams.get('transSnapshot')
     this.transCatsRoot = this.tCatsFSR.treeRoot as  Observable<ExtendedData<TransactionCatigory>>;
@@ -35,6 +40,15 @@ export class EditTransactionPage {
     console.log("LLLLLLLLLLLLLLLLLLLLLL");
     this.transCatsRoot.subscribe(console.log)
     this.accountId = this.transSnapshot.data.accountId
+    this.accountsRep.getOnce(this.accountId).then((extAccount)=>{
+      this.account =extAccount.data
+    })
+
+  }
+  ionViewDidEnter(){
+    if(this.titleService)
+    this.titleService.setTitle(this.account.name)
+
   }
 
   ionViewDidLoad() {
