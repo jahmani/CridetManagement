@@ -14,7 +14,7 @@ import {  TreeNode, ExtendedData, ExtMap } from "../interfaces/data-models"
 
   NodeSnapshotMap.forEach((datum) => {
     datum.ext = datum.ext || {}
-    if (typeof datum.data.parentId === "undefined") {
+    if (! datum.data.parentId) {
       rootNode = datum;
       delete rootNode.ext.$sons
     }

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
 import { ExtendedData, TransactionCatigory } from '../../interfaces/data-models';
 import { Observable } from 'rxjs/Observable';
+import { TitleServiceProvider } from '../../providers/title-service/title-service';
 
 /**
  * Generated class for the TransactionCatsPage page.
@@ -22,7 +23,9 @@ export class TransactionCatsPage {
   transactionRootCat :  Observable<ExtendedData<TransactionCatigory>>
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams,
+    public navParams: NavParams
+    , @Optional() private titleService: TitleServiceProvider
+    ,
     private tCatsFSR : TCatigoriesFsRepositoryProvider) {
       this.transactionRootCat = this.tCatsFSR.treeRoot;
   }
@@ -33,4 +36,12 @@ export class TransactionCatsPage {
   onNodeSelected($event){
     return Promise.reject("Not implemented yet")
   }
+  ionViewDidEnter() {
+      if (this.titleService){
+        
+        this.titleService.setNav(this.navCtrl)
+        this.titleService.setTitle("Cats " )
+      }
+    }
+
 }

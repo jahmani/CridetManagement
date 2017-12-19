@@ -6,6 +6,7 @@ import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repositor
 import { UserStoresFsRepository } from '../../FireStoreData/user-stores-fs-repository';
 import { StoresFsRepository } from '../../FireStoreData/stores-fs-repository';
 import { AuthService } from '../../app/core/index';
+import { ActiveStoreService } from '../../FireStoreData/activeStore';
 
 /**
  * Generated class for the UserStoresPage page.
@@ -24,7 +25,8 @@ export class UserStoresPage {
   constructor(public navCtrl: NavController,
     private auth : AuthService,
     public userStoresFsRepository: UserStoresFsRepository,
-    private storesFsRepository:StoresFsRepository) {
+    private storesFsRepository:StoresFsRepository,
+  private activeStoreServise : ActiveStoreService) {
     this.userStores = this.userStoresFsRepository.FormatedList
   }
 
@@ -32,6 +34,15 @@ export class UserStoresPage {
     return this.auth.user.take(1).subscribe((user)=>{
       return this.storesFsRepository.createNewStore(user.uid)      
     })
+  }
+
+  onStoreSelected(extStore:ExtendedData<UserStore>)
+  {
+    this.activeStoreServise.activeStoreKey = extStore.id
+    const accountsPage = { title: 'Accounts', component: 'AccountsListPage' }
+    
+    this.navCtrl.setRoot("TabsPage", accountsPage);
+    
   }
 
   ionViewDidLoad() {

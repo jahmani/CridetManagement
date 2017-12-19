@@ -21,7 +21,7 @@ import 'rxjs/add/operator/toPromise';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../../app/core/auth';
 import { Injectable } from '@angular/core';
-import { ActiveStoreService } from '../../StoreData/activeStore';
+import { ActiveStoreService } from '../../FireStoreData/activeStore';
 var UserService = (function () {
     function UserService(afs, auth, activeStore) {
         this.afs = afs;

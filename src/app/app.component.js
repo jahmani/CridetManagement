@@ -12,24 +12,27 @@ import { Nav } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 var MyApp = (function () {
     function MyApp() {
-        this.rootPage = HomePage;
+        this.rootPage = "TabsPage";
         // used for an example of ngFor and navigation
-        this.pages = [
+        this.storePages = [
             { title: 'StoreUsersPage', component: "StoreUsersPage" },
             { title: 'Home', component: HomePage },
-            { title: 'Login', component: "LoginPage" },
-            { title: 'Signup', component: "SignupPage" },
             { title: 'Accounts', component: "AccountsListPage" },
             { title: "Cats", component: "TransactionCatsPage" },
             { title: "UserSettingsPage", component: "UserSettingsPage" },
+        ];
+        this.userPages = [
+            { title: 'Login', component: "LoginPage" },
+            { title: 'Signup', component: "SignupPage" },
             { title: "UserStoresPage", component: "UserStoresPage" }
             //  { title: "UserSettingsPage", component: "UserSettingsPage" }
             //  { title: "UserSettingsPage", component: "UserSettingsPage" }
         ];
     }
-    MyApp.prototype.openPage = function (page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
+    MyApp.prototype.openStorePage = function (page) {
+        this.nav.setRoot("TabsPage", page);
+    };
+    MyApp.prototype.openUserPage = function (page) {
         this.nav.setRoot(page.component);
     };
     return MyApp;

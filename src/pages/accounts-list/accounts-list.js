@@ -7,9 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, ModalController, AlertController } from 'ionic-angular';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
+import { TitleServiceProvider } from '../../providers/title-service/title-service';
 /**
  * Generated class for the AccountsListPage page.
  *
@@ -17,11 +21,12 @@ import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
  * Ionic pages and navigation.
  */
 var AccountsListPage = (function () {
-    function AccountsListPage(navCtrl, afsr, modalController, alertController) {
+    function AccountsListPage(navCtrl, afsr, modalController, alertController, titleService) {
         this.navCtrl = navCtrl;
         this.afsr = afsr;
         this.modalController = modalController;
         this.alertController = alertController;
+        this.titleService = titleService;
         this.accounts = this.afsr.List();
         // this.accounts.subscribe(console.log)
     }
@@ -29,11 +34,7 @@ var AccountsListPage = (function () {
         this.navCtrl.push("AccountTransactionsPage", { accountId: accSnapshot.id });
     };
     AccountsListPage.prototype.presentEditAccountModal = function (accSnapshot) {
-        var editAcountModal = this.modalController.create("EditAccountPage", { accSnapshot: accSnapshot });
-        editAcountModal.onDidDismiss(function (data) {
-            console.log(data);
-        });
-        editAcountModal.present();
+        this.navCtrl.push("EditAccountPage", { accSnapshot: accSnapshot });
     };
     AccountsListPage.prototype.presentNewAccountModal = function () {
         return this.presentEditAccountModal({ id: null, data: {} });
@@ -53,21 +54,27 @@ var AccountsListPage = (function () {
         });
         alert.present();
     };
-    AccountsListPage.prototype.ionViewDidLoad = function () {
+    AccountsListPage.prototype.ionViewDidEnter = function () {
         console.log('ionViewDidLoad AccountsListPage');
+        if (this.titleService) {
+            this.titleService.setNav(this.navCtrl);
+            this.titleService.setTitle("حساب ");
+        }
     };
     return AccountsListPage;
 }());
 AccountsListPage = __decorate([
-    IonicPage(),
+    IonicPage({ segment: 'accounts-list' }),
     Component({
         selector: 'page-accounts-list',
         templateUrl: 'accounts-list.html',
     }),
+    __param(4, Optional()),
     __metadata("design:paramtypes", [NavController,
         AccountsFsRepository,
         ModalController,
-        AlertController])
+        AlertController,
+        TitleServiceProvider])
 ], AccountsListPage);
 export { AccountsListPage };
 //# sourceMappingURL=accounts-list.js.map

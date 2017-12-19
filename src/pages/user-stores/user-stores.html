@@ -16,7 +16,7 @@
   <ion-content padding>
       <ion-list>
           <ion-item-sliding *ngFor="let userStore of userStores|async">
-          <ion-item text-wrap >
+          <ion-item (click)="onStoreSelected(userStore)" text-wrap >
             <ion-icon name="person" item-left></ion-icon>
             {{userStore.data.store.name}}
             <ion-note>{{userStore.id}}</ion-note>

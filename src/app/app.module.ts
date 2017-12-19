@@ -16,12 +16,12 @@ import {AngularFirestoreModule} from "angularfire2/firestore"
 import { environment } from "../environments";
 
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { StoreDataModule, TCatigoriesFsRepositoryProvider } from '../StoreData/index';
 import { ComponentsModule } from '../components/components.module';
 import { MessagingService } from '../providers/messaging-service/messaging-service';
 import { UserService } from '../providers/user-service/user-service';
 import { FirestoreDataModule } from '../FireStoreData/firestoreData.module';
 import { TitleServiceProvider } from '../providers/title-service/title-service';
+import { TabServiceProvider } from '../providers/tab-service/tab-service';
 
 
 @NgModule({
@@ -40,7 +40,7 @@ import { TitleServiceProvider } from '../providers/title-service/title-service';
     SharedModule,
     CoreModule,
     ComponentsModule,
-    FirestoreDataModule, StoreDataModule
+    FirestoreDataModule
     
   ],
   bootstrap: [IonicApp],
@@ -54,9 +54,9 @@ import { TitleServiceProvider } from '../providers/title-service/title-service';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    TCatigoriesFsRepositoryProvider,
     UserService,MessagingService,
-    TitleServiceProvider
+    TitleServiceProvider,
+    TabServiceProvider
   ]
 })
 export class AppModule {}

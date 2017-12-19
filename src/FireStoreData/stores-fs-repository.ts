@@ -38,7 +38,25 @@ export class StoresFsRepository extends FsRepository<{ storeInfo: StoreInfo }> {
     batch.set(storeUserDoc, storeUser)
     batch.set(userStoreDoc, {})
 
-    batch.commit()
+    const storeTransactionCatsColl = storeDoc.collection("transactionCats");
+    const proms1 = this.getTransactionCatsData().then((docSnapshots)=>{
+      for(let docSnapshot of docSnapshots){
+        batch.set(storeTransactionCatsColl.doc(docSnapshot.id),docSnapshot.data())
+      }
+    })
+    return proms1.then(()=>{
+      return batch.commit() 
+    })
   }
+
+  getTransactionCatsData(){
+    const transCatsdataTemplatCollPath = "/versions/v4/dataTemplates/transactionCats/cats"
+    const transCatsdataTemplatColl = firebase.firestore().collection(transCatsdataTemplatCollPath)
+    return transCatsdataTemplatColl.get().then((querySnapshot)=>{
+      return querySnapshot.docs
+    })
+    
+  }
+
 
 }

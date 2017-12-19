@@ -3,8 +3,7 @@ export const StorePathConfig ={
     AccountsInfo : "AccountsInfo",
     Transactions: "transactions",
     AccountsBalance:"accountsBalance",
-    TransactionCatigories:"transactionCatigories",
+    TransactionCatigories:"transactionCats",
     UsersInfo:"users",
-    activeStoreKey : 'heJsVz3nWfqeucJyBgHS'
     
 };

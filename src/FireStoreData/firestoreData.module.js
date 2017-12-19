@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { StoresFsRepository } from './stores-fs-repository';
 import { UsersFsRepository } from './users-fs-repository';
 import { UserStoresFsRepository } from './user-stores-fs-repository';
+import { ActiveStoreService } from './activeStore';
 var FirestoreDataModule = (function () {
     function FirestoreDataModule() {
     }
@@ -22,7 +23,7 @@ FirestoreDataModule = __decorate([
         providers: [
             StoresFsRepository,
             UserStoresFsRepository,
-            UsersFsRepository
+            UsersFsRepository, ActiveStoreService
         ],
     })
 ], FirestoreDataModule);

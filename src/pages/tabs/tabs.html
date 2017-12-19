@@ -20,6 +20,6 @@
 <ion-content no-padding>
   <ion-tabs>
 
-    <ion-tab [root]="tabRoot" tabsHideOnSubPages="true" tabUrlPath="store" tabTitle="About2" tabIcon="information-circle"></ion-tab>
+    <ion-tab [root]="tabRoot" tabsHideOnSubPages="true" tabUrlPath="store" [tabTitle]="tabRoot$ |async" tabIcon="information-circle"></ion-tab>
   </ion-tabs>
 </ion-content>

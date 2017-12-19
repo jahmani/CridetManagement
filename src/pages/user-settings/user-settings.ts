@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { Component, Optional } from '@angular/core';
+import { IonicPage, NavController } from 'ionic-angular';
 import { MessagingService } from '../../providers/messaging-service/messaging-service';
 import { Alert } from 'ionic-angular/components/alert/alert';
+import { TitleServiceProvider } from '../../providers/title-service/title-service';
 
 /**
  * Generated class for the UserSettingsPage page.
@@ -19,7 +20,11 @@ export class UserSettingsPage {
 
   notificationChecked = false
   notificationDenied = false
-  constructor(public messagingService: MessagingService) {
+  constructor(
+    public messagingService: MessagingService,
+    public navCtrl: NavController,
+    @Optional() private titleService: TitleServiceProvider
+ ) {
     this.init()
   }
 
@@ -43,5 +48,12 @@ export class UserSettingsPage {
       this.messagingService.enableNotifications();
     else
       this.messagingService.disableNotifications();
+  }
+  ionViewDidEnter() {
+    if (this.titleService){
+      
+      this.titleService.setNav(this.navCtrl)
+      this.titleService.setTitle("User Settings " )
+    }
   }
 }

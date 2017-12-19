@@ -7,8 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Content } from 'ionic-angular';
 /*
   Generated class for the EditAccount component.
 
@@ -28,9 +29,14 @@ var EditAccountComponent = (function () {
             mobile: '',
         });
     }
+    EditAccountComponent.prototype.ngAfterViewChecked = function () {
+        this.content.resize();
+    };
     EditAccountComponent.prototype.ngOnChanges = function () {
         console.log(this.account);
         this.form.patchValue(this.account.data);
+        if (this.content)
+            this.content.resize();
     };
     Object.defineProperty(EditAccountComponent.prototype, "nameControl", {
         get: function () {
@@ -81,6 +87,10 @@ __decorate([
     Output(),
     __metadata("design:type", EventEmitter)
 ], EditAccountComponent.prototype, "cancel", void 0);
+__decorate([
+    ViewChild(Content),
+    __metadata("design:type", Content)
+], EditAccountComponent.prototype, "content", void 0);
 EditAccountComponent = __decorate([
     Component({
         selector: 'edit-account',

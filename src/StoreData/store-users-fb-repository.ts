@@ -3,7 +3,7 @@ import { AccountBalance, StoreUser, UserStore } from './../interfaces/data-model
 import { Observable } from 'rxjs';
 import { AccountInfo, User, ExtendedData } from '../interfaces/data-models';
 import { Injectable } from '@angular/core';
-import { ActiveStoreService } from './activeStore';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import 'rxjs/add/operator/mergeMap';

@@ -19,9 +19,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { ActiveStoreService } from './activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 /*
   Generated class for the AccountsFBRepository provider.
 

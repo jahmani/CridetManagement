@@ -1,5 +1,5 @@
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ActiveStoreService } from './activeStore';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { Injectable } from '@angular/core';
 import { StoreInfo } from '../interfaces/data-models';
@@ -22,7 +22,7 @@ export class StoreDataFsRepository<T> extends FsRepository<T>{
      {
       super(afs,conatctPaths(
         StorePathConfig.basePath
-        ,StorePathConfig.activeStoreKey
+        ,ass.activeStoreKey
         ,dataSubPath))
      /* activeStoreInfoService.storeChange$.subscribe(()=>{
         super.initialize( activeStoreInfoService.ActiveStoreReference.child(dataSubPath));

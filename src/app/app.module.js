@@ -23,6 +23,7 @@ import { ComponentsModule } from '../components/components.module';
 import { MessagingService } from '../providers/messaging-service/messaging-service';
 import { UserService } from '../providers/user-service/user-service';
 import { FirestoreDataModule } from '../FireStoreData/firestoreData.module';
+import { TitleServiceProvider } from '../providers/title-service/title-service';
 var AppModule = (function () {
     function AppModule() {
     }
@@ -57,7 +58,8 @@ AppModule = __decorate([
             SplashScreen,
             { provide: ErrorHandler, useClass: IonicErrorHandler },
             TCatigoriesFsRepositoryProvider,
-            UserService, MessagingService
+            UserService, MessagingService,
+            TitleServiceProvider
         ]
     })
 ], AppModule);

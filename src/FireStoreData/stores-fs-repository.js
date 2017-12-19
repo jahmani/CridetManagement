@@ -41,13 +41,29 @@ var StoresFsRepository = (function (_super) {
         var batch = firebase.firestore().batch();
         var storeDoc = firebase.firestore().collection(StorePathConfig.basePath).doc();
         var storeId = storeDoc.id;
-        var userDoc = firebase.firestore().doc('users/userId');
+        var userDoc = firebase.firestore().doc("users/" + ownerUid);
         var storeUserDoc = storeDoc.collection("users").doc(ownerUid);
         var userStoreDoc = userDoc.collection("stores").doc(storeId);
         batch.set(storeDoc, { storeInfo: storeInfo });
         batch.set(storeUserDoc, storeUser);
         batch.set(userStoreDoc, {});
-        batch.commit();
+        var storeTransactionCatsColl = storeDoc.collection("transactionCats");
+        var proms1 = this.getTransactionCatsData().then(function (docSnapshots) {
+            for (var _i = 0, docSnapshots_1 = docSnapshots; _i < docSnapshots_1.length; _i++) {
+                var docSnapshot = docSnapshots_1[_i];
+                batch.set(storeTransactionCatsColl.doc(docSnapshot.id), docSnapshot.data);
+            }
+        });
+        return proms1.then(function () {
+            return batch.commit();
+        });
+    };
+    StoresFsRepository.prototype.getTransactionCatsData = function () {
+        var transCatsdataTemplatCollPath = "/versions/v4/dataTemplates/transactionCats/cats";
+        var transCatsdataTemplatColl = firebase.firestore().collection(transCatsdataTemplatCollPath);
+        return transCatsdataTemplatColl.get().then(function (querySnapshot) {
+            return querySnapshot.docs;
+        });
     };
     return StoresFsRepository;
 }(FsRepository));

@@ -19,7 +19,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { ActiveStoreService } from './activeStore';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import 'rxjs/add/operator/mergeMap';

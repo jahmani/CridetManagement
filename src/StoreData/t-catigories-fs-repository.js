@@ -39,21 +39,13 @@ var TCatigoriesFsRepositoryProvider = (function (_super) {
         }).publishReplay(1).refCount();
         console.log('Helloooooo TCatigoriesFsRepositoryProvider FBRepository Provider');
         return _this;
-        // this.dataMap.subscribe(console.log)
     }
-    Object.defineProperty(TCatigoriesFsRepositoryProvider.prototype, "FormatedList", {
-        get: function () {
-            return this.List();
-        },
-        enumerable: true,
-        configurable: true
-    });
     return TCatigoriesFsRepositoryProvider;
 }(StoreDataFsRepository));
 TCatigoriesFsRepositoryProvider = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore,
-        ActiveStoreService])
+    __metadata("design:paramtypes", [AngularFirestore, typeof (_a = typeof ActiveStoreService !== "undefined" && ActiveStoreService) === "function" && _a || Object])
 ], TCatigoriesFsRepositoryProvider);
 export { TCatigoriesFsRepositoryProvider };
+var _a;
 //# sourceMappingURL=t-catigories-fs-repository.js.map

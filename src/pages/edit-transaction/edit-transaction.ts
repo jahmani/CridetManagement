@@ -1,6 +1,6 @@
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Transaction, ExtendedData, TransactionCatigory, ExtMap, AccountInfo } from '../../interfaces/data-models';
+import { Transaction, ExtendedData, TransactionCatigory, ExtMap, AccountInfo, TransactionType } from '../../interfaces/data-models';
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
 import { Observable } from 'rxjs/Observable';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
@@ -37,7 +37,7 @@ export class EditTransactionPage {
     this.transSnapshot = this.navParams.get('transSnapshot')
     this.transCatsRoot = this.tCatsFSR.treeRoot as  Observable<ExtendedData<TransactionCatigory>>;
     this.transCatsMap = this.tCatsFSR.dataMap
-    console.log("LLLLLLLLLLLLLLLLLLLLLL");
+
     this.transCatsRoot.subscribe(console.log)
     this.accountId = this.transSnapshot.data.accountId
     this.accountsRep.getOnce(this.accountId).then((extAccount)=>{
@@ -47,7 +47,10 @@ export class EditTransactionPage {
   }
   ionViewDidEnter(){
     if(this.titleService)
-    this.titleService.setTitle(this.account.name)
+    {
+      let msg = this.transSnapshot.data.type == TransactionType.Credit ? "قيد على "  : "قيد لـ "
+    this.titleService.setTitle(msg + this.account.name)
+    }
 
   }
 

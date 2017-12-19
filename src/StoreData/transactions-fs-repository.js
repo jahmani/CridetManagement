@@ -48,18 +48,6 @@ var TransactionsFsRepository = (function (_super) {
         //return transactionsMap
         return this.extendedDataMap(transactionsMap);
     };
-    /*
-    FormateList(list:Observable<DataSnapshot<Transaction>[]>): Observable<any[]> {
-      const self = this;
-      Observable.combineLatest(list,this.tCatFsRep.list,(transs,cats)=>{
-        transs.map((trans)=>{
-          trans.data.$ext.catigory = cats.get(trans.data.catigoryId)
-        })
-      })
-      const res = list;
-      return res;
-    }
-  */
     TransactionsFsRepository.prototype.extendedDataMap = function (transactionsMap) {
         var extendedTranses = Observable.combineLatest(transactionsMap, this.tCatFsRep.dataMap, function (transs, cats) {
             transs.forEach(function (trans) {
@@ -74,10 +62,9 @@ var TransactionsFsRepository = (function (_super) {
 }(StoreDataFsRepository));
 TransactionsFsRepository = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore,
-        ActiveStoreService,
-        AccountsFsRepository,
+    __metadata("design:paramtypes", [AngularFirestore, typeof (_a = typeof ActiveStoreService !== "undefined" && ActiveStoreService) === "function" && _a || Object, AccountsFsRepository,
         TCatigoriesFsRepositoryProvider])
 ], TransactionsFsRepository);
 export { TransactionsFsRepository };
+var _a;
 //# sourceMappingURL=transactions-fs-repository.js.map

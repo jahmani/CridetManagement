@@ -3,9 +3,9 @@ import { AccountBalance } from './../interfaces/data-models';
 import { Observable } from 'rxjs';
 import { AccountInfo } from '../interfaces/data-models';
 import { Injectable } from '@angular/core';
-import { ActiveStoreService } from './activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 
 
 /*

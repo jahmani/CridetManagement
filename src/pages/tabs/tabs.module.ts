@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { TabsPage } from './tabs';
+import { StoreDataModule } from '../../StoreData/storeData.module';
 
 @NgModule({
   declarations: [
@@ -9,6 +10,7 @@ import { TabsPage } from './tabs';
   ],
   imports: [
     IonicPageModule.forChild(TabsPage),
+    StoreDataModule
   ],
 })
 export class TabsPageModule {}
