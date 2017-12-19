@@ -11,16 +11,16 @@ import { AuthService } from './auth';
 var CoreModule = (function () {
     function CoreModule() {
     }
+    CoreModule = __decorate([
+        NgModule({
+            imports: [
+                AngularFireAuthModule,
+                AngularFirestoreModule
+            ],
+            providers: [AuthService]
+        })
+    ], CoreModule);
     return CoreModule;
 }());
-CoreModule = __decorate([
-    NgModule({
-        imports: [
-            AngularFireAuthModule,
-            AngularFirestoreModule
-        ],
-        providers: [AuthService]
-    })
-], CoreModule);
 export { CoreModule };
 //# sourceMappingURL=core.module.js.map

@@ -10,17 +10,17 @@ import { SignupPage } from './signup';
 var SignupPageModule = (function () {
     function SignupPageModule() {
     }
+    SignupPageModule = __decorate([
+        NgModule({
+            declarations: [
+                SignupPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(SignupPage),
+            ],
+        })
+    ], SignupPageModule);
     return SignupPageModule;
 }());
-SignupPageModule = __decorate([
-    NgModule({
-        declarations: [
-            SignupPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(SignupPage),
-        ],
-    })
-], SignupPageModule);
 export { SignupPageModule };
 //# sourceMappingURL=signup.module.js.map

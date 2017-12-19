@@ -8,7 +8,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 /*
   Generated class for the TitleServiceProvider provider.
@@ -31,11 +30,11 @@ var TitleServiceProvider = (function () {
         if (_nav != this.navSubject.getValue())
             this.navSubject.next(_nav);
     };
+    TitleServiceProvider = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [])
+    ], TitleServiceProvider);
     return TitleServiceProvider;
 }());
-TitleServiceProvider = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [])
-], TitleServiceProvider);
 export { TitleServiceProvider };
 //# sourceMappingURL=title-service.js.map

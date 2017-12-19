@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { ExtendedData, UserStore } from '../../interfaces/data-models';
 import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repository';
@@ -7,6 +6,7 @@ import { UserStoresFsRepository } from '../../FireStoreData/user-stores-fs-repos
 import { StoresFsRepository } from '../../FireStoreData/stores-fs-repository';
 import { AuthService } from '../../app/core/index';
 import { ActiveStoreService } from '../../FireStoreData/activeStore';
+import { NavController, IonicPage } from 'ionic-angular';
 
 /**
  * Generated class for the UserStoresPage page.

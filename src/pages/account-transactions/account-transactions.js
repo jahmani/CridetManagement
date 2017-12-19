@@ -15,6 +15,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
 import { TCatigoriesFsRepositoryProvider, AccountsFsRepository } from '../../StoreData/index';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
+import { map } from 'rxjs/Operators/map';
 /**
  * Generated class for the AccountTransactionsPage page.
  *
@@ -32,7 +33,7 @@ var AccountTransactionsPage = (function () {
         this.titleService = titleService;
         this.accountId = this.navParams.get('accountId');
         this.transSnapshots = this.transactionsRep.forAccount(this.accountId);
-        this.transSnapshotsArray = this.transSnapshots.map(function (m) { return m.toArray(); });
+        this.transSnapshotsArray = this.transSnapshots.pipe(map(function (m) { return m.toArray(); }));
         this.transSnapshotsArray.subscribe(console.log);
         this.accountsRep.getOnce(this.accountId).then(function (extAccount) {
             _this.account = extAccount.data;
@@ -68,22 +69,22 @@ var AccountTransactionsPage = (function () {
         };
         return this.presentEditTransactionModal({ id: null, data: newTransaction });
     };
+    AccountTransactionsPage = __decorate([
+        IonicPage(),
+        Component({
+            selector: 'page-account-transactions',
+            templateUrl: 'account-transactions.html',
+        }),
+        __param(5, Optional()),
+        __metadata("design:paramtypes", [NavController,
+            NavParams,
+            TransactionsFsRepository,
+            AccountsFsRepository,
+            ModalController,
+            TitleServiceProvider,
+            TCatigoriesFsRepositoryProvider])
+    ], AccountTransactionsPage);
     return AccountTransactionsPage;
 }());
-AccountTransactionsPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-account-transactions',
-        templateUrl: 'account-transactions.html',
-    }),
-    __param(5, Optional()),
-    __metadata("design:paramtypes", [NavController,
-        NavParams,
-        TransactionsFsRepository,
-        AccountsFsRepository,
-        ModalController,
-        TitleServiceProvider,
-        TCatigoriesFsRepositoryProvider])
-], AccountTransactionsPage);
 export { AccountTransactionsPage };
 //# sourceMappingURL=account-transactions.js.map

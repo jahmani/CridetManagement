@@ -7,26 +7,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-/**
- * Generated class for the StoreUsersComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
-var StoreUsersComponent = (function () {
-    function StoreUsersComponent() {
-        console.log('Hello StoreUsersComponent Component');
-        this.text = 'Hello World';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+var TabServiceProvider = (function () {
+    function TabServiceProvider() {
+        console.log('Hello TabServiceProvider Provider');
+        var defaultPage = { title: 'Accounts', component: "AccountsListPage" };
+        this.tabSubject = new BehaviorSubject(defaultPage);
+        this.tab = this.tabSubject.asObservable();
     }
-    StoreUsersComponent = __decorate([
-        Component({
-            selector: 'store-users',
-            templateUrl: 'store-users.html'
-        }),
+    TabServiceProvider.prototype.setTab = function (_tab) {
+        if (_tab != this.tabSubject.getValue())
+            this.tabSubject.next(_tab);
+    };
+    TabServiceProvider = __decorate([
+        Injectable(),
         __metadata("design:paramtypes", [])
-    ], StoreUsersComponent);
-    return StoreUsersComponent;
+    ], TabServiceProvider);
+    return TabServiceProvider;
 }());
-export { StoreUsersComponent };
-//# sourceMappingURL=store-users.js.map
+export { TabServiceProvider };
+//# sourceMappingURL=tab-service.js.map

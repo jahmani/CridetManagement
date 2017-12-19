@@ -11,18 +11,18 @@ import { ComponentsModule } from '../../components/components.module';
 var EditTransactionPageModule = (function () {
     function EditTransactionPageModule() {
     }
+    EditTransactionPageModule = __decorate([
+        NgModule({
+            declarations: [
+                EditTransactionPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(EditTransactionPage),
+                ComponentsModule
+            ],
+        })
+    ], EditTransactionPageModule);
     return EditTransactionPageModule;
 }());
-EditTransactionPageModule = __decorate([
-    NgModule({
-        declarations: [
-            EditTransactionPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(EditTransactionPage),
-            ComponentsModule
-        ],
-    })
-], EditTransactionPageModule);
 export { EditTransactionPageModule };
 //# sourceMappingURL=edit-transaction.module.js.map

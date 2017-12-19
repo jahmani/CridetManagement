@@ -61,20 +61,20 @@ var AccountsListPage = (function () {
             this.titleService.setTitle("حساب ");
         }
     };
+    AccountsListPage = __decorate([
+        IonicPage({ segment: 'accounts-list' }),
+        Component({
+            selector: 'page-accounts-list',
+            templateUrl: 'accounts-list.html',
+        }),
+        __param(4, Optional()),
+        __metadata("design:paramtypes", [NavController,
+            AccountsFsRepository,
+            ModalController,
+            AlertController,
+            TitleServiceProvider])
+    ], AccountsListPage);
     return AccountsListPage;
 }());
-AccountsListPage = __decorate([
-    IonicPage({ segment: 'accounts-list' }),
-    Component({
-        selector: 'page-accounts-list',
-        templateUrl: 'accounts-list.html',
-    }),
-    __param(4, Optional()),
-    __metadata("design:paramtypes", [NavController,
-        AccountsFsRepository,
-        ModalController,
-        AlertController,
-        TitleServiceProvider])
-], AccountsListPage);
 export { AccountsListPage };
 //# sourceMappingURL=accounts-list.js.map

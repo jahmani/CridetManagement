@@ -50,18 +50,18 @@ var EditAccountPage = (function () {
             this.dismiss(accSnapshot);
         }
     };
+    EditAccountPage = __decorate([
+        IonicPage(),
+        Component({
+            selector: 'page-edit-account',
+            templateUrl: 'edit-account.html',
+        }),
+        __metadata("design:paramtypes", [NavController,
+            AccountsFsRepository,
+            ViewController,
+            NavParams])
+    ], EditAccountPage);
     return EditAccountPage;
 }());
-EditAccountPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-edit-account',
-        templateUrl: 'edit-account.html',
-    }),
-    __metadata("design:paramtypes", [NavController,
-        AccountsFsRepository,
-        ViewController,
-        NavParams])
-], EditAccountPage);
 export { EditAccountPage };
 //# sourceMappingURL=edit-account.js.map

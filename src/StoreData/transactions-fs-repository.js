@@ -21,11 +21,11 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import { AccountsFsRepository } from './accounts-fb-repository';
-import { ActiveStoreService } from './activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { Observable } from 'rxjs/Observable';
 import { TCatigoriesFsRepositoryProvider } from './t-catigories-fs-repository';
 import 'rxjs/add/observable/combineLatest';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 /*
   Generated class for the AccountsFBRepository provider.
 
@@ -58,13 +58,14 @@ var TransactionsFsRepository = (function (_super) {
         });
         return extendedTranses;
     };
+    TransactionsFsRepository = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore,
+            ActiveStoreService,
+            AccountsFsRepository,
+            TCatigoriesFsRepositoryProvider])
+    ], TransactionsFsRepository);
     return TransactionsFsRepository;
 }(StoreDataFsRepository));
-TransactionsFsRepository = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore, typeof (_a = typeof ActiveStoreService !== "undefined" && ActiveStoreService) === "function" && _a || Object, AccountsFsRepository,
-        TCatigoriesFsRepositoryProvider])
-], TransactionsFsRepository);
 export { TransactionsFsRepository };
-var _a;
 //# sourceMappingURL=transactions-fs-repository.js.map

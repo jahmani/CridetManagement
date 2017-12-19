@@ -10,17 +10,17 @@ import { AccountTransactionsPage } from './account-transactions';
 var AccountTransactionsPageModule = (function () {
     function AccountTransactionsPageModule() {
     }
+    AccountTransactionsPageModule = __decorate([
+        NgModule({
+            declarations: [
+                AccountTransactionsPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(AccountTransactionsPage),
+            ],
+        })
+    ], AccountTransactionsPageModule);
     return AccountTransactionsPageModule;
 }());
-AccountTransactionsPageModule = __decorate([
-    NgModule({
-        declarations: [
-            AccountTransactionsPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(AccountTransactionsPage),
-        ],
-    })
-], AccountTransactionsPageModule);
 export { AccountTransactionsPageModule };
 //# sourceMappingURL=account-transactions.module.js.map

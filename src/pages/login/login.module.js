@@ -10,17 +10,17 @@ import { LoginPage } from './login';
 var LoginPageModule = (function () {
     function LoginPageModule() {
     }
+    LoginPageModule = __decorate([
+        NgModule({
+            declarations: [
+                LoginPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(LoginPage),
+            ],
+        })
+    ], LoginPageModule);
     return LoginPageModule;
 }());
-LoginPageModule = __decorate([
-    NgModule({
-        declarations: [
-            LoginPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(LoginPage),
-        ],
-    })
-], LoginPageModule);
 export { LoginPageModule };
 //# sourceMappingURL=login.module.js.map

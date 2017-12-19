@@ -51,7 +51,7 @@ var StoresFsRepository = (function (_super) {
         var proms1 = this.getTransactionCatsData().then(function (docSnapshots) {
             for (var _i = 0, docSnapshots_1 = docSnapshots; _i < docSnapshots_1.length; _i++) {
                 var docSnapshot = docSnapshots_1[_i];
-                batch.set(storeTransactionCatsColl.doc(docSnapshot.id), docSnapshot.data);
+                batch.set(storeTransactionCatsColl.doc(docSnapshot.id), docSnapshot.data());
             }
         });
         return proms1.then(function () {
@@ -65,11 +65,11 @@ var StoresFsRepository = (function (_super) {
             return querySnapshot.docs;
         });
     };
+    StoresFsRepository = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore])
+    ], StoresFsRepository);
     return StoresFsRepository;
 }(FsRepository));
-StoresFsRepository = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore])
-], StoresFsRepository);
 export { StoresFsRepository };
 //# sourceMappingURL=stores-fs-repository.js.map

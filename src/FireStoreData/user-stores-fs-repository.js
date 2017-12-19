@@ -50,11 +50,11 @@ var UserStoresFsRepository = (function (_super) {
             });
         });
     };
+    UserStoresFsRepository = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore, AuthService, StoresFsRepository])
+    ], UserStoresFsRepository);
     return UserStoresFsRepository;
 }(FsRepository));
-UserStoresFsRepository = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore, AuthService, StoresFsRepository])
-], UserStoresFsRepository);
 export { UserStoresFsRepository };
 //# sourceMappingURL=user-stores-fs-repository.js.map

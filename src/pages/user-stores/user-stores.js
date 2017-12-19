@@ -8,10 +8,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
 import { UserStoresFsRepository } from '../../FireStoreData/user-stores-fs-repository';
 import { StoresFsRepository } from '../../FireStoreData/stores-fs-repository';
 import { AuthService } from '../../app/core/index';
+import { ActiveStoreService } from '../../FireStoreData/activeStore';
+import { NavController, IonicPage } from 'ionic-angular';
 /**
  * Generated class for the UserStoresPage page.
  *
@@ -19,11 +20,12 @@ import { AuthService } from '../../app/core/index';
  * Ionic pages and navigation.
  */
 var UserStoresPage = (function () {
-    function UserStoresPage(navCtrl, auth, userStoresFsRepository, storesFsRepository) {
+    function UserStoresPage(navCtrl, auth, userStoresFsRepository, storesFsRepository, activeStoreServise) {
         this.navCtrl = navCtrl;
         this.auth = auth;
         this.userStoresFsRepository = userStoresFsRepository;
         this.storesFsRepository = storesFsRepository;
+        this.activeStoreServise = activeStoreServise;
         this.userStores = this.userStoresFsRepository.FormatedList;
     }
     UserStoresPage.prototype.createNewStore = function () {
@@ -32,21 +34,27 @@ var UserStoresPage = (function () {
             return _this.storesFsRepository.createNewStore(user.uid);
         });
     };
+    UserStoresPage.prototype.onStoreSelected = function (extStore) {
+        this.activeStoreServise.activeStoreKey = extStore.id;
+        var accountsPage = { title: 'Accounts', component: 'AccountsListPage' };
+        this.navCtrl.setRoot("TabsPage", accountsPage);
+    };
     UserStoresPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad UserStoresPage');
     };
+    UserStoresPage = __decorate([
+        IonicPage(),
+        Component({
+            selector: 'page-user-stores',
+            templateUrl: 'user-stores.html',
+        }),
+        __metadata("design:paramtypes", [NavController,
+            AuthService,
+            UserStoresFsRepository,
+            StoresFsRepository,
+            ActiveStoreService])
+    ], UserStoresPage);
     return UserStoresPage;
 }());
-UserStoresPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-user-stores',
-        templateUrl: 'user-stores.html',
-    }),
-    __metadata("design:paramtypes", [NavController,
-        AuthService,
-        UserStoresFsRepository,
-        StoresFsRepository])
-], UserStoresPage);
 export { UserStoresPage };
 //# sourceMappingURL=user-stores.js.map

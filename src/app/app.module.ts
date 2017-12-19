@@ -9,8 +9,6 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import {AngularFireModule} from "angularfire2"
 import {AngularFirestoreModule} from "angularfire2/firestore"
 import { environment } from "../environments";
@@ -51,8 +49,6 @@ import { TabServiceProvider } from '../providers/tab-service/tab-service';
     ListPage
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,MessagingService,
     TitleServiceProvider,

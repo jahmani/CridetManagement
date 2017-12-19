@@ -12,22 +12,21 @@ import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators/switchMap';
 var AuthService = (function () {
     function AuthService(afAuth, afs) {
         var _this = this;
         this.afAuth = afAuth;
         this.afs = afs;
         //// Get auth data, then get firestore user document || null
-        this.user = this.afAuth.authState
-            .switchMap(function (user) {
+        this.user = this.afAuth.authState.pipe(switchMap(function (user) {
             if (user) {
                 return _this.afs.doc("users/" + user.uid).valueChanges();
             }
             else {
                 return Observable.of(null);
             }
-        });
+        }));
         this.user.subscribe(function (user) {
             console.log("Currently Loged in : ", user);
         });
@@ -74,12 +73,12 @@ var AuthService = (function () {
             //todo: add after logout logic here
         });
     };
+    AuthService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFireAuth,
+            AngularFirestore])
+    ], AuthService);
     return AuthService;
 }());
-AuthService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFireAuth,
-        AngularFirestore])
-], AuthService);
 export { AuthService };
 //# sourceMappingURL=auth.js.map

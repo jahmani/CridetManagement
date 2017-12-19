@@ -73,22 +73,22 @@ var EditTransactionPage = (function () {
             this.dismiss(this.transSnapshot);
         }
     };
+    EditTransactionPage = __decorate([
+        IonicPage(),
+        Component({
+            selector: 'page-edit-transaction',
+            templateUrl: 'edit-transaction.html',
+        }),
+        __param(6, Optional()),
+        __metadata("design:paramtypes", [NavController,
+            TransactionsFsRepository,
+            AccountsFsRepository,
+            ViewController,
+            NavParams,
+            TCatigoriesFsRepositoryProvider,
+            TitleServiceProvider])
+    ], EditTransactionPage);
     return EditTransactionPage;
 }());
-EditTransactionPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-edit-transaction',
-        templateUrl: 'edit-transaction.html',
-    }),
-    __param(6, Optional()),
-    __metadata("design:paramtypes", [NavController,
-        TransactionsFsRepository,
-        AccountsFsRepository,
-        ViewController,
-        NavParams,
-        TCatigoriesFsRepositoryProvider,
-        TitleServiceProvider])
-], EditTransactionPage);
 export { EditTransactionPage };
 //# sourceMappingURL=edit-transaction.js.map

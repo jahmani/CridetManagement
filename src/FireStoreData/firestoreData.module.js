@@ -13,19 +13,20 @@ import { ActiveStoreService } from './activeStore';
 var FirestoreDataModule = (function () {
     function FirestoreDataModule() {
     }
+    FirestoreDataModule = __decorate([
+        NgModule({
+            declarations: [],
+            imports: [CommonModule],
+            exports: [],
+            providers: [
+                StoresFsRepository,
+                UserStoresFsRepository,
+                UsersFsRepository,
+                ActiveStoreService
+            ],
+        })
+    ], FirestoreDataModule);
     return FirestoreDataModule;
 }());
-FirestoreDataModule = __decorate([
-    NgModule({
-        declarations: [],
-        imports: [CommonModule],
-        exports: [],
-        providers: [
-            StoresFsRepository,
-            UserStoresFsRepository,
-            UsersFsRepository, ActiveStoreService
-        ],
-    })
-], FirestoreDataModule);
 export { FirestoreDataModule };
 //# sourceMappingURL=firestoreData.module.js.map

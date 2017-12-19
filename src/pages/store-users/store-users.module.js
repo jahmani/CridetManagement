@@ -10,17 +10,17 @@ import { StoreUsersPage } from './store-users';
 var StoreUsersPageModule = (function () {
     function StoreUsersPageModule() {
     }
+    StoreUsersPageModule = __decorate([
+        NgModule({
+            declarations: [
+                StoreUsersPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(StoreUsersPage),
+            ],
+        })
+    ], StoreUsersPageModule);
     return StoreUsersPageModule;
 }());
-StoreUsersPageModule = __decorate([
-    NgModule({
-        declarations: [
-            StoreUsersPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(StoreUsersPage),
-        ],
-    })
-], StoreUsersPageModule);
 export { StoreUsersPageModule };
 //# sourceMappingURL=store-users.module.js.map

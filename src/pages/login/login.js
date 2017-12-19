@@ -45,17 +45,17 @@ var LoginPage = (function () {
     LoginPage.prototype.createAccount = function () {
         this.navCtrl.setRoot("SignupPage");
     };
+    LoginPage = __decorate([
+        IonicPage(),
+        Component({
+            selector: 'page-login',
+            templateUrl: 'login.html',
+        }),
+        __metadata("design:paramtypes", [FormBuilder,
+            AuthService,
+            NavController])
+    ], LoginPage);
     return LoginPage;
 }());
-LoginPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-login',
-        templateUrl: 'login.html',
-    }),
-    __metadata("design:paramtypes", [FormBuilder,
-        AuthService,
-        NavController])
-], LoginPage);
 export { LoginPage };
 //# sourceMappingURL=login.js.map

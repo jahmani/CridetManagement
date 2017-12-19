@@ -15,9 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-//import "rxjs/operator/take"
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toPromise';
+import { take } from 'rxjs/operators/take';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../../app/core/auth';
 import { Injectable } from '@angular/core';
@@ -35,7 +33,7 @@ var UserService = (function () {
         return "/versions/v4/stores/" + storeId + "/users/" + uid;
     };
     UserService.prototype.getCurrentUserId = function () {
-        return this.auth.user.filter((function (user) { return !!user; })).take(1).toPromise().then(function (user) { return user.uid; });
+        return this.auth.user.filter((function (user) { return !!user; })).pipe(take(1)).toPromise().then(function (user) { return user.uid; });
     };
     UserService.prototype.editUserFcmKey = function (currentToken, remove) {
         var _this = this;
@@ -46,7 +44,7 @@ var UserService = (function () {
             var fsRef = _this.afs.doc(fsPath);
             return fsRef;
         }).then(function (fsRef) {
-            return fsRef.valueChanges().take(1).toPromise().then(function (userSettings) {
+            return fsRef.valueChanges().pipe(take(1)).toPromise().then(function (userSettings) {
                 var fcmTokens = userSettings ? __assign({}, (userSettings.fcmTokens)) : {};
                 //let userProfile = { fcmTokens: (userSettings && userSettings.fcmTokens) || {} }
                 if (remove) {
@@ -101,13 +99,13 @@ var UserService = (function () {
         return localStorage.setItem(userId, JSON.stringify(userSettings));
         //    return localStorage.removeItem(this.tokenKey);
     };
+    UserService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore,
+            AuthService,
+            ActiveStoreService])
+    ], UserService);
     return UserService;
 }());
-UserService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore,
-        AuthService,
-        ActiveStoreService])
-], UserService);
 export { UserService };
 //# sourceMappingURL=user-service.js.map

@@ -73,13 +73,13 @@ var MessagingService = (function () {
             });
         });
     };
+    MessagingService = __decorate([
+        Injectable()
+        // based on https://github.com/firebase/quickstart-js/
+        ,
+        __metadata("design:paramtypes", [UserService])
+    ], MessagingService);
     return MessagingService;
 }());
-MessagingService = __decorate([
-    Injectable()
-    // based on https://github.com/firebase/quickstart-js/
-    ,
-    __metadata("design:paramtypes", [UserService])
-], MessagingService);
 export { MessagingService };
 //# sourceMappingURL=messaging-service.js.map

@@ -6,6 +6,7 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { AccountsFsRepository, TransactionsFsRepository, TCatigoriesFsRepositoryProvider, StoreUsersFsRepository } from '../../StoreData/index';
 import { TabServiceProvider } from '../../providers/tab-service/tab-service';
 import { Subscription } from 'rxjs';
+import {map} from 'rxjs/Operators/map'
 
 /**
  * Generated class for the TabsPage page.
@@ -55,7 +56,7 @@ export class TabsPage {
         return Observable.of(false)
       this.subNavCtrl = nav
 
-      return nav.viewDidEnter.map((view: ViewController) => !!(view.index))
+      return nav.viewDidEnter.pipe(map((view: ViewController) => !!(view.index)))
     })
 
 

@@ -26,26 +26,26 @@ var UserProfileComponent = (function () {
     UserProfileComponent.prototype.onGoogleLogin = function () {
         this.googleLogin.emit();
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], UserProfileComponent.prototype, "user", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], UserProfileComponent.prototype, "signout", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], UserProfileComponent.prototype, "googleLogin", void 0);
+    UserProfileComponent = __decorate([
+        Component({
+            selector: 'user-profile',
+            templateUrl: 'user-profile.html'
+        }),
+        __metadata("design:paramtypes", [])
+    ], UserProfileComponent);
     return UserProfileComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], UserProfileComponent.prototype, "user", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], UserProfileComponent.prototype, "signout", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], UserProfileComponent.prototype, "googleLogin", void 0);
-UserProfileComponent = __decorate([
-    Component({
-        selector: 'user-profile',
-        templateUrl: 'user-profile.html'
-    }),
-    __metadata("design:paramtypes", [])
-], UserProfileComponent);
 export { UserProfileComponent };
 //# sourceMappingURL=user-profile.js.map

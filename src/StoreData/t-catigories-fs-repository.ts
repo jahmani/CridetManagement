@@ -5,7 +5,9 @@ import { StoreDataFsRepository } from './store-data-fs-repository';
 import { TransactionCatigory, ExtendedData, ExtMap } from '../interfaces/data-models';
 import { mapToTree } from './util';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/publishReplay'
+import {publishReplay} from 'rxjs/operators/publishReplay'
+import {refCount} from 'rxjs/operators/refCount'
+import {map} from 'rxjs/operators/map'
 import { ActiveStoreService } from '../FireStoreData/activeStore';
 
 
@@ -23,9 +25,12 @@ export class TCatigoriesFsRepositoryProvider extends StoreDataFsRepository<Trans
     afs: AngularFirestore,
     activeStoreService: ActiveStoreService) {
       super(afs, activeStoreService, StorePathConfig.TransactionCatigories)
-      this.treeRoot = this.dataMap.map((tCatigoriesMap) => {
-        return mapToTree(tCatigoriesMap) as ExtendedData<TransactionCatigory>
-      }).publishReplay(1).refCount()
+      this.treeRoot = this.dataMap.pipe(
+        map((tCatigoriesMap) => {
+          return mapToTree(tCatigoriesMap) as ExtendedData<TransactionCatigory>
+        })
+      ,publishReplay(1)
+      ,refCount())
     console.log('Helloooooo TCatigoriesFsRepositoryProvider FBRepository Provider');
   }
 

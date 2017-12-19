@@ -13,21 +13,21 @@ import { StoreUsersFsRepository } from './store-users-fb-repository';
 var StoreDataModule = (function () {
     function StoreDataModule() {
     }
+    StoreDataModule = __decorate([
+        NgModule({
+            declarations: [],
+            imports: [CommonModule],
+            exports: [],
+            providers: [
+                AccountsFsRepository,
+                AccountsBalanceFBRepository,
+                TransactionsFsRepository,
+                TCatigoriesFsRepositoryProvider,
+                StoreUsersFsRepository
+            ],
+        })
+    ], StoreDataModule);
     return StoreDataModule;
 }());
-StoreDataModule = __decorate([
-    NgModule({
-        declarations: [],
-        imports: [CommonModule],
-        exports: [],
-        providers: [
-            AccountsFsRepository,
-            AccountsBalanceFBRepository,
-            TransactionsFsRepository,
-            TCatigoriesFsRepositoryProvider,
-            StoreUsersFsRepository
-        ],
-    })
-], StoreDataModule);
 export { StoreDataModule };
 //# sourceMappingURL=storeData.module.js.map

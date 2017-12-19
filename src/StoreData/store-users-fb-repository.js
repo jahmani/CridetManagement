@@ -22,7 +22,6 @@ import { Injectable } from '@angular/core';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
-import 'rxjs/add/operator/mergeMap';
 import { UsersFsRepository } from '../FireStoreData/users-fs-repository';
 /*
   Generated class for the AccountsFBRepository provider.
@@ -57,13 +56,13 @@ var StoreUsersFsRepository = (function (_super) {
             });
         });
     };
+    StoreUsersFsRepository = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore,
+            ActiveStoreService,
+            UsersFsRepository])
+    ], StoreUsersFsRepository);
     return StoreUsersFsRepository;
 }(StoreDataFsRepository));
-StoreUsersFsRepository = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore,
-        ActiveStoreService,
-        UsersFsRepository])
-], StoreUsersFsRepository);
 export { StoreUsersFsRepository };
 //# sourceMappingURL=store-users-fb-repository.js.map

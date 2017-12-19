@@ -11,17 +11,17 @@ import { ComponentsModule } from '../../components/components.module';
 var TransactionCatsPageModule = (function () {
     function TransactionCatsPageModule() {
     }
+    TransactionCatsPageModule = __decorate([
+        NgModule({
+            declarations: [
+                TransactionCatsPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(TransactionCatsPage), ComponentsModule
+            ],
+        })
+    ], TransactionCatsPageModule);
     return TransactionCatsPageModule;
 }());
-TransactionCatsPageModule = __decorate([
-    NgModule({
-        declarations: [
-            TransactionCatsPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(TransactionCatsPage), ComponentsModule
-        ],
-    })
-], TransactionCatsPageModule);
 export { TransactionCatsPageModule };
 //# sourceMappingURL=transaction-cats.module.js.map

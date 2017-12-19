@@ -41,30 +41,30 @@ var TreeViewRowComponent = (function () {
     TreeViewRowComponent.prototype.onNodeEditClicked = function (node) {
         this.nodeEditClicked.emit(node);
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], TreeViewRowComponent.prototype, "node", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
+    ], TreeViewRowComponent.prototype, "depth", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], TreeViewRowComponent.prototype, "nodeSelected", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], TreeViewRowComponent.prototype, "nodeEditClicked", void 0);
+    TreeViewRowComponent = __decorate([
+        Component({
+            selector: 'tree-view-row',
+            templateUrl: 'tree-view-row.html'
+        }),
+        __metadata("design:paramtypes", [])
+    ], TreeViewRowComponent);
     return TreeViewRowComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], TreeViewRowComponent.prototype, "node", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Number)
-], TreeViewRowComponent.prototype, "depth", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], TreeViewRowComponent.prototype, "nodeSelected", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], TreeViewRowComponent.prototype, "nodeEditClicked", void 0);
-TreeViewRowComponent = __decorate([
-    Component({
-        selector: 'tree-view-row',
-        templateUrl: 'tree-view-row.html'
-    }),
-    __metadata("design:paramtypes", [])
-], TreeViewRowComponent);
 export { TreeViewRowComponent };
 //# sourceMappingURL=tree-view-row.js.map

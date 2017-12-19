@@ -19,11 +19,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ActiveStoreService } from './activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import { mapToTree } from './util';
-import 'rxjs/add/operator/publishReplay';
+import { publishReplay } from 'rxjs/operators/publishReplay';
+import { refCount } from 'rxjs/operators/refCount';
+import { map } from 'rxjs/operators/map';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 /*
   Generated class for the TCatigoriesFsRepositoryProvider provider.
 
@@ -34,18 +36,18 @@ var TCatigoriesFsRepositoryProvider = (function (_super) {
     __extends(TCatigoriesFsRepositoryProvider, _super);
     function TCatigoriesFsRepositoryProvider(afs, activeStoreService) {
         var _this = _super.call(this, afs, activeStoreService, StorePathConfig.TransactionCatigories) || this;
-        _this.treeRoot = _this.dataMap.map(function (tCatigoriesMap) {
+        _this.treeRoot = _this.dataMap.pipe(map(function (tCatigoriesMap) {
             return mapToTree(tCatigoriesMap);
-        }).publishReplay(1).refCount();
+        }), publishReplay(1), refCount());
         console.log('Helloooooo TCatigoriesFsRepositoryProvider FBRepository Provider');
         return _this;
     }
+    TCatigoriesFsRepositoryProvider = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore,
+            ActiveStoreService])
+    ], TCatigoriesFsRepositoryProvider);
     return TCatigoriesFsRepositoryProvider;
 }(StoreDataFsRepository));
-TCatigoriesFsRepositoryProvider = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore, typeof (_a = typeof ActiveStoreService !== "undefined" && ActiveStoreService) === "function" && _a || Object])
-], TCatigoriesFsRepositoryProvider);
 export { TCatigoriesFsRepositoryProvider };
-var _a;
 //# sourceMappingURL=t-catigories-fs-repository.js.map

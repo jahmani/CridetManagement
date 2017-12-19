@@ -5,7 +5,7 @@ import { Transaction, ExtendedData, ExtMap, AccountInfo } from '../../interfaces
 import { Observable } from 'rxjs/Observable';
 import { TCatigoriesFsRepositoryProvider, AccountsFsRepository } from '../../StoreData/index';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
-
+import {map} from 'rxjs/Operators/map'
 
 /**
  * Generated class for the AccountTransactionsPage page.
@@ -34,7 +34,7 @@ export class AccountTransactionsPage {
     , tCatigoriesFsRepositoryProvider: TCatigoriesFsRepositoryProvider) {
     this.accountId = this.navParams.get('accountId');
     this.transSnapshots = this.transactionsRep.forAccount(this.accountId);
-    this.transSnapshotsArray = this.transSnapshots.map((m) => m.toArray())
+    this.transSnapshotsArray = this.transSnapshots.pipe(map((m) => m.toArray()))
     this.transSnapshotsArray.subscribe(console.log)
     this.accountsRep.getOnce(this.accountId).then((extAccount) => {
       this.account = extAccount.data

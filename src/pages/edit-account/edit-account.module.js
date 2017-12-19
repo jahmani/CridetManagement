@@ -11,18 +11,18 @@ import { ComponentsModule } from '../../components/components.module';
 var EditAccountPageModule = (function () {
     function EditAccountPageModule() {
     }
+    EditAccountPageModule = __decorate([
+        NgModule({
+            declarations: [
+                EditAccountPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(EditAccountPage),
+                ComponentsModule
+            ],
+        })
+    ], EditAccountPageModule);
     return EditAccountPageModule;
 }());
-EditAccountPageModule = __decorate([
-    NgModule({
-        declarations: [
-            EditAccountPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(EditAccountPage),
-            ComponentsModule
-        ],
-    })
-], EditAccountPageModule);
 export { EditAccountPageModule };
 //# sourceMappingURL=edit-account.module.js.map

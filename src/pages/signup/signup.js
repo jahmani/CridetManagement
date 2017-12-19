@@ -46,17 +46,17 @@ var SignupPage = (function () {
     SignupPage.prototype.goLogInPage = function () {
         this.navCtrl.setRoot("LoginPage");
     };
+    SignupPage = __decorate([
+        IonicPage(),
+        Component({
+            selector: 'page-signup',
+            templateUrl: 'signup.html',
+        }),
+        __metadata("design:paramtypes", [FormBuilder,
+            AuthService,
+            NavController])
+    ], SignupPage);
     return SignupPage;
 }());
-SignupPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-signup',
-        templateUrl: 'signup.html',
-    }),
-    __metadata("design:paramtypes", [FormBuilder,
-        AuthService,
-        NavController])
-], SignupPage);
 export { SignupPage };
 //# sourceMappingURL=signup.js.map

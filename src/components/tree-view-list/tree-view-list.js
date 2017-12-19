@@ -27,30 +27,30 @@ var TreeViewListComponent = (function () {
     TreeViewListComponent.prototype.onNodeEditClicked = function (node) {
         this.nodeEditClicked.emit(node);
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Array)
+    ], TreeViewListComponent.prototype, "nodes", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Number)
+    ], TreeViewListComponent.prototype, "depth", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], TreeViewListComponent.prototype, "nodeSelected", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], TreeViewListComponent.prototype, "nodeEditClicked", void 0);
+    TreeViewListComponent = __decorate([
+        Component({
+            selector: 'tree-view-list',
+            templateUrl: 'tree-view-list.html'
+        }),
+        __metadata("design:paramtypes", [])
+    ], TreeViewListComponent);
     return TreeViewListComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Array)
-], TreeViewListComponent.prototype, "nodes", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Number)
-], TreeViewListComponent.prototype, "depth", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], TreeViewListComponent.prototype, "nodeSelected", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], TreeViewListComponent.prototype, "nodeEditClicked", void 0);
-TreeViewListComponent = __decorate([
-    Component({
-        selector: 'tree-view-list',
-        templateUrl: 'tree-view-list.html'
-    }),
-    __metadata("design:paramtypes", [])
-], TreeViewListComponent);
 export { TreeViewListComponent };
 //# sourceMappingURL=tree-view-list.js.map

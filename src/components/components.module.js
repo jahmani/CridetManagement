@@ -28,18 +28,18 @@ var sharedComponents = [
 var ComponentsModule = (function () {
     function ComponentsModule() {
     }
+    ComponentsModule = __decorate([
+        NgModule({
+            declarations: sharedComponents.concat([StoreUsersComponent]),
+            imports: [CommonModule,
+                ReactiveFormsModule,
+                IonicModule
+            ],
+            entryComponents: [TransCatsPickerListComponent],
+            exports: sharedComponents.concat([StoreUsersComponent])
+        })
+    ], ComponentsModule);
     return ComponentsModule;
 }());
-ComponentsModule = __decorate([
-    NgModule({
-        declarations: sharedComponents.concat([StoreUsersComponent]),
-        imports: [CommonModule,
-            ReactiveFormsModule,
-            IonicModule
-        ],
-        entryComponents: [TransCatsPickerListComponent],
-        exports: sharedComponents.concat([StoreUsersComponent])
-    })
-], ComponentsModule);
 export { ComponentsModule };
 //# sourceMappingURL=components.module.js.map

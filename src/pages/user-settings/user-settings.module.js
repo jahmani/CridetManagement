@@ -10,17 +10,17 @@ import { UserSettingsPage } from './user-settings';
 var UserSettingsPageModule = (function () {
     function UserSettingsPageModule() {
     }
+    UserSettingsPageModule = __decorate([
+        NgModule({
+            declarations: [
+                UserSettingsPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(UserSettingsPage),
+            ],
+        })
+    ], UserSettingsPageModule);
     return UserSettingsPageModule;
 }());
-UserSettingsPageModule = __decorate([
-    NgModule({
-        declarations: [
-            UserSettingsPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(UserSettingsPage),
-        ],
-    })
-], UserSettingsPageModule);
 export { UserSettingsPageModule };
 //# sourceMappingURL=user-settings.module.js.map

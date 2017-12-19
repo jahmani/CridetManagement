@@ -7,9 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repository';
+import { TitleServiceProvider } from '../../providers/title-service/title-service';
 /**
  * Generated class for the StoreUsersPage page.
  *
@@ -17,24 +21,33 @@ import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repositor
  * Ionic pages and navigation.
  */
 var StoreUsersPage = (function () {
-    function StoreUsersPage(navCtrl, storeUsersFsRepository) {
+    function StoreUsersPage(navCtrl, titleService, storeUsersFsRepository) {
         this.navCtrl = navCtrl;
+        this.titleService = titleService;
         this.storeUsersFsRepository = storeUsersFsRepository;
         this.storeUsers = this.storeUsersFsRepository.FormatedList;
     }
     StoreUsersPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad StoreUsersPage');
     };
+    StoreUsersPage.prototype.ionViewDidEnter = function () {
+        if (this.titleService) {
+            this.titleService.setNav(this.navCtrl);
+            this.titleService.setTitle("store users ");
+        }
+    };
+    StoreUsersPage = __decorate([
+        IonicPage(),
+        Component({
+            selector: 'page-store-users',
+            templateUrl: 'store-users.html',
+        }),
+        __param(1, Optional()),
+        __metadata("design:paramtypes", [NavController,
+            TitleServiceProvider,
+            StoreUsersFsRepository])
+    ], StoreUsersPage);
     return StoreUsersPage;
 }());
-StoreUsersPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-store-users',
-        templateUrl: 'store-users.html',
-    }),
-    __metadata("design:paramtypes", [NavController,
-        StoreUsersFsRepository])
-], StoreUsersPage);
 export { StoreUsersPage };
 //# sourceMappingURL=store-users.js.map

@@ -5,6 +5,5 @@ export var StorePathConfig = {
     AccountsBalance: "accountsBalance",
     TransactionCatigories: "transactionCats",
     UsersInfo: "users",
-    activeStoreKey: 'heJsVz3nWfqeucJyBgHS'
 };
 //# sourceMappingURL=StorePathConfig.js.map

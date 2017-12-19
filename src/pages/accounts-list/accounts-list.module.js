@@ -10,17 +10,17 @@ import { AccountsListPage } from './accounts-list';
 var AccountsListPageModule = (function () {
     function AccountsListPageModule() {
     }
+    AccountsListPageModule = __decorate([
+        NgModule({
+            declarations: [
+                AccountsListPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(AccountsListPage),
+            ],
+        })
+    ], AccountsListPageModule);
     return AccountsListPageModule;
 }());
-AccountsListPageModule = __decorate([
-    NgModule({
-        declarations: [
-            AccountsListPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(AccountsListPage),
-        ],
-    })
-], AccountsListPageModule);
 export { AccountsListPageModule };
 //# sourceMappingURL=accounts-list.module.js.map

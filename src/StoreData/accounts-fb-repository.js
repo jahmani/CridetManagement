@@ -75,13 +75,13 @@ var AccountsBalanceFBRepository = (function (_super) {
         */
         throw "not implemented ";
     };
+    AccountsBalanceFBRepository = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore,
+            ActiveStoreService])
+    ], AccountsBalanceFBRepository);
     return AccountsBalanceFBRepository;
 }(StoreDataFsRepository));
-AccountsBalanceFBRepository = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore,
-        ActiveStoreService])
-], AccountsBalanceFBRepository);
 export { AccountsBalanceFBRepository };
 var AbstarctAccountsRepository = (function () {
     function AbstarctAccountsRepository() {
@@ -134,13 +134,13 @@ var AccountsFsRepository = (function (_super) {
         })
         */
     };
+    AccountsFsRepository = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore,
+            ActiveStoreService,
+            AccountsBalanceFBRepository])
+    ], AccountsFsRepository);
     return AccountsFsRepository;
 }(StoreDataFsRepository));
-AccountsFsRepository = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore,
-        ActiveStoreService,
-        AccountsBalanceFBRepository])
-], AccountsFsRepository);
 export { AccountsFsRepository };
 //# sourceMappingURL=accounts-fb-repository.js.map

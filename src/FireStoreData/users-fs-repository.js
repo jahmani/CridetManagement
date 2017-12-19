@@ -27,11 +27,11 @@ var UsersFsRepository = (function (_super) {
         console.log('Hello StoreUsersFsRepository Provider');
         return _this;
     }
+    UsersFsRepository = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore])
+    ], UsersFsRepository);
     return UsersFsRepository;
 }(FsRepository));
-UsersFsRepository = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [AngularFirestore])
-], UsersFsRepository);
 export { UsersFsRepository };
 //# sourceMappingURL=users-fs-repository.js.map

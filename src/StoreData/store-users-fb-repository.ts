@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
-import 'rxjs/add/operator/mergeMap';
 import { AuthService } from '../app/core/index';
 import { FsRepository } from '../FireStoreData/fs-repository';
 import { UsersFsRepository } from '../FireStoreData/users-fs-repository';

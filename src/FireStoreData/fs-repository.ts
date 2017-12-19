@@ -3,8 +3,11 @@ import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { ExtendedData, ExtMap } from '../interfaces/data-models';
 
-import 'rxjs/add/operator/publishReplay'
-import 'rxjs/add/operator/first';
+import {publishReplay} from 'rxjs/operators/publishReplay'
+import {refCount} from 'rxjs/operators/refCount'
+import {map} from 'rxjs/operators/map'
+import {first} from 'rxjs/operators/first';
+import {share} from 'rxjs/operators/share';
 
 /*
   Generated class for the FBRepository provider.
@@ -37,47 +40,47 @@ export class FsRepository<T>  {
     this.collection = this.afs.collection(path);
     this.dataSnapshot = this.collection.snapshotChanges()
 //    this.list = this.collection.snapshotChanges() as any;
-    this.dataList = this.snapList(this.collection).publishReplay(1).refCount();
-    this.dataMap = this.snapshotMap(this.collection).publishReplay(1).refCount()
+    this.dataList = this.snapList(this.collection).pipe(publishReplay(1),refCount())
+    this.dataMap = this.snapshotMap(this.collection).pipe(publishReplay(1),refCount())
   }
   snapList(coll:AngularFirestoreCollection<T>):Observable<ExtendedData<T>[]>{
-    return coll.snapshotChanges().map(actions => {
+    return coll.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as T;
         const id = a.payload.doc.id;
         const ret = {id,data}
         return ret;
       });
-    });
+    }));
   }
   snapshotMap(coll:AngularFirestoreCollection<T>):Observable<ExtMap<ExtendedData<T>>>{
-    let map = new ExtMap<ExtendedData<T>>()
+    let _map = new ExtMap<ExtendedData<T>>()
     
-    return coll.snapshotChanges().share().map(actions => {
+    return coll.snapshotChanges().pipe(share(),map(actions => {
       actions.forEach(a => {
         const data = a.payload.doc.data() as T;
         const id = a.payload.doc.id;
-        map.set(id,{id,data})
+        _map.set(id,{id,data})
         //const ret = {id,data}
         //return ret;
       });
       
-      return map
-    });
+      return _map
+    }));
   }
   List(): Observable<ExtendedData<T>[]> {
     return this.dataList.share();
   }
  
   get(key):  Observable<ExtendedData<T>> {
-    return this.afs.doc<T>(this.path + `/${key}`).snapshotChanges().map(
+    return this.afs.doc<T>(this.path + `/${key}`).snapshotChanges().pipe(map(
       (action)=>{ 
         let d = action.payload.data()
         return {id:action.payload.id, data : action.payload.data() as T }}
-    );
+    ));
   }
   getOnce(key):Promise<ExtendedData<T>> {
-    return this.get(key).first().toPromise()
+    return this.get(key).pipe(first()).toPromise()
   }
 
 

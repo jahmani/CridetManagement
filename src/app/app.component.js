@@ -10,8 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, ViewChild } from '@angular/core';
 import { Nav } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
+import { TabServiceProvider } from '../providers/tab-service/tab-service';
 var MyApp = (function () {
-    function MyApp() {
+    function MyApp(tabService) {
+        this.tabService = tabService;
         this.rootPage = "TabsPage";
         // used for an example of ngFor and navigation
         this.storePages = [
@@ -30,22 +32,27 @@ var MyApp = (function () {
         ];
     }
     MyApp.prototype.openStorePage = function (page) {
-        this.nav.setRoot("TabsPage", page);
+        // The active child nav is our Tabs Navigation
+        if (this.nav.getActiveChildNav()) {
+            this.tabService.setTab(page);
+        }
+        else
+            this.nav.setRoot("TabsPage", page);
     };
     MyApp.prototype.openUserPage = function (page) {
         this.nav.setRoot(page.component);
     };
+    __decorate([
+        ViewChild(Nav),
+        __metadata("design:type", Nav)
+    ], MyApp.prototype, "nav", void 0);
+    MyApp = __decorate([
+        Component({
+            templateUrl: 'app.html'
+        }),
+        __metadata("design:paramtypes", [TabServiceProvider])
+    ], MyApp);
     return MyApp;
 }());
-__decorate([
-    ViewChild(Nav),
-    __metadata("design:type", Nav)
-], MyApp.prototype, "nav", void 0);
-MyApp = __decorate([
-    Component({
-        templateUrl: 'app.html'
-    }),
-    __metadata("design:paramtypes", [])
-], MyApp);
 export { MyApp };
 //# sourceMappingURL=app.component.js.map

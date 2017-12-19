@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-var ListPage = ListPage_1 = (function () {
+var ListPage = (function () {
     function ListPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -27,21 +27,22 @@ var ListPage = ListPage_1 = (function () {
             });
         }
     }
+    ListPage_1 = ListPage;
     ListPage.prototype.itemTapped = function (event, item) {
         // That's right, we're pushing to ourselves!
         this.navCtrl.push(ListPage_1, {
             item: item
         });
     };
+    ListPage = ListPage_1 = __decorate([
+        Component({
+            selector: 'page-list',
+            templateUrl: 'list.html'
+        }),
+        __metadata("design:paramtypes", [NavController, NavParams])
+    ], ListPage);
     return ListPage;
+    var ListPage_1;
 }());
-ListPage = ListPage_1 = __decorate([
-    Component({
-        selector: 'page-list',
-        templateUrl: 'list.html'
-    }),
-    __metadata("design:paramtypes", [NavController, NavParams])
-], ListPage);
 export { ListPage };
-var ListPage_1;
 //# sourceMappingURL=list.js.map

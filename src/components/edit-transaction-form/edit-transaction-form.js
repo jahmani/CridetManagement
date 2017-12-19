@@ -61,34 +61,34 @@ var EditTransactionFormComponent = (function () {
     EditTransactionFormComponent.prototype.onCatigoryChange = function (cat) {
         console.log(cat);
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], EditTransactionFormComponent.prototype, "transaction", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], EditTransactionFormComponent.prototype, "transCatsRoot", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", ExtMap)
+    ], EditTransactionFormComponent.prototype, "transCatsMap", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], EditTransactionFormComponent.prototype, "update", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], EditTransactionFormComponent.prototype, "cancel", void 0);
+    EditTransactionFormComponent = __decorate([
+        Component({
+            selector: 'edit-transaction-form',
+            templateUrl: 'edit-transaction-form.html'
+        }),
+        __metadata("design:paramtypes", [FormBuilder])
+    ], EditTransactionFormComponent);
     return EditTransactionFormComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], EditTransactionFormComponent.prototype, "transaction", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], EditTransactionFormComponent.prototype, "transCatsRoot", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", ExtMap)
-], EditTransactionFormComponent.prototype, "transCatsMap", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], EditTransactionFormComponent.prototype, "update", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], EditTransactionFormComponent.prototype, "cancel", void 0);
-EditTransactionFormComponent = __decorate([
-    Component({
-        selector: 'edit-transaction-form',
-        templateUrl: 'edit-transaction-form.html'
-    }),
-    __metadata("design:paramtypes", [FormBuilder])
-], EditTransactionFormComponent);
 export { EditTransactionFormComponent };
 //# sourceMappingURL=edit-transaction-form.js.map

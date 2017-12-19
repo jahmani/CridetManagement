@@ -69,34 +69,34 @@ var EditAccountComponent = (function () {
             this.onSave(value);
         //throw "please take care , invalid form"
     };
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], EditAccountComponent.prototype, "account", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], EditAccountComponent.prototype, "update", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], EditAccountComponent.prototype, "remove", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", EventEmitter)
+    ], EditAccountComponent.prototype, "cancel", void 0);
+    __decorate([
+        ViewChild(Content),
+        __metadata("design:type", Content)
+    ], EditAccountComponent.prototype, "content", void 0);
+    EditAccountComponent = __decorate([
+        Component({
+            selector: 'edit-account',
+            templateUrl: 'edit-account.html'
+        }),
+        __metadata("design:paramtypes", [FormBuilder])
+    ], EditAccountComponent);
     return EditAccountComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], EditAccountComponent.prototype, "account", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], EditAccountComponent.prototype, "update", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], EditAccountComponent.prototype, "remove", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", EventEmitter)
-], EditAccountComponent.prototype, "cancel", void 0);
-__decorate([
-    ViewChild(Content),
-    __metadata("design:type", Content)
-], EditAccountComponent.prototype, "content", void 0);
-EditAccountComponent = __decorate([
-    Component({
-        selector: 'edit-account',
-        templateUrl: 'edit-account.html'
-    }),
-    __metadata("design:paramtypes", [FormBuilder])
-], EditAccountComponent);
 export { EditAccountComponent };
 //# sourceMappingURL=edit-account.js.map

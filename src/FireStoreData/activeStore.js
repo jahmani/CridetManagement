@@ -7,12 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Injectable } from '@angular/core';
 var ActiveStoreService = (function () {
     function ActiveStoreService() {
-        this.activeStoreKey = 'heJsVz3nWfqeucJyBgHS';
+        this.activeStoreKey = 'HW1TAwI2hz0pLNINa51Q';
     }
+    ActiveStoreService = __decorate([
+        Injectable()
+    ], ActiveStoreService);
     return ActiveStoreService;
 }());
-ActiveStoreService = __decorate([
-    Injectable()
-], ActiveStoreService);
 export { ActiveStoreService };
 //# sourceMappingURL=activeStore.js.map

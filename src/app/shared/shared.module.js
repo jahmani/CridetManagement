@@ -13,23 +13,23 @@ import { IonicModule } from 'ionic-angular';
 var SharedModule = (function () {
     function SharedModule() {
     }
+    SharedModule = __decorate([
+        NgModule({
+            imports: [
+                /* angular stuff */
+                CommonModule,
+                ReactiveFormsModule,
+                IonicModule
+            ],
+            declarations: [],
+            exports: [
+                /* angular stuff */
+                CommonModule,
+                ReactiveFormsModule,
+            ]
+        })
+    ], SharedModule);
     return SharedModule;
 }());
-SharedModule = __decorate([
-    NgModule({
-        imports: [
-            /* angular stuff */
-            CommonModule,
-            ReactiveFormsModule,
-            IonicModule
-        ],
-        declarations: [],
-        exports: [
-            /* angular stuff */
-            CommonModule,
-            ReactiveFormsModule,
-        ]
-    })
-], SharedModule);
 export { SharedModule };
 //# sourceMappingURL=shared.module.js.map

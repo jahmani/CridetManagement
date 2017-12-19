@@ -21,7 +21,7 @@ import { conatctPaths } from '../FireStoreData/util';
 var StoreDataFsRepository = (function (_super) {
     __extends(StoreDataFsRepository, _super);
     function StoreDataFsRepository(afs, ass, dataSubPath) {
-        var _this = _super.call(this, afs, conatctPaths(StorePathConfig.basePath, StorePathConfig.activeStoreKey, dataSubPath)) || this;
+        var _this = _super.call(this, afs, conatctPaths(StorePathConfig.basePath, ass.activeStoreKey, dataSubPath)) || this;
         /* activeStoreInfoService.storeChange$.subscribe(()=>{
            super.initialize( activeStoreInfoService.ActiveStoreReference.child(dataSubPath));
          });

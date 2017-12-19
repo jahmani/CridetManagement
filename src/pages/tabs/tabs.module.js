@@ -7,20 +7,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { TabsPage } from './tabs';
+import { StoreDataModule } from '../../StoreData/storeData.module';
 var TabsPageModule = (function () {
     function TabsPageModule() {
     }
+    TabsPageModule = __decorate([
+        NgModule({
+            declarations: [
+                TabsPage,
+            ],
+            imports: [
+                IonicPageModule.forChild(TabsPage),
+                StoreDataModule
+            ],
+        })
+    ], TabsPageModule);
     return TabsPageModule;
 }());
-TabsPageModule = __decorate([
-    NgModule({
-        declarations: [
-            TabsPage,
-        ],
-        imports: [
-            IonicPageModule.forChild(TabsPage),
-        ],
-    })
-], TabsPageModule);
 export { TabsPageModule };
 //# sourceMappingURL=tabs.module.js.map

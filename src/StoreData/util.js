@@ -10,7 +10,7 @@ export function mapToTree(_NodeSnapshotMap) {
     */
     NodeSnapshotMap.forEach(function (datum) {
         datum.ext = datum.ext || {};
-        if (typeof datum.data.parentId === "undefined") {
+        if (!datum.data.parentId) {
             rootNode = datum;
             delete rootNode.ext.$sons;
         }

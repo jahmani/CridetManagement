@@ -1,6 +1,9 @@
 import { ExtMap } from '../interfaces/data-models';
-import 'rxjs/add/operator/publishReplay';
-import 'rxjs/add/operator/first';
+import { publishReplay } from 'rxjs/operators/publishReplay';
+import { refCount } from 'rxjs/operators/refCount';
+import { map } from 'rxjs/operators/map';
+import { first } from 'rxjs/operators/first';
+import { share } from 'rxjs/operators/share';
 /*
   Generated class for the FBRepository provider.
 
@@ -29,43 +32,43 @@ var FsRepository = (function () {
         this.collection = this.afs.collection(path);
         this.dataSnapshot = this.collection.snapshotChanges();
         //    this.list = this.collection.snapshotChanges() as any;
-        this.dataList = this.snapList(this.collection).publishReplay(1).refCount();
-        this.dataMap = this.snapshotMap(this.collection).publishReplay(1).refCount();
+        this.dataList = this.snapList(this.collection).pipe(publishReplay(1), refCount());
+        this.dataMap = this.snapshotMap(this.collection).pipe(publishReplay(1), refCount());
     };
     FsRepository.prototype.snapList = function (coll) {
-        return coll.snapshotChanges().map(function (actions) {
+        return coll.snapshotChanges().pipe(map(function (actions) {
             return actions.map(function (a) {
                 var data = a.payload.doc.data();
                 var id = a.payload.doc.id;
                 var ret = { id: id, data: data };
                 return ret;
             });
-        });
+        }));
     };
     FsRepository.prototype.snapshotMap = function (coll) {
-        var map = new ExtMap();
-        return coll.snapshotChanges().share().map(function (actions) {
+        var _map = new ExtMap();
+        return coll.snapshotChanges().pipe(share(), map(function (actions) {
             actions.forEach(function (a) {
                 var data = a.payload.doc.data();
                 var id = a.payload.doc.id;
-                map.set(id, { id: id, data: data });
+                _map.set(id, { id: id, data: data });
                 //const ret = {id,data}
                 //return ret;
             });
-            return map;
-        });
+            return _map;
+        }));
     };
     FsRepository.prototype.List = function () {
         return this.dataList.share();
     };
     FsRepository.prototype.get = function (key) {
-        return this.afs.doc(this.path + ("/" + key)).snapshotChanges().map(function (action) {
+        return this.afs.doc(this.path + ("/" + key)).snapshotChanges().pipe(map(function (action) {
             var d = action.payload.data();
             return { id: action.payload.id, data: action.payload.data() };
-        });
+        }));
     };
     FsRepository.prototype.getOnce = function (key) {
-        return this.get(key).first().toPromise();
+        return this.get(key).pipe(first()).toPromise();
     };
     FsRepository.prototype.parseBeforeSave = function (obj) {
         return { id: obj.id, data: this.remove$Properties(obj.data) };

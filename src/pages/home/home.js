@@ -18,14 +18,14 @@ var HomePage = (function () {
     HomePage.prototype.goLogInPage = function () {
         this.navCtrl.setRoot("LoginPage");
     };
+    HomePage = __decorate([
+        Component({
+            selector: 'page-home',
+            templateUrl: 'home.html'
+        }),
+        __metadata("design:paramtypes", [AuthService, NavController])
+    ], HomePage);
     return HomePage;
 }());
-HomePage = __decorate([
-    Component({
-        selector: 'page-home',
-        templateUrl: 'home.html'
-    }),
-    __metadata("design:paramtypes", [AuthService, NavController])
-], HomePage);
 export { HomePage };
 //# sourceMappingURL=home.js.map

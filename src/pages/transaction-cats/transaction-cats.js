@@ -7,9 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
+import { TitleServiceProvider } from '../../providers/title-service/title-service';
 /**
  * Generated class for the TransactionCatsPage page.
  *
@@ -17,9 +21,10 @@ import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
  * Ionic pages and navigation.
  */
 var TransactionCatsPage = (function () {
-    function TransactionCatsPage(navCtrl, navParams, tCatsFSR) {
+    function TransactionCatsPage(navCtrl, navParams, titleService, tCatsFSR) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.titleService = titleService;
         this.tCatsFSR = tCatsFSR;
         this.transactionRootCat = this.tCatsFSR.treeRoot;
     }
@@ -29,17 +34,25 @@ var TransactionCatsPage = (function () {
     TransactionCatsPage.prototype.onNodeSelected = function ($event) {
         return Promise.reject("Not implemented yet");
     };
+    TransactionCatsPage.prototype.ionViewDidEnter = function () {
+        if (this.titleService) {
+            this.titleService.setNav(this.navCtrl);
+            this.titleService.setTitle("Cats ");
+        }
+    };
+    TransactionCatsPage = __decorate([
+        IonicPage(),
+        Component({
+            selector: 'page-transaction-cats',
+            templateUrl: 'transaction-cats.html',
+        }),
+        __param(2, Optional()),
+        __metadata("design:paramtypes", [NavController,
+            NavParams,
+            TitleServiceProvider,
+            TCatigoriesFsRepositoryProvider])
+    ], TransactionCatsPage);
     return TransactionCatsPage;
 }());
-TransactionCatsPage = __decorate([
-    IonicPage(),
-    Component({
-        selector: 'page-transaction-cats',
-        templateUrl: 'transaction-cats.html',
-    }),
-    __metadata("design:paramtypes", [NavController,
-        NavParams,
-        TCatigoriesFsRepositoryProvider])
-], TransactionCatsPage);
 export { TransactionCatsPage };
 //# sourceMappingURL=transaction-cats.js.map

@@ -1,7 +1,5 @@
 
-//import "rxjs/operator/take"
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toPromise';
+import {take} from 'rxjs/operators/take';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../../app/core/auth';
 import { Injectable } from '@angular/core';
@@ -32,7 +30,7 @@ export class UserService {
     console.log('Hello UserServiceProvider Provider');
   }
   private getCurrentUserId(){
-    return this.auth.user.filter((user=>!!user)).take(1).toPromise().then((user)=>user.uid)
+    return this.auth.user.filter((user=>!!user)).pipe(take(1)).toPromise().then((user)=>user.uid)
   }
   private editUserFcmKey(currentToken, remove?: boolean): Promise<any> {
     return this.getCurrentUserId().then((uid)=>{
@@ -42,7 +40,7 @@ export class UserService {
       let fsRef = this.afs.doc<userPartial>(fsPath);
       return fsRef
     }).then((fsRef)=>{
-      return fsRef.valueChanges().take(1).toPromise().then((userSettings) => {
+      return fsRef.valueChanges().pipe(take(1)).toPromise().then((userSettings) => {
         let fcmTokens = userSettings ? { ...(userSettings.fcmTokens) } : {}
         //let userProfile = { fcmTokens: (userSettings && userSettings.fcmTokens) || {} }
         if (remove) {

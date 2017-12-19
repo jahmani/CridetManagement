@@ -30,16 +30,16 @@ var TransCatsPickerListComponent = (function () {
     TransCatsPickerListComponent.prototype.onCancel = function () {
         return this.viewController.dismiss();
     };
+    TransCatsPickerListComponent = __decorate([
+        Component({
+            selector: 'trans-cats-picker-list',
+            templateUrl: 'trans-cats-picker-list.html'
+        }),
+        __metadata("design:paramtypes", [NavController,
+            NavParams,
+            ViewController])
+    ], TransCatsPickerListComponent);
     return TransCatsPickerListComponent;
 }());
-TransCatsPickerListComponent = __decorate([
-    Component({
-        selector: 'trans-cats-picker-list',
-        templateUrl: 'trans-cats-picker-list.html'
-    }),
-    __metadata("design:paramtypes", [NavController,
-        NavParams,
-        ViewController])
-], TransCatsPickerListComponent);
 export { TransCatsPickerListComponent };
 //# sourceMappingURL=trans-cats-picker-list.js.map
