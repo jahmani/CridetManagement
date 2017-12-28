@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import { AccountsFsRepository } from './accounts-fb-repository';
 import { StorePathConfig } from './StorePathConfig';
-import { Transaction, ExtendedData, ExtMap } from '../interfaces/data-models';
+import { Transaction, Extended, ExtMap, CatTreeNodeExtension, ExtType } from '../interfaces/data-models';
 import { Observable } from 'rxjs/Observable';
 import { TCatigoriesFsRepositoryProvider } from './t-catigories-fs-repository';
 import 'rxjs/add/observable/combineLatest';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
+import { AccountsBalanceFBRepository } from './account-balance-fb-repository';
 
 /*
   Generated class for the AccountsFBRepository provider.
@@ -23,7 +24,8 @@ export class TransactionsFsRepository extends StoreDataFsRepository<Transaction>
     afs: AngularFirestore,
     activeStoreService: ActiveStoreService,
     private accountsRep: AccountsFsRepository,
-    private tCatFsRep: TCatigoriesFsRepositoryProvider
+    private tCatFsRep: TCatigoriesFsRepositoryProvider,
+    private balanceFsRep:AccountsBalanceFBRepository
     )  {
     super(afs, activeStoreService, StorePathConfig.Transactions)
     console.log('Hello TransactionsFsRepository Provider');
@@ -36,11 +38,11 @@ export class TransactionsFsRepository extends StoreDataFsRepository<Transaction>
     return this.extendedDataMap(transactionsMap);
   }
 
-  extendedDataMap(transactionsMap:Observable<ExtMap<ExtendedData<Transaction>>>):Observable<ExtMap<ExtendedData<Transaction>>> {
+  extendedDataMap(transactionsMap:Observable<ExtMap<Extended<Transaction>>>):Observable<ExtMap<Extended<Transaction>>> {
     const extendedTranses =Observable.combineLatest(transactionsMap,this.tCatFsRep.dataMap,(transs,cats)=>{
       transs.forEach((trans)=>{
         
-        trans.ext = trans.ext || {}
+        trans.ext = trans.ext || {} as ExtType
 
         trans.ext.catigory = cats.get(trans.data.catigoryId)
       })
@@ -49,6 +51,61 @@ export class TransactionsFsRepository extends StoreDataFsRepository<Transaction>
     return extendedTranses;
   }
 
+  beforeTransactionUpdated(oldTransaction:Extended<Transaction>,newTransaction:Extended<Transaction>, newId? : string){
+    const accountId = oldTransaction ? oldTransaction.data.accountId : newTransaction.data.accountId
+    const transactionId = oldTransaction ? oldTransaction.id : newId
+    const deltaAmmount = this.computeDeltaAmmount(oldTransaction, newTransaction);
+
+    if(deltaAmmount != 0)    
+      return this.balanceFsRep.setAccountBalanceDirty(accountId,transactionId)
+    else
+    return Promise.resolve()
+  }
+  saveNew(newItem, id?:string){
+    id = id || this.getNewDocId()
+    return this.beforeTransactionUpdated(null,newItem,id).then(()=>{
+      return super.saveNew(newItem,id).then(()=>{
+        return this.afterTransactionUpdated(null,newItem)
+      })
+    })
+  }
+
+  saveOld(editedItem:Extended<Transaction>){
+    return this.getOnce(editedItem.id).then((oldItem)=>{
+      return this.beforeTransactionUpdated(oldItem,editedItem).then(()=>{
+        return super.saveOld(editedItem).then(()=>{
+          return this.afterTransactionUpdated(oldItem,editedItem)
+        })
+      })
+    })
+  }
+
+  remove(removedItem:Extended<Transaction>){
+      return this.beforeTransactionUpdated(removedItem,null).then(()=>{
+        return super.remove(removedItem).then(()=>{
+          return this.afterTransactionUpdated(removedItem,null)
+        })
+      })
+  }
+
+  afterTransactionUpdated(oldTransaction:Extended<Transaction>,newTransaction:Extended<Transaction>){
+    const accountId = oldTransaction ? oldTransaction.data.accountId : newTransaction.data.accountId
+
+    const deltaAmmount = this.computeDeltaAmmount(oldTransaction, newTransaction);
+    
+    if(deltaAmmount != 0)
+      return this.balanceFsRep.updateAccountBalanceAmmount(accountId,deltaAmmount)
+    else 
+      return Promise.resolve()
+  }
+
+
+  private computeDeltaAmmount(oldTransaction: Extended<Transaction>, newTransaction: Extended<Transaction>) {
+    const oldAmmount = oldTransaction ? oldTransaction.data.ammount * oldTransaction.data.type : 0;
+    const newAmmount = newTransaction ? newTransaction.data.ammount * newTransaction.data.type : 0;
+    const deltaAmmount = newAmmount - oldAmmount;
+    return deltaAmmount;
+  }
 }
 
 

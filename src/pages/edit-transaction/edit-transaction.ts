@@ -1,6 +1,6 @@
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Transaction, ExtendedData, TransactionCatigory, ExtMap, AccountInfo, TransactionType } from '../../interfaces/data-models';
+import { Transaction, Extended, TransactionCatigory, ExtMap, AccountInfo, TransactionType } from '../../interfaces/data-models';
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
 import { Observable } from 'rxjs/Observable';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
@@ -21,11 +21,11 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
 })
 export class EditTransactionPage {
 
-  transSnapshot: ExtendedData<Transaction>;
+  transSnapshot: Extended<Transaction>;
   accountId: string;
   account:AccountInfo
-  transCatsRoot :  Observable<ExtendedData<TransactionCatigory>>
-  transCatsMap :  Observable<ExtMap<ExtendedData<TransactionCatigory>>>
+  transCatsRoot :  Observable<Extended<TransactionCatigory>>
+  transCatsMap :  Observable<ExtMap<Extended<TransactionCatigory>>>
   constructor(public navCtrl: NavController
     , private afsr: TransactionsFsRepository
     , private accountsRep: AccountsFsRepository
@@ -35,7 +35,7 @@ export class EditTransactionPage {
     @Optional() private titleService: TitleServiceProvider) {
 
     this.transSnapshot = this.navParams.get('transSnapshot')
-    this.transCatsRoot = this.tCatsFSR.treeRoot as  Observable<ExtendedData<TransactionCatigory>>;
+    this.transCatsRoot = this.tCatsFSR.treeRoot as  Observable<Extended<TransactionCatigory>>;
     this.transCatsMap = this.tCatsFSR.dataMap
 
     this.transCatsRoot.subscribe(console.log)
@@ -44,10 +44,13 @@ export class EditTransactionPage {
       this.account =extAccount.data
     })
 
+    
   }
+  type
   ionViewDidEnter(){
     if(this.titleService)
     {
+      this.type = this.transSnapshot.data.type
       let msg = this.transSnapshot.data.type == TransactionType.Credit ? "قيد على "  : "قيد لـ "
     this.titleService.setTitle(msg + this.account.name)
     }
@@ -66,19 +69,17 @@ export class EditTransactionPage {
 
   onSave(transaction: Transaction) {
     transaction.accountId = this.accountId;
-    this.transSnapshot.data = transaction;
+
+    this.transSnapshot.data = {...transaction,
+      accountId:this.accountId,type:this.type};
 
     if (!this.transSnapshot.id) {
-      this.afsr.saveNew(this.transSnapshot).catch((err) => {
-        throw "Error saving"
-     });
+      this.afsr.saveNew(this.transSnapshot);
       this.dismiss(this.transSnapshot);
 
     }
     else {
-      this.afsr.saveOld(this.transSnapshot).catch((error) => {
-        throw "Error saving"
-      });
+      this.afsr.saveOld(this.transSnapshot)
       this.dismiss(this.transSnapshot);
 
     }

@@ -8,8 +8,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-var TabServiceProvider = (function () {
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+var TabServiceProvider = /** @class */ (function () {
     function TabServiceProvider() {
         console.log('Hello TabServiceProvider Provider');
         var defaultPage = { title: 'Accounts', component: "AccountsListPage" };

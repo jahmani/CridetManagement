@@ -10,7 +10,7 @@
     <ion-list>
       <ion-item [class.invalid]="!nameControl.valid && (nameControl.touched || submitAttempt)">
         <ion-label floating>Name</ion-label>
-        <ion-input formControlName="name" type="text" ></ion-input>
+        <ion-input #focusInput formControlName="name" type="text" ></ion-input>
       </ion-item>
       <ion-item *ngIf="nameControl.touched || submitAttempt">
         <p *ngIf="nameControl.hasError('required')" class="err">* name is rquired</p>

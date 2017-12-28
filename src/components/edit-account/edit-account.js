@@ -16,7 +16,7 @@ import { Content } from 'ionic-angular';
   See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
   for more info on Angular 2 Components.
 */
-var EditAccountComponent = (function () {
+var EditAccountComponent = /** @class */ (function () {
     function EditAccountComponent(fb) {
         this.fb = fb;
         this.update = new EventEmitter();
@@ -31,6 +31,13 @@ var EditAccountComponent = (function () {
     }
     EditAccountComponent.prototype.ngAfterViewChecked = function () {
         this.content.resize();
+    };
+    EditAccountComponent.prototype.ionViewDidEnter = function () {
+        var _this = this;
+        setTimeout(function () {
+            //Keyboard.show() // for android
+            _this.myInput.setFocus();
+        }, 1500); //a least 150ms.
     };
     EditAccountComponent.prototype.ngOnChanges = function () {
         console.log(this.account);
@@ -89,6 +96,10 @@ var EditAccountComponent = (function () {
         ViewChild(Content),
         __metadata("design:type", Content)
     ], EditAccountComponent.prototype, "content", void 0);
+    __decorate([
+        ViewChild('focusInput'),
+        __metadata("design:type", Object)
+    ], EditAccountComponent.prototype, "myInput", void 0);
     EditAccountComponent = __decorate([
         Component({
             selector: 'edit-account',

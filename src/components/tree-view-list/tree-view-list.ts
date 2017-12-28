@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ExtendedData, TransactionCatigory } from '../../interfaces/data-models';
+import { Extended, TransactionCatigory } from '../../interfaces/data-models';
 
 /**
  * Generated class for the TreeViewListComponent component.
@@ -13,10 +13,10 @@ import { ExtendedData, TransactionCatigory } from '../../interfaces/data-models'
 })
 export class TreeViewListComponent {
 
-  @Input() nodes:  ExtendedData<TransactionCatigory>[]
+  @Input() nodes:  Extended<TransactionCatigory>[]
   @Input() depth : number
-  @Output() nodeSelected : EventEmitter< ExtendedData<TransactionCatigory>> = new EventEmitter< ExtendedData<TransactionCatigory>>()
-  @Output() nodeEditClicked : EventEmitter< ExtendedData<TransactionCatigory>> = new EventEmitter< ExtendedData<TransactionCatigory>>()
+  @Output() nodeSelected : EventEmitter< Extended<TransactionCatigory>> = new EventEmitter< Extended<TransactionCatigory>>()
+  @Output() nodeEditClicked : EventEmitter< Extended<TransactionCatigory>> = new EventEmitter< Extended<TransactionCatigory>>()
 
   constructor() {
     console.log('Hello TreeViewListComponent Component');

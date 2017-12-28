@@ -1,11 +1,14 @@
 import { AngularFirestore } from 'angularfire2/firestore';
-import { AccountBalance } from './../interfaces/data-models';
-import { Observable } from 'rxjs';
-import { AccountInfo } from '../interfaces/data-models';
+import { Observable } from 'rxjs/Observable'
+import { combineLatest } from 'rxjs/operators/combineLatest'
+import { map } from 'rxjs/operators/map'
+import { AccountInfo, CatTreeNodeExtension, ExtType, Extended, AccountBalance } from '../interfaces/data-models';
 import { Injectable } from '@angular/core';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
+import { AccountsBalanceFBRepository } from './account-balance-fb-repository';
+import { DatePipe } from '@angular/common';
 
 
 /*
@@ -14,55 +17,12 @@ import { ActiveStoreService } from '../FireStoreData/activeStore';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-class  AbstarctAccountsBalanceRepository {}
-@Injectable()
-export class AccountsBalanceFBRepository extends StoreDataFsRepository<AccountBalance> implements AbstarctAccountsBalanceRepository {
-  constructor(
-    afs: AngularFirestore,
-    activeStoreService: ActiveStoreService,
-    ) {
-    super(afs,  activeStoreService,StorePathConfig.AccountsBalance)
-    //    super(af,activeStoreInfoService.ActiveStoreAccountsBalanceReference)
-    console.log('Helloooooo AccountsBalance FBRepository Provider');
-  }
-  get FormatedList(): Observable<any[]> {
-    return this.List()
-    /*
-    .map(accountsArray => {
-      return accountsArray.sort((a, b) => { return (b.lastEditedDate || 0) - (a.lastEditedDate || 0) })
-    })
-    */
-  }
 
-  getUpdateBalanceObject(accountId, deltaAmmount, transactionID) {
-    /*
-    return this.get(accountId).first().toPromise().then(accountBalance => {
-      let updatesObject = {};
-      if (!(<any>accountBalance).$exists()) {
-        accountBalance = new AccountBalance();
-        accountBalance.balance = deltaAmmount;
-        accountBalance.lastEditedTransactionId = transactionID;
-        updatesObject = this.getSaveNewObject(accountBalance, accountId);
-
-      }
-      else {
-        accountBalance.balance *= 1;
-        accountBalance.balance += 1 * deltaAmmount;
-        accountBalance.lastEditedTransactionId = transactionID;
-        updatesObject = this.getSaveOldObject(accountBalance)
-      }
-      return updatesObject;
-    })
-    */
-    throw "not implemented "
-  }
-
-}
-
-class AbstarctAccountsRepository{}
+class AbstarctAccountsRepository { }
 @Injectable()
 export class AccountsFsRepository extends StoreDataFsRepository<AccountInfo> implements AbstarctAccountsRepository {
   constructor(
+    private datePipe: DatePipe,
     afs: AngularFirestore,
     activeStoreService: ActiveStoreService,
     private accountsBalanceFBRepository: AccountsBalanceFBRepository,
@@ -71,39 +31,52 @@ export class AccountsFsRepository extends StoreDataFsRepository<AccountInfo> imp
     console.log('Hello AccountsFBRepository Provider');
   }
   get FormatedList(): Observable<any[]> {
-    return this.List()
-    /*
-    .combineLatest(this.accountsBalanceFBRepository.list, (accounts, balances) => {
-      accounts.forEach(account => {
-      //  account.$computedLastEditDate = account.lastEditedDate
-        account.$balance = 0;
-        let balanceObj = this.accountsBalanceFBRepository.getLoadedItem(account.$key);
-        if (balanceObj) {
-          account.$balance = balanceObj.balance;
-          if (balanceObj.lastEditedDate > account.$computedLastEditDate)
-            account.$computedLastEditDate = balanceObj.lastEditedDate;
-        }
-      });
-      return accounts;
-    }).map(accountsArray => {
+    return this.List().pipe(
+      /*  */
 
-      return accountsArray.sort((a, b) => { return (b.$computedLastEditDate || 0) - (a.$computedLastEditDate || 0) })
-    })
-    */
+      combineLatest(this.accountsBalanceFBRepository.dataMap, (accounts, balancesMap) => {
+        accounts.forEach(account => {
+          account.ext = account.ext || {} as ExtType
+          account.ext.$balance = 0;
+          account.ext.$computedLastEditedOn = account.data.lastEditedOn
+          let balanceObj = balancesMap.get(account.id);
+          if (balanceObj) {
+            account.ext.$balanceObj = balanceObj
+            account.ext.$balance = balanceObj.data.balance;
+            if (this.compareTimeStamp(account.ext.$computedLastEditedOn, balanceObj.data.lastEditedOn) > 0)
+              account.ext.$computedLastEditedOn = balanceObj.data.lastEditedOn
+            //   if (balanceObj.lastEditedDate > account.$computedLastEditDate)
+            //     account.$computedLastEditDate = balanceObj.lastEditedDate;
+          }
+        });
+        return accounts;
+      })).pipe(map(accountsArray => {
+        return accountsArray.sort((a, b) => {
+          return this.compareTimeStamp(a.ext.$computedLastEditedOn, b.ext.$computedLastEditedOn)
+        })
+      }))
+  }
+  private compareTimeStamp(d1, d2) {
+    let firstDate = ""
+    let secondDate = ""
+    if (d1)
+      firstDate = this.datePipe.transform(d1, "yyyy-MM-dd HH:mm:ss:SSS")
+    if (d2)
+      secondDate = this.datePipe.transform(d2, "yyyy-MM-dd HH:mm:ss:SSS")
+    return secondDate.localeCompare(firstDate)
+
   }
 
-  getUpdateBalanceObject(accountId, deltaAmmount, transactionId) {
-    let updates = this.accountsBalanceFBRepository.getUpdateBalanceObject(accountId, deltaAmmount, transactionId)
-    console.log(updates)
-    return updates;
-    /*
-    return this.get(accountId).first().toPromise().then(account => {
-      account.balance *= 1;
-      account.balance += 1 * deltaAmmount;
-      //return this.update(account);
-      return this.getSaveOldObject(account)
-    })
-    */
+  getExtended(accountId:string):Observable<Extended<AccountInfo>>{
+    const account = super.get(accountId)
+    const balance = this.accountsBalanceFBRepository.get(accountId)
+    const extended = account.pipe(combineLatest(balance,(extAccount,extBalance)=>{
+      extAccount.ext = extAccount.ext || {}
+      extAccount.ext.$balanceObj = extBalance
+      return extAccount
+    }))
+    return extended
   }
+
 
 }

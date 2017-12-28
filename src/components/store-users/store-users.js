@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
-var StoreUsersComponent = (function () {
+var StoreUsersComponent = /** @class */ (function () {
     function StoreUsersComponent() {
         console.log('Hello StoreUsersComponent Component');
         this.text = 'Hello World';

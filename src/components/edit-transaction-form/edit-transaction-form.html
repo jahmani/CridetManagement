@@ -3,24 +3,23 @@
 <ion-content padding>
   <form novalidate ng-submit="onSubmit()" [formGroup]="form">
     <ion-list>
-
       <ion-item [class.invalid]="!ammountCtrl.valid && (ammountCtrl.touched || submitAttempt)">
         <ion-label floating>Ammount</ion-label>
-        <ion-input formControlName="ammount" type="number"></ion-input>
+        <ion-input autofocus formControlName="ammount" type="number"></ion-input>
       </ion-item>
-      <ion-item *ngIf="!ammountCtrl.valid && (ammountCtrl.touched || submitAttempt)">
+      <ion-item  color="danger" *ngIf="!ammountCtrl.valid && (ammountCtrl.touched || submitAttempt)">
         <p *ngIf="ammountCtrl.hasError('required')" class="err">* ammount is rquired</p>
         <p *ngIf="ammountCtrl.hasError('max')" class="err">*too much big ammount!</p>
       </ion-item>
 
       <ion-item>
-        <ion-label floating>type</ion-label>
-        <ion-input type="number" formControlName="type"></ion-input>
+        <ion-label floating>Notice</ion-label>
+        <ion-textarea  formControlName="notice"></ion-textarea>
       </ion-item>
 
       <ion-item>
-        <ion-label floating>Date</ion-label>
-        <ion-input type="date" formControlName="date"></ion-input>
+        <ion-label floating>Date:</ion-label>
+        <ion-input type="date"  formControlName="date"></ion-input>
       </ion-item>
 
       <ion-item>

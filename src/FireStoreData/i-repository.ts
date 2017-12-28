@@ -1,8 +1,8 @@
 //import { Injectable } from '@angular/core';
 //import { Http } from '@angular/http';
 
-import {Observable} from 'rxjs'
-import { ExtendedData } from '../interfaces/data-models';
+import {Observable} from 'rxjs/Observable'
+import { Extended } from '../interfaces/data-models';
 
 /*
   Generated class for the IRepository provider.
@@ -13,22 +13,22 @@ import { ExtendedData } from '../interfaces/data-models';
 //@Injectable()
 export abstract class IRepository<T> {
 
-    List(filter?: any): Observable<ExtendedData<T>[]> {
+    List(filter?: any): Observable<Extended<T>[]> {
         throw new Error('Method not implemented.');
     }
-    get(key?: any): Observable<ExtendedData<T>> {
+    get(key?: any): Observable<Extended<T>> {
         throw new Error('Method not implemented.');
     }
-    parseBeforeSave(obj:ExtendedData<T>) {
+    parseBeforeSave(obj:Extended<T>) {
         throw new Error('Method not implemented.');
     }
-    saveNew(newItem: ExtendedData<T>) {
+    saveNew(newItem: Extended<T>) {
         throw new Error('Method not implemented.');
     }
-    saveOld(oldItem: ExtendedData<T>) {
+    saveOld(oldItem: Extended<T>) {
         throw new Error('Method not implemented.');
     }
-    remove(item: ExtendedData<T>) {
+    remove(item: Extended<T>) {
         throw new Error('Method not implemented.');
     }
     FormatedList: Observable<T[]>;

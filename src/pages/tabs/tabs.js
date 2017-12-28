@@ -14,13 +14,14 @@ import { Observable } from 'rxjs/Observable';
 import { AccountsFsRepository, TransactionsFsRepository, TCatigoriesFsRepositoryProvider, StoreUsersFsRepository } from '../../StoreData/index';
 import { TabServiceProvider } from '../../providers/tab-service/tab-service';
 import { map } from 'rxjs/Operators/map';
+import { mergeMap } from 'rxjs/Operators/mergeMap';
 /**
  * Generated class for the TabsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var TabsPage = (function () {
+var TabsPage = /** @class */ (function () {
     function TabsPage(navCtrl, navParams, titleService, tabService) {
         var _this = this;
         this.navCtrl = navCtrl;
@@ -41,12 +42,12 @@ var TabsPage = (function () {
                     _this.subNavCtrl.setRoot(page.component);
             }
         });
-        this.canGoBack = this.titleService.nav.flatMap(function (nav) {
+        this.canGoBack = this.titleService.nav.pipe(mergeMap(function (nav) {
             if (!nav)
                 return Observable.of(false);
             _this.subNavCtrl = nav;
             return nav.viewDidEnter.pipe(map(function (view) { return !!(view.index); }));
-        });
+        }));
     }
     TabsPage.prototype.ionViewDidEnter = function () {
         console.log('ionViewDidLoad TabsPage');

@@ -14,7 +14,7 @@ export interface TreeNodeDataSnapshot extends ExtendedData<TreeNode>
  
 }
 */
-var ExtMap = (function () {
+var ExtMap = /** @class */ (function () {
     function ExtMap(vals) {
         this.map = new Map(vals);
     }

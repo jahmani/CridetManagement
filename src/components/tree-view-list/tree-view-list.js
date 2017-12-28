@@ -14,7 +14,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
-var TreeViewListComponent = (function () {
+var TreeViewListComponent = /** @class */ (function () {
     function TreeViewListComponent() {
         this.nodeSelected = new EventEmitter();
         this.nodeEditClicked = new EventEmitter();

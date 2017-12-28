@@ -23,7 +23,8 @@ import { AngularFirestore } from "angularfire2/firestore";
 import { AuthService } from "../app/core/auth";
 import { conatctPaths } from "./util";
 import { StoresFsRepository } from "./stores-fs-repository";
-var UserStoresFsRepository = (function (_super) {
+import { mergeMap } from 'rxjs/Operators/mergeMap';
+var UserStoresFsRepository = /** @class */ (function (_super) {
     __extends(UserStoresFsRepository, _super);
     function UserStoresFsRepository(afs, auth, storeInfoFsRepository) {
         var _this = _super.call(this, afs, conatctPaths("users", auth.currentUser.uid, "stores")) || this;
@@ -34,9 +35,9 @@ var UserStoresFsRepository = (function (_super) {
     Object.defineProperty(UserStoresFsRepository.prototype, "FormatedList", {
         get: function () {
             var _this = this;
-            return this.List().flatMap(function (stores) {
+            return this.List().pipe(mergeMap(function (stores) {
                 return Promise.all(_this.getStores(stores));
-            });
+            }));
         },
         enumerable: true,
         configurable: true

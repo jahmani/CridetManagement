@@ -1,13 +1,15 @@
 //import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs/Observable'
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { ExtendedData, ExtMap } from '../interfaces/data-models';
+import { Extended, ExtMap, Editable } from '../interfaces/data-models';
 
 import {publishReplay} from 'rxjs/operators/publishReplay'
 import {refCount} from 'rxjs/operators/refCount'
 import {map} from 'rxjs/operators/map'
 import {first} from 'rxjs/operators/first';
 import {share} from 'rxjs/operators/share';
+import * as firebase from "firebase/app"
+import { firestore } from 'firebase';
 
 /*
   Generated class for the FBRepository provider.
@@ -15,15 +17,15 @@ import {share} from 'rxjs/operators/share';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-export class FsRepository<T>  {
+export class FsRepository<T extends Editable>  {
 
   get FormatedList(): Observable<any[]>{
     return this.dataList;
   };
-  dataList: Observable<ExtendedData<T>[]>;
+  dataList: Observable<Extended<T>[]>;
   protected collection : AngularFirestoreCollection<T>
   protected dataSnapshot
-  dataMap : Observable<ExtMap<ExtendedData<T>>>
+  dataMap : Observable<ExtMap<Extended<T>>>
 
   constructor(
     protected afs: AngularFirestore,
@@ -43,7 +45,7 @@ export class FsRepository<T>  {
     this.dataList = this.snapList(this.collection).pipe(publishReplay(1),refCount())
     this.dataMap = this.snapshotMap(this.collection).pipe(publishReplay(1),refCount())
   }
-  snapList(coll:AngularFirestoreCollection<T>):Observable<ExtendedData<T>[]>{
+  snapList(coll:AngularFirestoreCollection<T>):Observable<Extended<T>[]>{
     return coll.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as T;
@@ -53,8 +55,8 @@ export class FsRepository<T>  {
       });
     }));
   }
-  snapshotMap(coll:AngularFirestoreCollection<T>):Observable<ExtMap<ExtendedData<T>>>{
-    let _map = new ExtMap<ExtendedData<T>>()
+  snapshotMap(coll:AngularFirestoreCollection<T>):Observable<ExtMap<Extended<T>>>{
+    let _map = new ExtMap<Extended<T>>()
     
     return coll.snapshotChanges().pipe(share(),map(actions => {
       actions.forEach(a => {
@@ -68,23 +70,31 @@ export class FsRepository<T>  {
       return _map
     }));
   }
-  List(): Observable<ExtendedData<T>[]> {
+  List(): Observable<Extended<T>[]> {
     return this.dataList.share();
   }
  
-  get(key):  Observable<ExtendedData<T>> {
+  get(key):  Observable<Extended<T>> {
     return this.afs.doc<T>(this.path + `/${key}`).snapshotChanges().pipe(map(
       (action)=>{ 
         let d = action.payload.data()
         return {id:action.payload.id, data : action.payload.data() as T }}
     ));
   }
-  getOnce(key):Promise<ExtendedData<T>> {
+  
+  getOnce(key):Promise<Extended<T>> {
     return this.get(key).pipe(first()).toPromise()
   }
 
+  getOrCreate(key):Promise<Extended<T>> {
+    return this.getOnce(key).then(val=>val).catch(err=>{
+      console.log("getOrCreate err : " , err)
+      return {id:key,data:null}
+    })
+  }
 
-  public parseBeforeSave(obj: ExtendedData<T>) {
+
+  public parseBeforeSave(obj: Extended<T>) {
     return { id : obj.id, data : this.remove$Properties(obj.data)};
   }
   protected remove$Properties(obj: any) {
@@ -94,23 +104,37 @@ export class FsRepository<T>  {
     })
   }
 
-
-  saveNew(item: ExtendedData<T>, key?) {
-    this.parseBeforeSave(item);
-      return this.collection.add(item.data);
+  catch(err){
+    console.error("Error saving" ,err )
+    throw err
   }
 
-  public remove(item: ExtendedData<T>) {
+  saveNew(item: Extended<T>, key?) {
+    this.parseBeforeSave(item);
+    item.data.lastEditedOn = firebase.firestore.FieldValue.serverTimestamp() as string
+    item.data.firstCreatedOn = firebase.firestore.FieldValue.serverTimestamp() as string
+    if(key)
+      return this.collection.doc(key).set(item.data).catch(this.catch)
+    else
+      return this.collection.add(item.data).then(()=>{
+        return
+      }).catch(this.catch);
+  }
+
+  public remove(item: Extended<T>) {
     // this.parseBeforeSave(item);
-    return this.collection.doc(item.id).delete() ;
+    return this.collection.doc(item.id).delete().catch(this.catch) ;
     //return this.fbLoggableSaver.remove(item, this.urlOrRef)
   }
-  
-  saveOld(editedItem:ExtendedData< T>) {
+  public getNewDocId():string{
+    return firestore().collection(this.path).doc().id
+  }
+  saveOld(editedItem:Extended< T>) {
    // let key = editedItem.$key;
     let data = editedItem.data
+    data.lastEditedOn = firebase.firestore.FieldValue.serverTimestamp() as string
    // this.parseBeforeSave(copy);
-    return this.collection.doc(editedItem.id).update(data);
+    return this.collection.doc(editedItem.id).update(data).catch(this.catch);
   }
   
 }

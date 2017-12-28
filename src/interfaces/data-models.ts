@@ -5,68 +5,66 @@
   for more info on providers and Angular 2 DI.
 */
 
-export interface Extension{
 
-}
-export interface CatTreeNodeExtension{
-  $parent ? : ExtendedData<TreeNode>
-  $sons ?: ExtendedData<TreeNode>[]
+export interface CatTreeNodeExtension {
+  $parent?: Extended<TreeNode>
+  $sons?: Extended<TreeNode>[]
   $isExpanded?: boolean
-  catigory?:ExtendedData<TransactionCatigory>
-  
+  catigory?: Extended<TransactionCatigory>
 }
-export interface ExtendedData<T>
-{
-  id : string
-  data : T
-  ext? : CatTreeNodeExtension
+export interface AccountInfoExt {
+  $balance?: number
+  $computedLastEditedOn?: string
+  $balanceObj?: Extended<AccountBalance>
 }
-/*
-export interface TreeNodeDataSnapshot extends ExtendedData<TreeNode>
-{
-  data : TreeNode
-  $parent ? : TreeNode
-  $sons ?: TreeNode[]
-  $isExpanded: boolean
- 
+export type ExtType = CatTreeNodeExtension & AccountInfoExt & {}
+export interface Extended<T> {
+  id: string
+  data: T
+  ext?: ExtType
 }
-*/
+
 export class ExtMap<T> {
-  map : Map<string,T>
-  toArray(){
+  map: Map<string, T>
+  toArray() {
     return Array.from(this.map.values())
   }
-  get(key){
+  get(key) {
     return this.map.get(key)
   }
-  set(key:string,value:T){
-    return this.map.set(key,value)
+  set(key: string, value: T) {
+    return this.map.set(key, value)
   }
-  forEach(callbackfn: (value: T, key: string, map: Map<string, T>) => void, thisArg?: any): void{
-  return this.map.forEach(callbackfn)
+  forEach(callbackfn: (value: T, key: string, map: Map<string, T>) => void, thisArg?: any): void {
+    return this.map.forEach(callbackfn)
   }
-  constructor(vals?){
+  constructor(vals?) {
 
     this.map = new Map<string, T>(vals)
   }
 }
 
+export interface Editable {
+  firstCreatedOn: string
+  lastEditedOn: string
+  lastEditedByUserId: string
+}
+export interface Delteable {
+  isDelted: boolean
+}
 
-export interface AccountInfo {
+export interface AccountInfo extends Editable {
   name: string;
   code: string;
   mobile: string;
   city: string;
   address: string;
-  $balance: number;
-  $computedLastEditDate: number;
-  
 }
-export interface User {
+export interface User extends Editable {
   id: string
-  email:string
-  displayName:string
-  photoURL : string
+  email: string
+  displayName: string
+  photoURL: string
   name: string;
   code: string;
   mobile: string;
@@ -74,19 +72,19 @@ export interface User {
   address: string;
   role: string;
 }
-export interface StoreUser {
-  id:string
-  user:User
+export interface StoreUser extends Editable {
+  id: string
+  user: User
   dateTimeAdded: Date
-  isEnabled : true
+  isEnabled: true
   role: string;
-  canRead:boolean
-  canWrite:boolean
+  canRead: boolean
+  canWrite: boolean
 }
 
-export interface UserStore {
-  storeId:string
-  store:StoreInfo
+export interface UserStore extends Editable {
+  storeId: string
+  store: StoreInfo
 }
 
 
@@ -95,27 +93,31 @@ export enum AccountType {
   GeneralDebt = 1,
 }
 
-export interface Transaction  {
+export interface Transaction extends Editable, Delteable {
   accountId: string;
-  date: Date;
+  date: string;
   type: TransactionType;
   notice: string;
   ammount: number;
   currency: string;
   catigoryId: string;
-  $ext?:{catigory?:ExtendedData<TransactionCatigory>}
-}export interface AccountBalance {
-  balance: number;
 }
+export interface AccountBalance extends Editable {
+  balance: number
+  lastTransactionId: string
+  isDirty: boolean
+  isInvalid: boolean
+}
+
 export interface TreeNode {
-  parentId : string
-  name :string
-  
+  parentId: string
+  name: string
+
 }
-export interface TransactionCatigory extends TreeNode  {
+export interface TransactionCatigory extends TreeNode, Editable {
   type: TransactionType
-  isCredit : boolean
-  isDebt :boolean
+  isCredit: boolean
+  isDebit: boolean
 }
 
 export enum TransactionType {
@@ -123,10 +125,14 @@ export enum TransactionType {
   Debt = 1,
 }
 
+export interface StoreDoc extends Editable {
+  storeInfo: StoreInfo;
+}
+
 export interface StoreInfo {
   name: string;
   code: string;
-  }
+}
 
 export enum ItemChangeState {
   INITIALISED,
@@ -142,17 +148,9 @@ export enum ItemEditState {
 
 
 
-export interface KeyedObject {
-  $key: string;
-}
 
-export interface EditableObject extends KeyedObject {
-  lastEditedDate: number;
-  lastEditorUserId: string;
-  lastLogId : string;
-  deleted?: boolean;
-}
-export interface DataLog<T extends EditableObject> extends EditableObject {
+
+export interface DataLog<T extends Editable> extends Editable {
   path: string;
   key: string;
   data: T;

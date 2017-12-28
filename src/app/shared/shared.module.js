@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 /* our own custom components */
 import { IonicModule } from 'ionic-angular';
-var SharedModule = (function () {
+var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
     SharedModule = __decorate([

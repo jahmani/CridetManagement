@@ -20,7 +20,7 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var UserSettingsPage = (function () {
+var UserSettingsPage = /** @class */ (function () {
     function UserSettingsPage(messagingService, navCtrl, titleService) {
         this.messagingService = messagingService;
         this.navCtrl = navCtrl;

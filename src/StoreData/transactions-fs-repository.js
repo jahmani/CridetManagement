@@ -26,18 +26,20 @@ import { Observable } from 'rxjs/Observable';
 import { TCatigoriesFsRepositoryProvider } from './t-catigories-fs-repository';
 import 'rxjs/add/observable/combineLatest';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
+import { AccountsBalanceFBRepository } from './account-balance-fb-repository';
 /*
   Generated class for the AccountsFBRepository provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var TransactionsFsRepository = (function (_super) {
+var TransactionsFsRepository = /** @class */ (function (_super) {
     __extends(TransactionsFsRepository, _super);
-    function TransactionsFsRepository(afs, activeStoreService, accountsRep, tCatFsRep) {
+    function TransactionsFsRepository(afs, activeStoreService, accountsRep, tCatFsRep, balanceFsRep) {
         var _this = _super.call(this, afs, activeStoreService, StorePathConfig.Transactions) || this;
         _this.accountsRep = accountsRep;
         _this.tCatFsRep = tCatFsRep;
+        _this.balanceFsRep = balanceFsRep;
         console.log('Hello TransactionsFsRepository Provider');
         return _this;
     }
@@ -58,12 +60,52 @@ var TransactionsFsRepository = (function (_super) {
         });
         return extendedTranses;
     };
+    TransactionsFsRepository.prototype.beforeTransactionUpdated = function (oldTransaction, newTransaction, newId) {
+        var accountId = oldTransaction ? oldTransaction.data.accountId : newTransaction.data.accountId;
+        var transactionId = oldTransaction ? oldTransaction.id : newId;
+        return this.balanceFsRep.setAccountBalanceDirty(accountId, transactionId);
+    };
+    TransactionsFsRepository.prototype.saveNew = function (newItem, id) {
+        var _this = this;
+        id = id || this.getNewDocId();
+        return this.beforeTransactionUpdated(null, newItem, id).then(function () {
+            return _super.prototype.saveNew.call(_this, newItem, id).then(function () {
+                return _this.afterTransactionUpdated(null, newItem);
+            });
+        });
+    };
+    TransactionsFsRepository.prototype.saveOld = function (editedItem) {
+        var _this = this;
+        return this.getOnce(editedItem.id).then(function (oldItem) {
+            return _this.beforeTransactionUpdated(oldItem, editedItem).then(function () {
+                return _super.prototype.saveOld.call(_this, editedItem).then(function () {
+                    return _this.afterTransactionUpdated(oldItem, editedItem);
+                });
+            });
+        });
+    };
+    TransactionsFsRepository.prototype.remove = function (removedItem) {
+        var _this = this;
+        return this.beforeTransactionUpdated(removedItem, null).then(function () {
+            return _super.prototype.remove.call(_this, removedItem).then(function () {
+                return _this.afterTransactionUpdated(removedItem, null);
+            });
+        });
+    };
+    TransactionsFsRepository.prototype.afterTransactionUpdated = function (oldTransaction, newTransaction) {
+        var accountId = oldTransaction ? oldTransaction.data.accountId : newTransaction.data.accountId;
+        var oldAmmount = oldTransaction ? oldTransaction.data.ammount * oldTransaction.data.type : 0;
+        var newAmmount = newTransaction ? newTransaction.data.ammount * newTransaction.data.type : 0;
+        var deltaAmmount = newAmmount - oldAmmount;
+        return this.balanceFsRep.updateAccountBalanceAmmount(accountId, deltaAmmount);
+    };
     TransactionsFsRepository = __decorate([
         Injectable(),
         __metadata("design:paramtypes", [AngularFirestore,
             ActiveStoreService,
             AccountsFsRepository,
-            TCatigoriesFsRepositoryProvider])
+            TCatigoriesFsRepositoryProvider,
+            AccountsBalanceFBRepository])
     ], TransactionsFsRepository);
     return TransactionsFsRepository;
 }(StoreDataFsRepository));

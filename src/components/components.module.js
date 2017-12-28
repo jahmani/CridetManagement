@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { EditTransactionFormComponent } from './edit-transaction-form/edit-transaction-form';
 import { EditAccountComponent } from './edit-account/edit-account';
 import { UserProfileComponent } from './user-profile/user-profile';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from 'ionic-angular';
 import { TreeViewRowComponent } from './tree-view-row/tree-view-row';
@@ -25,7 +25,7 @@ var sharedComponents = [
     TransCatPickerComponent,
     TransCatsPickerListComponent
 ];
-var ComponentsModule = (function () {
+var ComponentsModule = /** @class */ (function () {
     function ComponentsModule() {
     }
     ComponentsModule = __decorate([
@@ -36,7 +36,8 @@ var ComponentsModule = (function () {
                 IonicModule
             ],
             entryComponents: [TransCatsPickerListComponent],
-            exports: sharedComponents.concat([StoreUsersComponent])
+            exports: sharedComponents.concat([StoreUsersComponent]),
+            providers: [DatePipe]
         })
     ], ComponentsModule);
     return ComponentsModule;

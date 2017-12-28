@@ -2,7 +2,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { Injectable } from '@angular/core';
-import { StoreInfo } from '../interfaces/data-models';
+import { StoreInfo, Editable } from '../interfaces/data-models';
 import { FsRepository } from '../FireStoreData/fs-repository';
 import { conatctPaths } from '../FireStoreData/util';
 
@@ -13,7 +13,7 @@ import { conatctPaths } from '../FireStoreData/util';
   for more info on providers and Angular 2 DI.
 */
 ///@Injectable()
-export class StoreDataFsRepository<T> extends FsRepository<T>{
+export class StoreDataFsRepository<T extends Editable> extends FsRepository<T >{
   
     constructor(
     afs:AngularFirestore,

@@ -1,32 +1,33 @@
-import {  TreeNode, ExtendedData, ExtMap } from "../interfaces/data-models"
+import {  TreeNode, Extended, ExtMap, CatTreeNodeExtension, ExtType } from "../interfaces/data-models"
 
 
- export function mapToTree(_NodeSnapshotMap:ExtMap<ExtendedData<TreeNode>>) {
-  var idToNodeMap = _NodeSnapshotMap;
-  let rootNode : ExtendedData<TreeNode>
-  let NodeSnapshotMap = _NodeSnapshotMap as ExtMap<ExtendedData<TreeNode>>
-  /*
+ export function mapToTree(NodeSnapshotMap:ExtMap<Extended<TreeNode>>) {
+  let rootNode : Extended<TreeNode>
+
+  /**/
   NodeSnapshotMap.forEach(nodeSnapshot=>{
-      idToNodeMap[nodeSnapshot.id] = nodeSnapshot
-      delete nodeSnapshot.$sons
+      nodeSnapshot.ext =  nodeSnapshot.ext || {}
+      delete nodeSnapshot.ext.$sons
+      nodeSnapshot.ext.$isExpanded = true
   })
-  */
+   
+ 
 
   NodeSnapshotMap.forEach((datum) => {
-    datum.ext = datum.ext || {}
+  //  datum.ext = datum.ext || {$isExpanded:true} as ExtType
     if (! datum.data.parentId) {
       rootNode = datum;
-      delete rootNode.ext.$sons
+  //  delete rootNode.ext.$sons
     }
-      else
-      {
-      let parentNode : ExtendedData<TreeNode> = idToNodeMap.get(datum.data.parentId);
+    else
+    {
+      let parentNode : Extended<TreeNode> = NodeSnapshotMap.get(datum.data.parentId);
       datum.ext.$parent = parentNode;
-      parentNode.ext = parentNode.ext || {}
-        if (!parentNode.ext.$sons)
-          parentNode.ext.$sons = [];
-        parentNode.ext.$sons.push(datum);
-      }
+    //  parentNode.ext = parentNode.ext || {$isExpanded:true} as ExtType
+      if (!parentNode.ext.$sons)
+        parentNode.ext.$sons = [];
+      parentNode.ext.$sons.push(datum);
+    }
   })
   console.log(rootNode);
 

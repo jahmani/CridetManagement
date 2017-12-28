@@ -20,7 +20,7 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var StoreUsersPage = (function () {
+var StoreUsersPage = /** @class */ (function () {
     function StoreUsersPage(navCtrl, titleService, storeUsersFsRepository) {
         this.navCtrl = navCtrl;
         this.titleService = titleService;

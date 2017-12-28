@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-var ListPage = (function () {
+var ListPage = /** @class */ (function () {
     function ListPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;

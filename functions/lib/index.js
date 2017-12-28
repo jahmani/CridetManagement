@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+var fixInvalidBalance_1 = require("./fixInvalidBalance");
+exports.fixInvalidBalance = fixInvalidBalance_1.fixInvalidBalance;
 admin.initializeApp(functions.config().firebase);
 // // Start writing Firebase Functions
 // // https://firebase.google.com/functions/write-firebase-functions
@@ -10,14 +12,20 @@ admin.initializeApp(functions.config().firebase);
 //  response.send("Hello from Firebase!");
 // }); 
 const path = `/versions/v4/stores/{storeId}/transactions/{transactionId}`;
+const logTransactionEdited = functions.firestore.document(path).onWrite(event => {
+    console.log("Transaction Edited: old Transaction ", event.data.previous.data(), "new Transaction : ", event.data.data());
+    return Promise.resolve();
+});
+/*
 exports.sendTransNotification = functions.firestore.document(path).onWrite(event => {
     const storeId = event.params.storeId;
     const userId = '569PS8cvuJT4aAauMC8RglrUcp72';
-    const storeUsersPath = `/versions/v4/stores/${storeId}/users/`;
-    const userPath = `/versions/v4/users/569PS8cvuJT4aAauMC8RglrUcp72`;
+    const storeUsersPath = `/versions/v4/stores/${storeId}/users/`
+    const userPath = `/versions/v4/users/569PS8cvuJT4aAauMC8RglrUcp72`
     const newTransaction = event.data.data();
+
     // Get the list of device notification tokens.
-    const getUserTokensPromise = admin.firestore().doc(userPath).get();
+    const getUserTokensPromise = admin.firestore().doc(userPath).get()
     // Notification details.
     const payload = {
         notification: {
@@ -27,56 +35,36 @@ exports.sendTransNotification = functions.firestore.document(path).onWrite(event
     };
     return getAllUsersTokens(storeUsersPath).then((tokens) => {
         // check for empty tokens array
-        return sendFcmMessages(tokens, payload);
+        return sendFcmMessages(tokens, payload)
     }).catch((err) => {
-        console.log('Error sending notification.', err);
-    });
-    /*
-    getUserTokensPromise.then((value)=>{
-        const user = value.data()
-        console.log("user : ", user)
-        if(user && user.fcmTokens){
-            const tokens =  Object.keys(user.fcmTokens);
-            console.log('tokens: ',tokens )
-            return admin.messaging().sendToDevice(tokens, payload).then((response)=>{
-                console.log("response : ", response);
-            })
-        }
-        else{
-            return Promise.resolve().then(()=>{
-                console.log('There are no notification tokens to send to.')
-                
-            })
-        }
-    }).catch((err)=>{
         console.log('Error sending notification.', err)
-        
     })
-    */
-});
-function sendFcmMessages(tokens, payload) {
+  })
+
+function sendFcmMessages(tokens: string[], payload: object) {
     if (Array.isArray(tokens) && tokens.length > 0) {
         return admin.messaging().sendToDevice(tokens, payload).then((response) => {
             console.log("send message response : ", response);
-        });
+        })
     }
-    else
-        return Promise.resolve().then(() => {
-            console.log("done! with embty tokensd array");
-        });
+    else return Promise.resolve().then(()=>{
+        console.log("done! with embty tokensd array")
+    })
 }
-function getAllUsersTokens(storeUsersPath) {
+function getAllUsersTokens(storeUsersPath: string) {
     return admin.firestore().collection(storeUsersPath).get().then((res) => {
-        const arrays = res.docs.map((doc, index) => {
-            const docData = doc.data();
+        const arrays: string[][] = res.docs.map((doc, index) => {
+            const docData = doc.data()
             if (docData && docData.fcmTokens)
-                return Object.keys(docData.fcmTokens);
+                return Object.keys(docData.fcmTokens)
             return [];
-        });
-        console.log("arrays: ", arrays);
-        const flatArray = [].concat.apply([], arrays);
-        console.log("flatArray: ", flatArray);
-        return flatArray;
-    });
+        })
+        console.log("arrays: ", arrays)
+        const flatArray: string[] = [].concat.apply([], arrays)
+        console.log("flatArray: ", flatArray)
+
+        return flatArray
+    })
 }
+  */
 //# sourceMappingURL=index.js.map

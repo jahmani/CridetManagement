@@ -1,4 +1,13 @@
 <!-- Generated template for the TransCatPickerComponent component -->
 <button type="button"  ion-button full 
-(click)="onClick()">
+(click)="expand()">
 {{buttonText}}</button>
+<expandable expandHeight="150" [expanded]="expanded">
+        <ion-content  style="border:1px" no-padding>        
+        <tree-view-list 
+        [nodes]="transCatsRoot?.ext.$sons"
+        [depth]="0"
+        (nodeSelected)="onSelectCat($event)">
+      </tree-view-list>
+    </ion-content>
+    </expandable>

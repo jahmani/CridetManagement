@@ -13,4 +13,5 @@ import { StoreDataModule } from '../../StoreData/storeData.module';
     StoreDataModule
   ],
 })
-export class TabsPageModule {}
+export class TabsPageModule {
+}

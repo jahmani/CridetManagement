@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { EditAccountPage } from './edit-account';
 import { ComponentsModule } from '../../components/components.module';
-var EditAccountPageModule = (function () {
+var EditAccountPageModule = /** @class */ (function () {
     function EditAccountPageModule() {
     }
     EditAccountPageModule = __decorate([

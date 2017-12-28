@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ExtendedData, AccountInfo } from '../../interfaces/data-models';
+import { Extended, AccountInfo } from '../../interfaces/data-models';
 import { Content } from 'ionic-angular';
 
 /*
@@ -16,14 +16,16 @@ import { Content } from 'ionic-angular';
 
 export class EditAccountComponent {
 
-  @Input() account: ExtendedData<AccountInfo>;
-  @Output() update: EventEmitter<ExtendedData<AccountInfo>> = new EventEmitter();
-  @Output() remove: EventEmitter<ExtendedData<AccountInfo>> = new EventEmitter();
-  @Output() cancel: EventEmitter<ExtendedData<AccountInfo>> = new EventEmitter();
+  @Input() account: Extended<AccountInfo>;
+  @Output() update: EventEmitter<Extended<AccountInfo>> = new EventEmitter();
+  @Output() remove: EventEmitter<Extended<AccountInfo>> = new EventEmitter();
+  @Output() cancel: EventEmitter<Extended<AccountInfo>> = new EventEmitter();
   key: string
   form: FormGroup
   submitAttempt: boolean = false
   @ViewChild(Content) content: Content;
+  @ViewChild('focusInput') myInput ;
+  
   
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group(
@@ -37,6 +39,13 @@ export class EditAccountComponent {
   }
   ngAfterViewChecked () {
     this.content.resize()
+  }
+
+  ionViewDidEnter(){
+    setTimeout(() => {
+      //Keyboard.show() // for android
+      this.myInput.setFocus();
+    },1500); //a least 150ms.
   }
 
   ngOnChanges() {
@@ -67,10 +76,10 @@ export class EditAccountComponent {
     let account = this.prepairForSave(value);
     this.update.emit(account)
   }
-  private prepairForSave(value: AccountInfo): ExtendedData<AccountInfo> {
+  private prepairForSave(value: AccountInfo): Extended<AccountInfo> {
     return { id: this.account.id, data: value }
   }
-  onSubmit({ value, valid }: { value: ExtendedData<AccountInfo>, valid: boolean }) {
+  onSubmit({ value, valid }: { value: Extended<AccountInfo>, valid: boolean }) {
     console.log(value, valid);
     this.submitAttempt = true
     if (valid)

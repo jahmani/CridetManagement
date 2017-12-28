@@ -20,7 +20,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from "@angular/core";
 import { FsRepository } from "./fs-repository";
 import { AngularFirestore } from "angularfire2/firestore";
-var UsersFsRepository = (function (_super) {
+var UsersFsRepository = /** @class */ (function (_super) {
     __extends(UsersFsRepository, _super);
     function UsersFsRepository(afs) {
         var _this = _super.call(this, afs, "users") || this;

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { AuthService } from './../../app/core/auth';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-var HomePage = (function () {
+var HomePage = /** @class */ (function () {
     function HomePage(auth, navCtrl) {
         this.auth = auth;
         this.navCtrl = navCtrl;

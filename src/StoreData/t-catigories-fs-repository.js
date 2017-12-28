@@ -32,7 +32,7 @@ import { ActiveStoreService } from '../FireStoreData/activeStore';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-var TCatigoriesFsRepositoryProvider = (function (_super) {
+var TCatigoriesFsRepositoryProvider = /** @class */ (function (_super) {
     __extends(TCatigoriesFsRepositoryProvider, _super);
     function TCatigoriesFsRepositoryProvider(afs, activeStoreService) {
         var _this = _super.call(this, afs, activeStoreService, StorePathConfig.TransactionCatigories) || this;

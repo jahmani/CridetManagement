@@ -6,11 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AccountsFsRepository, AccountsBalanceFBRepository } from './accounts-fb-repository';
+import { AccountsFsRepository } from './accounts-fb-repository';
 import { TransactionsFsRepository } from './transactions-fs-repository';
 import { TCatigoriesFsRepositoryProvider } from './t-catigories-fs-repository';
 import { StoreUsersFsRepository } from './store-users-fb-repository';
-var StoreDataModule = (function () {
+import { AccountsBalanceFBRepository } from './account-balance-fb-repository';
+var StoreDataModule = /** @class */ (function () {
     function StoreDataModule() {
     }
     StoreDataModule = __decorate([

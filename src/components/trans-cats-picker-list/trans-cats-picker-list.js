@@ -15,7 +15,7 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
-var TransCatsPickerListComponent = (function () {
+var TransCatsPickerListComponent = /** @class */ (function () {
     function TransCatsPickerListComponent(navCtrl, navParams, viewController) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;

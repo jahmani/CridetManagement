@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FsRepository } from "./fs-repository";
 import { AngularFirestore } from "angularfire2/firestore";
-import { StoreInfo, StoreUser } from "../interfaces/data-models";
+import { StoreInfo, StoreUser, StoreDoc } from "../interfaces/data-models";
 import { StorePathConfig } from "../StoreData/StorePathConfig";
 import * as firebase from "firebase/app"
 
@@ -9,7 +9,7 @@ import * as firebase from "firebase/app"
 
 
 @Injectable()
-export class StoresFsRepository extends FsRepository<{ storeInfo: StoreInfo }> {
+export class StoresFsRepository extends FsRepository<StoreDoc> {
   constructor(
     afs: AngularFirestore,
   ) {

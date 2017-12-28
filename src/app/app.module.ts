@@ -20,6 +20,7 @@ import { UserService } from '../providers/user-service/user-service';
 import { FirestoreDataModule } from '../FireStoreData/firestoreData.module';
 import { TitleServiceProvider } from '../providers/title-service/title-service';
 import { TabServiceProvider } from '../providers/tab-service/tab-service';
+import { ConnectionServiceProvider } from '../providers/connection-service/connection-service';
 
 
 @NgModule({
@@ -31,14 +32,15 @@ import { TabServiceProvider } from '../providers/tab-service/tab-service';
     
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, { autoFocusAssist: false }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     SharedModule,
     CoreModule,
     ComponentsModule,
-    FirestoreDataModule
+    FirestoreDataModule,
+    
     
   ],
   bootstrap: [IonicApp],
@@ -52,7 +54,9 @@ import { TabServiceProvider } from '../providers/tab-service/tab-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,MessagingService,
     TitleServiceProvider,
-    TabServiceProvider
+    TabServiceProvider,
+    ConnectionServiceProvider
+    
   ]
 })
 export class AppModule {}

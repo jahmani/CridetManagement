@@ -18,125 +18,77 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { AngularFirestore } from 'angularfire2/firestore';
+import { combineLatest } from 'rxjs/operators/combineLatest';
+import { map } from 'rxjs/operators/map';
 import { Injectable } from '@angular/core';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
+import { AccountsBalanceFBRepository } from './account-balance-fb-repository';
+import { DatePipe } from '@angular/common';
 /*
   Generated class for the AccountsFBRepository provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var AbstarctAccountsBalanceRepository = (function () {
-    function AbstarctAccountsBalanceRepository() {
-    }
-    return AbstarctAccountsBalanceRepository;
-}());
-var AccountsBalanceFBRepository = (function (_super) {
-    __extends(AccountsBalanceFBRepository, _super);
-    function AccountsBalanceFBRepository(afs, activeStoreService) {
-        var _this = _super.call(this, afs, activeStoreService, StorePathConfig.AccountsBalance) || this;
-        //    super(af,activeStoreInfoService.ActiveStoreAccountsBalanceReference)
-        console.log('Helloooooo AccountsBalance FBRepository Provider');
-        return _this;
-    }
-    Object.defineProperty(AccountsBalanceFBRepository.prototype, "FormatedList", {
-        get: function () {
-            return this.List();
-            /*
-            .map(accountsArray => {
-              return accountsArray.sort((a, b) => { return (b.lastEditedDate || 0) - (a.lastEditedDate || 0) })
-            })
-            */
-        },
-        enumerable: true,
-        configurable: true
-    });
-    AccountsBalanceFBRepository.prototype.getUpdateBalanceObject = function (accountId, deltaAmmount, transactionID) {
-        /*
-        return this.get(accountId).first().toPromise().then(accountBalance => {
-          let updatesObject = {};
-          if (!(<any>accountBalance).$exists()) {
-            accountBalance = new AccountBalance();
-            accountBalance.balance = deltaAmmount;
-            accountBalance.lastEditedTransactionId = transactionID;
-            updatesObject = this.getSaveNewObject(accountBalance, accountId);
-    
-          }
-          else {
-            accountBalance.balance *= 1;
-            accountBalance.balance += 1 * deltaAmmount;
-            accountBalance.lastEditedTransactionId = transactionID;
-            updatesObject = this.getSaveOldObject(accountBalance)
-          }
-          return updatesObject;
-        })
-        */
-        throw "not implemented ";
-    };
-    AccountsBalanceFBRepository = __decorate([
-        Injectable(),
-        __metadata("design:paramtypes", [AngularFirestore,
-            ActiveStoreService])
-    ], AccountsBalanceFBRepository);
-    return AccountsBalanceFBRepository;
-}(StoreDataFsRepository));
-export { AccountsBalanceFBRepository };
-var AbstarctAccountsRepository = (function () {
+var AbstarctAccountsRepository = /** @class */ (function () {
     function AbstarctAccountsRepository() {
     }
     return AbstarctAccountsRepository;
 }());
-var AccountsFsRepository = (function (_super) {
+var AccountsFsRepository = /** @class */ (function (_super) {
     __extends(AccountsFsRepository, _super);
-    function AccountsFsRepository(afs, activeStoreService, accountsBalanceFBRepository) {
+    function AccountsFsRepository(datePipe, afs, activeStoreService, accountsBalanceFBRepository) {
         var _this = _super.call(this, afs, activeStoreService, StorePathConfig.AccountsInfo) || this;
+        _this.datePipe = datePipe;
         _this.accountsBalanceFBRepository = accountsBalanceFBRepository;
         console.log('Hello AccountsFBRepository Provider');
         return _this;
     }
     Object.defineProperty(AccountsFsRepository.prototype, "FormatedList", {
         get: function () {
-            return this.List();
-            /*
-            .combineLatest(this.accountsBalanceFBRepository.list, (accounts, balances) => {
-              accounts.forEach(account => {
-              //  account.$computedLastEditDate = account.lastEditedDate
-                account.$balance = 0;
-                let balanceObj = this.accountsBalanceFBRepository.getLoadedItem(account.$key);
-                if (balanceObj) {
-                  account.$balance = balanceObj.balance;
-                  if (balanceObj.lastEditedDate > account.$computedLastEditDate)
-                    account.$computedLastEditDate = balanceObj.lastEditedDate;
-                }
-              });
-              return accounts;
-            }).map(accountsArray => {
-        
-              return accountsArray.sort((a, b) => { return (b.$computedLastEditDate || 0) - (a.$computedLastEditDate || 0) })
-            })
-            */
+            var _this = this;
+            return this.List().pipe(
+            /*  */
+            combineLatest(this.accountsBalanceFBRepository.dataMap, function (accounts, balancesMap) {
+                accounts.forEach(function (account) {
+                    account.ext = account.ext || {};
+                    account.ext.$balance = 0;
+                    account.ext.$computedLastEditedOn = account.data.lastEditedOn;
+                    var balanceObj = balancesMap.get(account.id);
+                    if (balanceObj) {
+                        account.ext.$balanceObj = balanceObj;
+                        account.ext.$balance = balanceObj.data.balance;
+                        if (_this.compareTimeStamp(account.ext.$computedLastEditedOn, balanceObj.data.lastEditedOn) > 0)
+                            account.ext.$computedLastEditedOn = balanceObj.data.lastEditedOn;
+                        //   if (balanceObj.lastEditedDate > account.$computedLastEditDate)
+                        //     account.$computedLastEditDate = balanceObj.lastEditedDate;
+                    }
+                });
+                return accounts;
+            })).pipe(map(function (accountsArray) {
+                return accountsArray.sort(function (a, b) {
+                    return _this.compareTimeStamp(a.ext.$computedLastEditedOn, b.ext.$computedLastEditedOn);
+                });
+            }));
         },
         enumerable: true,
         configurable: true
     });
-    AccountsFsRepository.prototype.getUpdateBalanceObject = function (accountId, deltaAmmount, transactionId) {
-        var updates = this.accountsBalanceFBRepository.getUpdateBalanceObject(accountId, deltaAmmount, transactionId);
-        console.log(updates);
-        return updates;
-        /*
-        return this.get(accountId).first().toPromise().then(account => {
-          account.balance *= 1;
-          account.balance += 1 * deltaAmmount;
-          //return this.update(account);
-          return this.getSaveOldObject(account)
-        })
-        */
+    AccountsFsRepository.prototype.compareTimeStamp = function (d1, d2) {
+        var firstDate = "";
+        var secondDate = "";
+        if (d1)
+            firstDate = this.datePipe.transform(d1, "yyyy-MM-dd HH:mm:ss:SSS");
+        if (d2)
+            secondDate = this.datePipe.transform(d2, "yyyy-MM-dd HH:mm:ss:SSS");
+        return secondDate.localeCompare(firstDate);
     };
     AccountsFsRepository = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [AngularFirestore,
+        __metadata("design:paramtypes", [DatePipe,
+            AngularFirestore,
             ActiveStoreService,
             AccountsBalanceFBRepository])
     ], AccountsFsRepository);

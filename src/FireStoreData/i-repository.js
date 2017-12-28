@@ -7,7 +7,7 @@
   for more info on providers and Angular 2 DI.
 */
 //@Injectable()
-var IRepository = (function () {
+var IRepository = /** @class */ (function () {
     function IRepository() {
     }
     IRepository.prototype.List = function (filter) {

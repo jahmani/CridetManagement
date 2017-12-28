@@ -23,13 +23,14 @@ import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import { UsersFsRepository } from '../FireStoreData/users-fs-repository';
+import { mergeMap } from 'rxjs/Operators/mergeMap';
 /*
   Generated class for the AccountsFBRepository provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var StoreUsersFsRepository = (function (_super) {
+var StoreUsersFsRepository = /** @class */ (function (_super) {
     __extends(StoreUsersFsRepository, _super);
     function StoreUsersFsRepository(afs, activeStoreService, usersFsRepository) {
         var _this = _super.call(this, afs, activeStoreService, StorePathConfig.UsersInfo) || this;
@@ -40,9 +41,9 @@ var StoreUsersFsRepository = (function (_super) {
     Object.defineProperty(StoreUsersFsRepository.prototype, "FormatedList", {
         get: function () {
             var _this = this;
-            return this.List().flatMap(function (users) {
+            return this.List().pipe(mergeMap(function (users) {
                 return Promise.all(_this.getUsers(users));
-            });
+            }));
         },
         enumerable: true,
         configurable: true

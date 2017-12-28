@@ -15,24 +15,44 @@
 -->
 <ion-content padding>
   <ion-list>
-      <ion-item-sliding *ngFor="let account of accounts|async">
-      <ion-item text-wrap   (click)='showAccountTransactions(account)'>
+    <ion-item *ngIf="totalBalanceObj|async as _totalBalanceObj">
+      Total Balances :
+      <h2 [style.color]='_totalBalanceObj.isDirty ? "red" :""' item-right>{{_totalBalanceObj.balance}}
+        <span *ngIf="_totalBalanceObj.isDirty"> !</span>
+      </h2>
+    </ion-item>
+    <ion-item-sliding *ngFor="let account of filteredAccounts |async">
+      <ion-item text-wrap>
         <ion-icon name="person" item-left></ion-icon>
-        {{account.data.name}}
+        <span (click)='showAccountTransactions(account)'>{{account.data.name}}</span>
         <ion-note>/{{account.data.city}}</ion-note>
-        <h2 item-right>{{account.data?.$balance}}</h2>
+        <h2 (click)="invalidateBalance(account)" [style.color]='account.ext.$balanceObj?.data.isDirty ? "red" :""' item-right>{{account.ext?.$balance}}
+          <span *ngIf="account.ext.$balanceObj?.data.isDirty"> ! </span>
+        </h2>
       </ion-item>
       <ion-item-options>
-        <button  (click)="presentEditAccountModal(account)" ion-button primary >
+        <button (click)="presentEditAccountModal(account)" ion-button primary>
           <ion-icon name="text"></ion-icon>
           Edit
         </button>
-        <button  (click)="onDelete(account)" ion-button primary >
+        <button (click)="onDelete(account)" ion-button primary>
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>
-          </ion-item-options>
+      </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <button ion-button (click)="presentNewAccountModal()">new</button>
- </ion-content>
+</ion-content>
+<ion-footer>
+  <ion-navbar>
+    <ion-buttons start>
+      <button (click)="presentNewAccountModal()" ion-button icon-only color="royal">
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-searchbar aria-label="search" [showCancelButton]="true" [formControl]="searchControl"></ion-searchbar>
+  </ion-navbar>
+</ion-footer>

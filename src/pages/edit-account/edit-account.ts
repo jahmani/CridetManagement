@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Content } from 'ionic-angular';
-import { AccountInfo, ExtendedData } from '../../interfaces/data-models';
+import { AccountInfo, Extended } from '../../interfaces/data-models';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { Observable } from 'rxjs/Observable';
 
@@ -18,7 +18,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class EditAccountPage {
 
-  accSnapshot: ExtendedData<AccountInfo>;
+  accSnapshot: Extended<AccountInfo>;
   accountId: string;
   constructor(public navCtrl: NavController
     , private afsr: AccountsFsRepository
@@ -40,18 +40,14 @@ export class EditAccountPage {
   onCancel() {
     return this.dismiss(null);
   }
-  onSave(accSnapshot: ExtendedData<AccountInfo>) {
+  onSave(accSnapshot: Extended<AccountInfo>) {
     if (!this.accountId) {
-      this.afsr.saveNew(accSnapshot).catch((err) => {
-        throw "Error saving"
-     });
+      this.afsr.saveNew(accSnapshot)
       this.dismiss(accSnapshot);
 
     }
     else {
-      this.afsr.saveOld(accSnapshot).catch((error) => {
-        throw "Error saving"
-      });
+      this.afsr.saveOld(accSnapshot)
       this.dismiss(accSnapshot);
 
     }

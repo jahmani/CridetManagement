@@ -15,7 +15,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-var TitleServiceProvider = (function () {
+var TitleServiceProvider = /** @class */ (function () {
     function TitleServiceProvider() {
         console.log('Hello TitleServiceProvider Provider');
         this.titleSubject = new BehaviorSubject("title");

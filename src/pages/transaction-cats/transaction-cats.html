@@ -15,10 +15,13 @@
 </ion-header>
 -->
 
-<ion-content no-padding> 
+<ion-content padding> 
   <tree-view-list 
   [nodes]="(transactionRootCat | async)?.ext.$sons"
   [depth]="0"
   (nodeSelected)="onNodeSelected($event)">
 </tree-view-list>
+<ion-fab right bottom >
+  <button (click)="onNewTransCat()" ion-fab ><ion-icon name="add"></ion-icon></button>
+</ion-fab>
 </ion-content>

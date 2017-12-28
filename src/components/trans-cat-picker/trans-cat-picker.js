@@ -18,7 +18,7 @@ import { ExtMap } from '../../interfaces/data-models';
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
-var TransCatPickerComponent = (function () {
+var TransCatPickerComponent = /** @class */ (function () {
     // @Output() catigoryChange = new EventEmitter<TreeNodeDataSnapshot>();
     function TransCatPickerComponent(modalController) {
         this.modalController = modalController;

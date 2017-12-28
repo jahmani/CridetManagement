@@ -2,7 +2,7 @@ import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repository';
 import { Observable } from 'rxjs/Observable';
-import { ExtendedData, User, StoreUser } from '../../interfaces/data-models';
+import { Extended, User, StoreUser } from '../../interfaces/data-models';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 
 /**
@@ -18,7 +18,7 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
   templateUrl: 'store-users.html',
 })
 export class StoreUsersPage {
-  storeUsers: Observable<ExtendedData<StoreUser>[]>
+  storeUsers: Observable<Extended<StoreUser>[]>
   constructor(public navCtrl: NavController
     ,@Optional() private titleService: TitleServiceProvider
     ,public storeUsersFsRepository: StoreUsersFsRepository) {

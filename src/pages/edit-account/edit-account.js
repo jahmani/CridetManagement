@@ -16,7 +16,7 @@ import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var EditAccountPage = (function () {
+var EditAccountPage = /** @class */ (function () {
     function EditAccountPage(navCtrl, afsr, viewController, navParams) {
         this.navCtrl = navCtrl;
         this.afsr = afsr;
@@ -38,15 +38,11 @@ var EditAccountPage = (function () {
     };
     EditAccountPage.prototype.onSave = function (accSnapshot) {
         if (!this.accountId) {
-            this.afsr.saveNew(accSnapshot).catch(function (err) {
-                throw "Error saving";
-            });
+            this.afsr.saveNew(accSnapshot);
             this.dismiss(accSnapshot);
         }
         else {
-            this.afsr.saveOld(accSnapshot).catch(function (error) {
-                throw "Error saving";
-            });
+            this.afsr.saveOld(accSnapshot);
             this.dismiss(accSnapshot);
         }
     };

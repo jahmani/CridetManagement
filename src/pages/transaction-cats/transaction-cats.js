@@ -20,7 +20,7 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var TransactionCatsPage = (function () {
+var TransactionCatsPage = /** @class */ (function () {
     function TransactionCatsPage(navCtrl, navParams, titleService, tCatsFSR) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;

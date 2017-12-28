@@ -16,7 +16,7 @@ import { UserService } from '../user-service/user-service';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-var MessagingService = (function () {
+var MessagingService = /** @class */ (function () {
     function MessagingService(userService) {
         this.userService = userService;
         this.unsubscribeOnTokenRefresh = function () { };

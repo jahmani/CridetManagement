@@ -11,7 +11,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { Component, Optional } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
 import { TCatigoriesFsRepositoryProvider, AccountsFsRepository } from '../../StoreData/index';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
@@ -22,11 +22,12 @@ import { map } from 'rxjs/Operators/map';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var AccountTransactionsPage = (function () {
-    function AccountTransactionsPage(navCtrl, navParams, transactionsRep, accountsRep, modalController, titleService, tCatigoriesFsRepositoryProvider) {
+var AccountTransactionsPage = /** @class */ (function () {
+    function AccountTransactionsPage(navCtrl, navParams, alertController, transactionsRep, accountsRep, modalController, titleService, tCatigoriesFsRepositoryProvider) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.alertController = alertController;
         this.transactionsRep = transactionsRep;
         this.accountsRep = accountsRep;
         this.modalController = modalController;
@@ -61,11 +62,28 @@ var AccountTransactionsPage = (function () {
             }
         });
     };
+    AccountTransactionsPage.prototype.onDelete = function (transSnapshot) {
+        var _this = this;
+        var alert = this.alertController.create({
+            message: "Are u sure. deleting " + transSnapshot.data.ammount + " Transaction",
+            title: "Deleting Transaction",
+            buttons: [{
+                    text: "Ok",
+                    handler: function () { _this.transactionsRep.remove(transSnapshot); }
+                },
+                {
+                    text: "Cancel"
+                }]
+        });
+        alert.present();
+    };
     AccountTransactionsPage.prototype.presentNewTransactionModal = function (type) {
+        var date = new Date().toISOString();
+        //    date = UTCToLocal(date)
         var newTransaction = {
             type: type,
             accountId: this.accountId,
-            date: new Date(Date.now())
+            date: date
         };
         return this.presentEditTransactionModal({ id: null, data: newTransaction });
     };
@@ -75,9 +93,10 @@ var AccountTransactionsPage = (function () {
             selector: 'page-account-transactions',
             templateUrl: 'account-transactions.html',
         }),
-        __param(5, Optional()),
+        __param(6, Optional()),
         __metadata("design:paramtypes", [NavController,
             NavParams,
+            AlertController,
             TransactionsFsRepository,
             AccountsFsRepository,
             ModalController,

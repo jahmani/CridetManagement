@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AccountsListPage } from './accounts-list';
-var AccountsListPageModule = (function () {
+var AccountsListPageModule = /** @class */ (function () {
     function AccountsListPageModule() {
     }
     AccountsListPageModule = __decorate([

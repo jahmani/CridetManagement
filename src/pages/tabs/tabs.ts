@@ -3,10 +3,12 @@ import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { Observable } from 'rxjs/Observable';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
-import { AccountsFsRepository, TransactionsFsRepository, TCatigoriesFsRepositoryProvider, StoreUsersFsRepository } from '../../StoreData/index';
+import { AccountsFsRepository, TransactionsFsRepository, TCatigoriesFsRepositoryProvider, StoreUsersFsRepository, AccountsBalanceFBRepository } from '../../StoreData/index';
 import { TabServiceProvider } from '../../providers/tab-service/tab-service';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 import {map} from 'rxjs/Operators/map'
+import {mergeMap} from 'rxjs/Operators/mergeMap'
+import { ConnectionServiceProvider } from '../../providers/connection-service/connection-service';
 
 /**
  * Generated class for the TabsPage page.
@@ -22,8 +24,10 @@ import {map} from 'rxjs/Operators/map'
   templateUrl: 'tabs.html',
   providers: [TitleServiceProvider
     , AccountsFsRepository, TransactionsFsRepository
-    , TCatigoriesFsRepositoryProvider, StoreUsersFsRepository]
+    , TCatigoriesFsRepositoryProvider, StoreUsersFsRepository
+    , AccountsBalanceFBRepository]
 })
+
 
 export class TabsPage {
   @ViewChild(Tabs) tabs: Tabs
@@ -32,12 +36,17 @@ export class TabsPage {
   canGoBack: Observable<boolean> = Observable.of(false)
   private tabServiceSub: Subscription
   tabRoot = "AccountsListPage"
+  isConnected
+ 
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private titleService: TitleServiceProvider,
-    private tabService: TabServiceProvider) {
+    private tabService: TabServiceProvider,
+    connectionService : ConnectionServiceProvider) {
+      this.isConnected = connectionService.fbConnectionStatus
+      
     let paramTabRoot = this.navParams.get("component")
     if (this.subNavCtrl)
       this.tabService.setTab(this.navParams.data)
@@ -51,13 +60,15 @@ export class TabsPage {
       }
     })
 
-    this.canGoBack = this.titleService.nav.flatMap((nav) => {
+    this.canGoBack = this.titleService.nav.pipe(mergeMap((nav) => {
       if (!nav)
         return Observable.of(false)
       this.subNavCtrl = nav
 
       return nav.viewDidEnter.pipe(map((view: ViewController) => !!(view.index)))
     })
+
+  )
 
 
   }

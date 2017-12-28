@@ -1,0 +1,58 @@
+<!--
+  Generated template for the EditTransactionCatPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>EditTransactionCat</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form novalidate ng-submit="onSubmit()" [formGroup]="form">
+    <ion-list>
+      <ion-item [class.invalid]="!nameCtrl.valid && (nameCtrl.touched || submitAttempt)">
+        <ion-label floating>Name</ion-label>
+        <ion-input autofocus formControlName="name" type="text"></ion-input>
+      </ion-item>
+      <ion-item  color="danger" *ngIf="!nameCtrl.valid && (nameCtrl.touched || submitAttempt)">
+        <p *ngIf="nameCtrl.hasError('required')" class="err">* ammount is rquired</p>
+        <p *ngIf="nameCtrl.hasError('max')" class="err">*too much big ammount!</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>is Credit</ion-label>
+        <ion-checkbox formControlName="isCredit" checked="true"></ion-checkbox>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label>is Debit</ion-label>
+        <ion-checkbox formControlName="isDebit" checked="true"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <trans-cat-picker
+        [transCatsRoot]="transCatsRoot$ |async"
+        [transCatsMap] = "transCatsMap$ |async"
+        formControlName="parentId">
+      </trans-cat-picker>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button type="button" ion-button full (click)="onCancel()" color="light">cancel</button>
+      </ion-col>
+      <ion-col>
+        <button type="submit" ion-button full (click)="onSubmit(form)" color="primary"> save</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

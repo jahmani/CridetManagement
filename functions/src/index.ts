@@ -1,17 +1,24 @@
 import * as functions from 'firebase-functions';
 import * as admin from "firebase-admin";
+export {fixInvalidBalance} from './fixInvalidBalance'
 
 
 admin.initializeApp(functions.config().firebase)
-
 // // Start writing Firebase Functions
 // // https://firebase.google.com/functions/write-firebase-functions
 //
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // }); 
-
 const path = `/versions/v4/stores/{storeId}/transactions/{transactionId}`
+
+const logTransactionEdited = functions.firestore.document(path).onWrite(event => {
+    console.log("Transaction Edited: old Transaction ",event.data.previous.data(),
+    "new Transaction : ",event.data.data())
+    return Promise.resolve()
+})
+
+/*
 exports.sendTransNotification = functions.firestore.document(path).onWrite(event => {
     const storeId = event.params.storeId;
     const userId = '569PS8cvuJT4aAauMC8RglrUcp72';
@@ -34,29 +41,8 @@ exports.sendTransNotification = functions.firestore.document(path).onWrite(event
     }).catch((err) => {
         console.log('Error sending notification.', err)
     })
-    /*
-    getUserTokensPromise.then((value)=>{
-        const user = value.data()
-        console.log("user : ", user)
-        if(user && user.fcmTokens){
-            const tokens =  Object.keys(user.fcmTokens);
-            console.log('tokens: ',tokens )
-            return admin.messaging().sendToDevice(tokens, payload).then((response)=>{
-                console.log("response : ", response);
-            })
-        }
-        else{
-            return Promise.resolve().then(()=>{
-                console.log('There are no notification tokens to send to.')    
-                
-            })
-        }
-    }).catch((err)=>{
-        console.log('Error sending notification.', err)    
-        
-    })
-    */
-})
+  })
+
 function sendFcmMessages(tokens: string[], payload: object) {
     if (Array.isArray(tokens) && tokens.length > 0) {
         return admin.messaging().sendToDevice(tokens, payload).then((response) => {
@@ -82,4 +68,4 @@ function getAllUsersTokens(storeUsersPath: string) {
         return flatArray
     })
 }
-
+  */

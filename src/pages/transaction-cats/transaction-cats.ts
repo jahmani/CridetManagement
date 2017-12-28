@@ -1,7 +1,7 @@
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
-import { ExtendedData, TransactionCatigory } from '../../interfaces/data-models';
+import { Extended, TransactionCatigory } from '../../interfaces/data-models';
 import { Observable } from 'rxjs/Observable';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 
@@ -19,8 +19,8 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
 })
 export class TransactionCatsPage {
 
-  transactionCats : Observable<ExtendedData<TransactionCatigory>[]>    
-  transactionRootCat :  Observable<ExtendedData<TransactionCatigory>>
+  transactionCats : Observable<Extended<TransactionCatigory>[]>    
+  transactionRootCat :  Observable<Extended<TransactionCatigory>>
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams
@@ -33,8 +33,11 @@ export class TransactionCatsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransactionCatsPage');
   }
+  onNewTransCat(){
+    this.navCtrl.push("EditTransactionCatPage")
+  }
   onNodeSelected($event){
-    return Promise.reject("Not implemented yet")
+    this.navCtrl.push("EditTransactionCatPage",{transactionCatId:$event.id})
   }
   ionViewDidEnter() {
       if (this.titleService){

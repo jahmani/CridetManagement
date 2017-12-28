@@ -13,13 +13,14 @@ import { StoresFsRepository } from '../../FireStoreData/stores-fs-repository';
 import { AuthService } from '../../app/core/index';
 import { ActiveStoreService } from '../../FireStoreData/activeStore';
 import { NavController, IonicPage } from 'ionic-angular';
+import { take } from 'rxjs/operators/take';
 /**
  * Generated class for the UserStoresPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var UserStoresPage = (function () {
+var UserStoresPage = /** @class */ (function () {
     function UserStoresPage(navCtrl, auth, userStoresFsRepository, storesFsRepository, activeStoreServise) {
         this.navCtrl = navCtrl;
         this.auth = auth;
@@ -30,7 +31,7 @@ var UserStoresPage = (function () {
     }
     UserStoresPage.prototype.createNewStore = function () {
         var _this = this;
-        return this.auth.user.take(1).subscribe(function (user) {
+        return this.auth.user.pipe(take(1)).subscribe(function (user) {
             return _this.storesFsRepository.createNewStore(user.uid);
         });
     };

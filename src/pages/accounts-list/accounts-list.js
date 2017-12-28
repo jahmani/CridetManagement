@@ -12,24 +12,55 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, ModalController, AlertController } from 'ionic-angular';
+import { debounceTime } from 'rxjs/operators/debounceTime';
+import { map } from 'rxjs/operators/map';
+import { startWith } from 'rxjs/operators/startWith';
+import { combineLatest } from "rxjs/observable/combineLatest";
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
+import { FormControl } from '@angular/forms';
 /**
  * Generated class for the AccountsListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var AccountsListPage = (function () {
+var AccountsListPage = /** @class */ (function () {
     function AccountsListPage(navCtrl, afsr, modalController, alertController, titleService) {
         this.navCtrl = navCtrl;
         this.afsr = afsr;
         this.modalController = modalController;
         this.alertController = alertController;
         this.titleService = titleService;
-        this.accounts = this.afsr.List();
+        this.accounts = this.afsr.FormatedList;
+        this.searchControl = new FormControl();
         // this.accounts.subscribe(console.log)
     }
+    AccountsListPage.prototype.ionViewDidLoad = function () {
+        //searchControl.valueChanges will not emit values untill the user make input
+        //combineLatest will not emit values untill both ovseravables emit values
+        //
+        var initializedValueChanges = this.searchControl.valueChanges.pipe(debounceTime(700)).pipe(startWith(null));
+        /*
+        merged.subscribe(searcTerm => {
+          console.log("merge Eimit", searcTerm)
+        })
+        */
+        this.filteredAccounts = combineLatest(initializedValueChanges, this.accounts, function (searcTerm, extAccounts) {
+            if (!searcTerm || !searcTerm.length)
+                return extAccounts;
+            return extAccounts.filter(function (extAccount) {
+                return extAccount.data.name.includes(searcTerm)
+                    || extAccount.data.city.includes(searcTerm);
+            });
+        });
+        this.totalBalances = this.filteredAccounts.pipe(map(function (extAccounts) {
+            return extAccounts.reduce(function (prev, curr) {
+                prev.ext.$balance += curr.ext.$balance ? curr.ext.$balance : 0;
+                return prev;
+            }, { ext: { $balance: 0 } }).ext.$balance;
+        }));
+    };
     AccountsListPage.prototype.showAccountTransactions = function (accSnapshot) {
         this.navCtrl.push("AccountTransactionsPage", { accountId: accSnapshot.id });
     };

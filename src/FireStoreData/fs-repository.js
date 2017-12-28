@@ -4,13 +4,15 @@ import { refCount } from 'rxjs/operators/refCount';
 import { map } from 'rxjs/operators/map';
 import { first } from 'rxjs/operators/first';
 import { share } from 'rxjs/operators/share';
+import * as firebase from "firebase/app";
+import { firestore } from 'firebase';
 /*
   Generated class for the FBRepository provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var FsRepository = (function () {
+var FsRepository = /** @class */ (function () {
     function FsRepository(afs, path) {
         this.afs = afs;
         this.path = path;
@@ -70,6 +72,12 @@ var FsRepository = (function () {
     FsRepository.prototype.getOnce = function (key) {
         return this.get(key).pipe(first()).toPromise();
     };
+    FsRepository.prototype.getOrCreate = function (key) {
+        return this.getOnce(key).then(function (val) { return val; }).catch(function (err) {
+            console.log("getOrCreate err : ", err);
+            return { id: key, data: null };
+        });
+    };
     FsRepository.prototype.parseBeforeSave = function (obj) {
         return { id: obj.id, data: this.remove$Properties(obj.data) };
     };
@@ -79,20 +87,35 @@ var FsRepository = (function () {
                 delete obj[key];
         });
     };
+    FsRepository.prototype.catch = function (err) {
+        console.error("Error saving", err);
+        throw err;
+    };
     FsRepository.prototype.saveNew = function (item, key) {
         this.parseBeforeSave(item);
-        return this.collection.add(item.data);
+        item.data.lastEditedOn = firebase.firestore.FieldValue.serverTimestamp();
+        item.data.firstCreatedOn = firebase.firestore.FieldValue.serverTimestamp();
+        if (key)
+            return this.collection.doc(key).set(item.data).catch(this.catch);
+        else
+            return this.collection.add(item.data).then(function () {
+                return;
+            }).catch(this.catch);
     };
     FsRepository.prototype.remove = function (item) {
         // this.parseBeforeSave(item);
-        return this.collection.doc(item.id).delete();
+        return this.collection.doc(item.id).delete().catch(this.catch);
         //return this.fbLoggableSaver.remove(item, this.urlOrRef)
+    };
+    FsRepository.prototype.getNewDocId = function () {
+        return firestore().collection(this.path).doc().id;
     };
     FsRepository.prototype.saveOld = function (editedItem) {
         // let key = editedItem.$key;
         var data = editedItem.data;
+        data.lastEditedOn = firebase.firestore.FieldValue.serverTimestamp();
         // this.parseBeforeSave(copy);
-        return this.collection.doc(editedItem.id).update(data);
+        return this.collection.doc(editedItem.id).update(data).catch(this.catch);
     };
     return FsRepository;
 }());

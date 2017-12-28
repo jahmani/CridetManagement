@@ -10,7 +10,7 @@ import { StoresFsRepository } from './stores-fs-repository';
 import { UsersFsRepository } from './users-fs-repository';
 import { UserStoresFsRepository } from './user-stores-fs-repository';
 import { ActiveStoreService } from './activeStore';
-var FirestoreDataModule = (function () {
+var FirestoreDataModule = /** @class */ (function () {
     function FirestoreDataModule() {
     }
     FirestoreDataModule = __decorate([

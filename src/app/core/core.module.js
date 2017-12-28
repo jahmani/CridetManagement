@@ -8,7 +8,7 @@ import { NgModule } from '@angular/core';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AuthService } from './auth';
-var CoreModule = (function () {
+var CoreModule = /** @class */ (function () {
     function CoreModule() {
     }
     CoreModule = __decorate([

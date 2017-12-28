@@ -13,7 +13,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators/switchMap';
-var AuthService = (function () {
+var AuthService = /** @class */ (function () {
     function AuthService(afAuth, afs) {
         var _this = this;
         this.afAuth = afAuth;

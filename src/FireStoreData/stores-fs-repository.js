@@ -22,7 +22,7 @@ import { FsRepository } from "./fs-repository";
 import { AngularFirestore } from "angularfire2/firestore";
 import { StorePathConfig } from "../StoreData/StorePathConfig";
 import * as firebase from "firebase/app";
-var StoresFsRepository = (function (_super) {
+var StoresFsRepository = /** @class */ (function (_super) {
     __extends(StoresFsRepository, _super);
     function StoresFsRepository(afs) {
         var _this = _super.call(this, afs, StorePathConfig.basePath) || this;

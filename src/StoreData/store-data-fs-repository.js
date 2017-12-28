@@ -18,7 +18,7 @@ import { conatctPaths } from '../FireStoreData/util';
   for more info on providers and Angular 2 DI.
 */
 ///@Injectable()
-var StoreDataFsRepository = (function (_super) {
+var StoreDataFsRepository = /** @class */ (function (_super) {
     __extends(StoreDataFsRepository, _super);
     function StoreDataFsRepository(afs, ass, dataSubPath) {
         var _this = _super.call(this, afs, conatctPaths(StorePathConfig.basePath, ass.activeStoreKey, dataSubPath)) || this;

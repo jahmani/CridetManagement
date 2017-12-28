@@ -20,7 +20,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../../app/core/auth';
 import { Injectable } from '@angular/core';
 import { ActiveStoreService } from '../../FireStoreData/activeStore';
-var UserService = (function () {
+var UserService = /** @class */ (function () {
     function UserService(afs, auth, activeStore) {
         this.afs = afs;
         this.auth = auth;

@@ -11,17 +11,17 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { TabServiceProvider } from '../providers/tab-service/tab-service';
-var MyApp = (function () {
+var MyApp = /** @class */ (function () {
     function MyApp(tabService) {
         this.tabService = tabService;
         this.rootPage = "TabsPage";
         // used for an example of ngFor and navigation
         this.storePages = [
-            { title: 'StoreUsersPage', component: "StoreUsersPage" },
-            { title: 'Home', component: HomePage },
-            { title: 'Accounts', component: "AccountsListPage" },
-            { title: "Cats", component: "TransactionCatsPage" },
-            { title: "UserSettingsPage", component: "UserSettingsPage" },
+            { title: 'StoreUsersPage', component: "StoreUsersPage", icon: "people" },
+            { title: 'Home', component: HomePage, icon: "home" },
+            { title: 'Accounts', component: "AccountsListPage", icon: "contacts" },
+            { title: "Cats", component: "TransactionCatsPage", icon: "pricetags" },
+            { title: "UserSettingsPage", component: "UserSettingsPage", icon: "settings" },
         ];
         this.userPages = [
             { title: 'Login', component: "LoginPage" },
@@ -30,10 +30,11 @@ var MyApp = (function () {
             //  { title: "UserSettingsPage", component: "UserSettingsPage" }
             //  { title: "UserSettingsPage", component: "UserSettingsPage" }
         ];
+        this.zombiedOwnerId = localStorage.getItem("firestore/[DEFAULT]/cridetmanagement/zombiedOwnerId");
     }
     MyApp.prototype.openStorePage = function (page) {
         // The active child nav is our Tabs Navigation
-        if (this.nav.getActiveChildNav()) {
+        if (this.nav.getActiveChildNavs()) {
             this.tabService.setTab(page);
         }
         else

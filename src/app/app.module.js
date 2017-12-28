@@ -22,7 +22,7 @@ import { UserService } from '../providers/user-service/user-service';
 import { FirestoreDataModule } from '../FireStoreData/firestoreData.module';
 import { TitleServiceProvider } from '../providers/title-service/title-service';
 import { TabServiceProvider } from '../providers/tab-service/tab-service';
-var AppModule = (function () {
+var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([

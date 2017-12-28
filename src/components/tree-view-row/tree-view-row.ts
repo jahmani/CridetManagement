@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { TreeNode, ExtendedData, TransactionCatigory } from '../../interfaces/data-models';
+import { TreeNode, Extended, TransactionCatigory } from '../../interfaces/data-models';
 
 /**
  * Generated class for the TreeViewRowComponent component.
@@ -13,10 +13,10 @@ import { TreeNode, ExtendedData, TransactionCatigory } from '../../interfaces/da
 })
 export class TreeViewRowComponent {
 
-  @Input() node:  ExtendedData<TreeNode>
+  @Input() node:  Extended<TreeNode>
   @Input() depth : number
-  @Output() nodeSelected : EventEmitter<ExtendedData<TreeNode>> = new EventEmitter<ExtendedData<TreeNode>>()
-  @Output() nodeEditClicked : EventEmitter<ExtendedData<TreeNode>> = new EventEmitter<ExtendedData<TreeNode>>()
+  @Output() nodeSelected : EventEmitter<Extended<TreeNode>> = new EventEmitter<Extended<TreeNode>>()
+  @Output() nodeEditClicked : EventEmitter<Extended<TreeNode>> = new EventEmitter<Extended<TreeNode>>()
   constructor() {
     console.log('Hello TreeViewRowComponent Component');
   }

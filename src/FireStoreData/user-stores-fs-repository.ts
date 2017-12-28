@@ -1,4 +1,4 @@
-import { ExtendedData, UserStore } from "../interfaces/data-models";
+import { Extended, UserStore } from "../interfaces/data-models";
 import { Injectable } from "@angular/core";
 import { FsRepository } from "./fs-repository";
 import { AngularFirestore } from "angularfire2/firestore";
@@ -6,7 +6,7 @@ import { AuthService } from "../app/core/auth";
 import { conatctPaths } from "./util";
 import { StoresFsRepository } from "./stores-fs-repository";
 import { Observable } from "rxjs/Observable";
-
+import {mergeMap} from 'rxjs/Operators/mergeMap'
 
 
 
@@ -19,13 +19,13 @@ export class UserStoresFsRepository extends FsRepository<UserStore> {
       , "stores"))
     console.log('Hello UserStoresFsRepository Provider');
   }
-  get FormatedList(): Observable<ExtendedData<UserStore>[]> {
-    return this.List().flatMap((stores) => {
+  get FormatedList(): Observable<Extended<UserStore>[]> {
+    return this.List().pipe(mergeMap((stores) => {
       return Promise.all(this.getStores(stores))
-    })
+    }))
   }
 
-  getStores(extUserStores: ExtendedData<UserStore>[]) {
+  getStores(extUserStores: Extended<UserStore>[]) {
     return extUserStores.map((extUserStore) => {
       return this.storeInfoFsRepository.getOnce(extUserStore.id).then((store) => {
         extUserStore.data.store = store.data.storeInfo

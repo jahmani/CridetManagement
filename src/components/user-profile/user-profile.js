@@ -14,7 +14,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
-var UserProfileComponent = (function () {
+var UserProfileComponent = /** @class */ (function () {
     function UserProfileComponent() {
         this.signout = new EventEmitter();
         this.googleLogin = new EventEmitter();

@@ -18,7 +18,7 @@ import { HomePage } from '../home/home';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var LoginPage = (function () {
+var LoginPage = /** @class */ (function () {
     function LoginPage(fb, auth, navCtrl) {
         this.fb = fb;
         this.auth = auth;

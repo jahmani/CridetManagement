@@ -1,3 +1,11 @@
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,7 +31,7 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-var EditTransactionPage = (function () {
+var EditTransactionPage = /** @class */ (function () {
     function EditTransactionPage(navCtrl, afsr, accountsRep, viewController, navParams, tCatsFSR, titleService) {
         var _this = this;
         this.navCtrl = navCtrl;
@@ -44,6 +52,7 @@ var EditTransactionPage = (function () {
     }
     EditTransactionPage.prototype.ionViewDidEnter = function () {
         if (this.titleService) {
+            this.type = this.transSnapshot.data.type;
             var msg = this.transSnapshot.data.type == TransactionType.Credit ? "قيد على " : "قيد لـ ";
             this.titleService.setTitle(msg + this.account.name);
         }
@@ -59,17 +68,13 @@ var EditTransactionPage = (function () {
     };
     EditTransactionPage.prototype.onSave = function (transaction) {
         transaction.accountId = this.accountId;
-        this.transSnapshot.data = transaction;
+        this.transSnapshot.data = __assign({}, transaction, { accountId: this.accountId, type: this.type });
         if (!this.transSnapshot.id) {
-            this.afsr.saveNew(this.transSnapshot).catch(function (err) {
-                throw "Error saving";
-            });
+            this.afsr.saveNew(this.transSnapshot);
             this.dismiss(this.transSnapshot);
         }
         else {
-            this.afsr.saveOld(this.transSnapshot).catch(function (error) {
-                throw "Error saving";
-            });
+            this.afsr.saveOld(this.transSnapshot);
             this.dismiss(this.transSnapshot);
         }
     };

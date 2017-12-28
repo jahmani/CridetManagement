@@ -1,4 +1,6 @@
-<ion-menu [content]="content">
+<ion-split-pane>
+  
+  <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menu</ion-title>
@@ -8,19 +10,26 @@
   <ion-content>
     <ion-list>
         <ion-item-divider color="light">Store</ion-item-divider>
-        <button menuClose ion-item *ngFor="let p of storePages" (click)="openStorePage(p)">
-          {{p.title}}
+        <button ion-item menuClose ion-item *ngFor="let p of storePages" (click)="openStorePage(p)">
+            <ion-icon [name]="p.icon" item-start></ion-icon>
+            {{p.title}}
         </button>
 
         <ion-item-divider color="light">User</ion-item-divider>
         <button menuClose ion-item *ngFor="let p of userPages" (click)="openUserPage(p)">
-          {{p.title}}
+            <ion-icon [name]="p.icon" item-start></ion-icon>
+            {{p.title}}
         </button>
         
         </ion-list>
+        <ion-item>
+          <ion-label floating>zombiedOwnerId</ion-label>
+          <ion-textarea [value]="zombiedOwnerId" ></ion-textarea>
+        </ion-item>
   </ion-content>
 
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage"  #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="rootPage" main  #content swipeBackEnabled="false"></ion-nav>
+</ion-split-pane>
