@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { switchMap } from 'rxjs/operators/switchMap'
-import { User } from '../../interfaces';
+import { User } from '../../interfaces/user';
 
 @Injectable()
 export class AuthService {
@@ -40,7 +40,7 @@ export class AuthService {
       (newUser) => {
         return this.signInWithEmail(email, password)
           .then((credential) => {
-            this.updateUserData(credential);
+        //   this.updateUserData(credential);
           })
       })
   }
@@ -52,7 +52,7 @@ export class AuthService {
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-        this.updateUserData(credential.user)
+       // this.updateUserData(credential.user)
       })
   }
   private updateUserData(user) {

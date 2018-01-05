@@ -43,8 +43,8 @@ export class MyApp {
   }
 
   openStorePage(page) {
-    // The active child nav is our Tabs Navigation
-    if (this.nav.getActiveChildNavs()) {
+    // if have child naves (Tabs Navigation)
+    if (this.nav.getActiveChildNavs().length != 0) {
       this.tabService.setTab(page)
     }
     else

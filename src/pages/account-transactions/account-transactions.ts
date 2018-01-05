@@ -3,10 +3,11 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController }
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
 import { Transaction, Extended, ExtMap, AccountInfo } from '../../interfaces/data-models';
 import { Observable } from 'rxjs/Observable';
-import { TCatigoriesFsRepositoryProvider, AccountsFsRepository } from '../../StoreData/index';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import {map} from 'rxjs/Operators/map'
 import { UTCToLocal } from '../../Util/dateTime';
+import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
+import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
 
 /**
  * Generated class for the AccountTransactionsPage page.
@@ -20,6 +21,7 @@ import { UTCToLocal } from '../../Util/dateTime';
   selector: 'page-account-transactions',
   templateUrl: 'account-transactions.html',
 })
+
 export class AccountTransactionsPage {
   transSnapshots: Observable<ExtMap<Extended<Transaction>>>
   transSnapshotsArray: Observable<Extended<Transaction>[]>

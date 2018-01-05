@@ -3,9 +3,9 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { Transaction, Extended, TransactionCatigory, ExtMap, AccountInfo, TransactionType } from '../../interfaces/data-models';
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
 import { Observable } from 'rxjs/Observable';
-import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
+import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
 
 /**
  * Generated class for the EditTransactionPage page.
@@ -20,7 +20,6 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
   templateUrl: 'edit-transaction.html',
 })
 export class EditTransactionPage {
-
   transSnapshot: Extended<Transaction>;
   accountId: string;
   account:AccountInfo

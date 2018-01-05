@@ -9,7 +9,7 @@ import { database } from 'firebase/app';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
-import { environment } from '../../environments/index';
+import { environment } from '../../environments/environment';
 
 /*
   Generated class for the ConnectionServiceProvider provider.

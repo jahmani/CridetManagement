@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TransactionCatigory, Extended, ExtMap } from '../../interfaces/data-models';
-import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 import { TransactionCatsPage } from '../transaction-cats/transaction-cats';
 import { Subscription } from 'rxjs/Subscription';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
+import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
 
 /**
  * Generated class for the EditTransactionCatPage page.
@@ -19,11 +19,11 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
 
 @IonicPage()
 @Component({
+  
   selector: 'page-edit-transaction-cat',
   templateUrl: 'edit-transaction-cat.html',
 })
 export class EditTransactionCatPage {
-
   transactionCatId: string;
   transactionCat$: Observable<Extended<TransactionCatigory>>;
   transCatsRoot$: Observable<Extended<TransactionCatigory>>

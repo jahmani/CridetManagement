@@ -1,3 +1,13 @@
-tree-view-list {
+tree-view-list.condensed {
+   
+
+    .label{
+        margin-top: 1px;
+        margin-bottom : 1px;
+    }
+    .item {
+      //  background-color:  #c9dce9;
+        min-height: 3rem; /* <- this can be whatever you need */
+    }
 
 }

@@ -9,12 +9,7 @@
 </ion-header>
 -->
 <ion-content padding>
-...
   <user-profile [user]="auth.user | async" 
   (googleLogin)="auth.googleLogin()"
   (signout)="auth.signOut()"></user-profile>
-
-  <button ion-button (click)="auth.googleLogin()">Connect to Google</button>
-  <button ion-button (click)="goLogInPage()">Email Signin</button>
-  
 </ion-content>

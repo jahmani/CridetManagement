@@ -1,9 +1,9 @@
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TCatigoriesFsRepositoryProvider } from '../../StoreData/index';
 import { Extended, TransactionCatigory } from '../../interfaces/data-models';
 import { Observable } from 'rxjs/Observable';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
+import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
 
 /**
  * Generated class for the TransactionCatsPage page.
@@ -18,7 +18,6 @@ import { TitleServiceProvider } from '../../providers/title-service/title-servic
   templateUrl: 'transaction-cats.html',
 })
 export class TransactionCatsPage {
-
   transactionCats : Observable<Extended<TransactionCatigory>[]>    
   transactionRootCat :  Observable<Extended<TransactionCatigory>>
   constructor(

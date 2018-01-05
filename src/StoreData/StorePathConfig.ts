@@ -4,6 +4,8 @@ export const StorePathConfig ={
     Transactions: "transactions",
     AccountsBalance:"accountsBalance",
     TransactionCatigories:"transactionCats",
-    UsersInfo:"users",
+    Users:"users",
+    PendingUsers:"pendingUsers",
+    
     
 };

@@ -4,10 +4,13 @@
 {{buttonText}}</button>
 <expandable expandHeight="150" [expanded]="expanded">
         <ion-content  style="border:1px" no-padding>        
-        <tree-view-list 
+        <tree-view-list  class="condensed" 
         [nodes]="transCatsRoot?.ext.$sons"
         [depth]="0"
+        [selectedId] = "catigoryId"
         (nodeSelected)="onSelectCat($event)">
       </tree-view-list>
     </ion-content>
     </expandable>
+
+    

@@ -16,7 +16,7 @@
 -->
 
 <ion-content padding> 
-  <tree-view-list 
+  <tree-view-list
   [nodes]="(transactionRootCat | async)?.ext.$sons"
   [depth]="0"
   (nodeSelected)="onNodeSelected($event)">

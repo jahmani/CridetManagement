@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
 import { StoreDataFsRepository } from './store-data-fs-repository';
-import { AuthService } from '../app/core/index';
 import { FsRepository } from '../FireStoreData/fs-repository';
 import { UsersFsRepository } from '../FireStoreData/users-fs-repository';
 
@@ -32,7 +31,7 @@ export class StoreUsersFsRepository extends StoreDataFsRepository<StoreUser>{
     activeStoreService: ActiveStoreService,
     private usersFsRepository: UsersFsRepository
   ) {
-    super(afs, activeStoreService, StorePathConfig.UsersInfo)
+    super(afs, activeStoreService, StorePathConfig.Users )
     console.log('Hello StoreUsersFsRepository Provider');
   }
   get FormatedList(): Observable<Extended<StoreUser>[]> {
@@ -43,7 +42,8 @@ export class StoreUsersFsRepository extends StoreDataFsRepository<StoreUser>{
   getUsers(extUsers: Extended<StoreUser>[]) {
     return extUsers.map((extStoreUser) => {
       return this.usersFsRepository.getOnce(extStoreUser.id).then((user) => {
-        extStoreUser.data.user = user.data
+        extStoreUser.ext = extStoreUser.ext || {}
+        extStoreUser.ext.user = user.data
         return extStoreUser
       })
 

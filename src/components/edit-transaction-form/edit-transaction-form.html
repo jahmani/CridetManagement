@@ -11,7 +11,12 @@
         <p *ngIf="ammountCtrl.hasError('required')" class="err">* ammount is rquired</p>
         <p *ngIf="ammountCtrl.hasError('max')" class="err">*too much big ammount!</p>
       </ion-item>
-
+      <ion-item>
+        <trans-cat-picker
+        [transCatsRoot]="transCatsRoot"
+        [transCatsMap] = "transCatsMap"
+        formControlName="catigoryId"></trans-cat-picker>
+      </ion-item>
       <ion-item>
         <ion-label floating>Notice</ion-label>
         <ion-textarea  formControlName="notice"></ion-textarea>
@@ -22,12 +27,7 @@
         <ion-input type="date"  formControlName="date"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <trans-cat-picker
-        [transCatsRoot]="transCatsRoot"
-        [transCatsMap] = "transCatsMap"
-        formControlName="catigoryId"></trans-cat-picker>
-      </ion-item>
+
     </ion-list>
   </form>
 </ion-content>

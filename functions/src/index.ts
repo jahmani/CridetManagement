@@ -1,6 +1,11 @@
-import * as functions from 'firebase-functions';
-import * as admin from "firebase-admin";
+import * as admin from "firebase-admin"
+import * as functions from "firebase-functions"
+
 export {fixInvalidBalance} from './fixInvalidBalance'
+export {onUpdateInvite} from './onInvitation'
+export {onNewInvitation} from './onInvitation'
+export {onNewUser} from './onNewUser'
+
 
 
 admin.initializeApp(functions.config().firebase)
@@ -10,6 +15,7 @@ admin.initializeApp(functions.config().firebase)
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // }); 
+/*
 const path = `/versions/v4/stores/{storeId}/transactions/{transactionId}`
 
 const logTransactionEdited = functions.firestore.document(path).onWrite(event => {
@@ -18,7 +24,7 @@ const logTransactionEdited = functions.firestore.document(path).onWrite(event =>
     return Promise.resolve()
 })
 
-/*
+
 exports.sendTransNotification = functions.firestore.document(path).onWrite(event => {
     const storeId = event.params.storeId;
     const userId = '569PS8cvuJT4aAauMC8RglrUcp72';

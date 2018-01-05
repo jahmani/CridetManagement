@@ -22,14 +22,14 @@
       </h2>
     </ion-item>
     <ion-item-sliding *ngFor="let account of filteredAccounts |async">
-      <ion-item text-wrap>
+      <button (click)='showAccountTransactions(account)' ion-item text-wrap>
         <ion-icon name="person" item-left></ion-icon>
-        <span (click)='showAccountTransactions(account)'>{{account.data.name}}</span>
+        <span >{{account.data.name}}</span>
         <ion-note>/{{account.data.city}}</ion-note>
         <h2 (click)="invalidateBalance(account)" [style.color]='account.ext.$balanceObj?.data.isDirty ? "red" :""' item-right>{{account.ext?.$balance}}
           <span *ngIf="account.ext.$balanceObj?.data.isDirty"> ! </span>
         </h2>
-      </ion-item>
+      </button>
       <ion-item-options>
         <button (click)="presentEditAccountModal(account)" ion-button primary>
           <ion-icon name="text"></ion-icon>

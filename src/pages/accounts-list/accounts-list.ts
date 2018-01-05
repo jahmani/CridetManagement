@@ -10,7 +10,7 @@ import { AccountInfo, Extended, AccountBalance } from '../../interfaces/data-mod
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { FormControl } from '@angular/forms';
-import { AccountsBalanceFBRepository } from '../../StoreData/index';
+import { AccountsBalanceFBRepository } from '../../StoreData/account-balance-fb-repository';
 
 /**
  * Generated class for the AccountsListPage page.

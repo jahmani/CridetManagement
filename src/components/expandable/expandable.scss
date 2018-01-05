@@ -7,6 +7,10 @@ expandable {
     .collapsed {
         height: 0 !important;
     }
+    div.scroll-content{
+      //  background-color: #c9dce9;
+        border: solid color($colors, primary)
+    }
     
  
 }

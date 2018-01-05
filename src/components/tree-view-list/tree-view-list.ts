@@ -15,17 +15,21 @@ export class TreeViewListComponent {
 
   @Input() nodes:  Extended<TransactionCatigory>[]
   @Input() depth : number
+  @Input() selectedId : string
+  @Input() condensed : boolean = false
   @Output() nodeSelected : EventEmitter< Extended<TransactionCatigory>> = new EventEmitter< Extended<TransactionCatigory>>()
   @Output() nodeEditClicked : EventEmitter< Extended<TransactionCatigory>> = new EventEmitter< Extended<TransactionCatigory>>()
+
+
+  
 
   constructor() {
     console.log('Hello TreeViewListComponent Component');
     console.log(this.nodes)
   }
-  onNodeClicked(node){
+  onNodeClicked(node: Extended<TransactionCatigory>){
     this.nodeSelected.emit(node);
   }
-
   onNodeEditClicked(node){
     this.nodeEditClicked.emit(node)
   }

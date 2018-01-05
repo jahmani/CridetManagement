@@ -11,7 +11,6 @@ import { ListPage } from '../pages/list/list';
 
 import {AngularFireModule} from "angularfire2"
 import {AngularFirestoreModule} from "angularfire2/firestore"
-import { environment } from "../environments";
 
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ComponentsModule } from '../components/components.module';
@@ -21,6 +20,7 @@ import { FirestoreDataModule } from '../FireStoreData/firestoreData.module';
 import { TitleServiceProvider } from '../providers/title-service/title-service';
 import { TabServiceProvider } from '../providers/tab-service/tab-service';
 import { ConnectionServiceProvider } from '../providers/connection-service/connection-service';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -55,7 +55,8 @@ import { ConnectionServiceProvider } from '../providers/connection-service/conne
     UserService,MessagingService,
     TitleServiceProvider,
     TabServiceProvider,
-    ConnectionServiceProvider
+    ConnectionServiceProvider,
+    
     
   ]
 })

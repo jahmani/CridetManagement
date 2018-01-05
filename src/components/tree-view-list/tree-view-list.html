@@ -3,6 +3,7 @@
   *ngFor="let node of nodes" [node]="node"
   (nodeSelected)="onNodeClicked($event)"
   (nodeEditClicked)="onNodeEditClicked($event)"
+  [selectedId] = "selectedId"
   [depth]="depth">
 </tree-view-row>
 

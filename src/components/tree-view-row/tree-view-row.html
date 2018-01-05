@@ -15,7 +15,7 @@
 <!--
 <ion-item-sliding no-padding [style.padding-left]="(depth * 20) + 'px'">
 -->
-  <ion-item [style.padding-left]="(depth * 20) + 'px'">
+  <ion-item [style.padding-left]="(depth * 20) + 'px'" [color]="isSelected() ? 'primary':''">
     <ion-icon style="padding-right: 5px" [name]="getIconName()" (click)="toggleExpand()"></ion-icon>
     <span (click)="onNodeClicked(node)" class="node-title">{{node.data.name}}</span>
   </ion-item>
@@ -30,6 +30,9 @@
 -->
 <div>
   <tree-view-list *ngIf="hasSons() && node.ext.$isExpanded" [nodes]="node.ext.$sons" (nodeSelected)="onNodeClicked($event)"
-    (nodeEditClicked)="onNodeEditClicked($event)" [depth]="depth+1">
+    (nodeEditClicked)="onNodeEditClicked($event)" 
+    [depth]="depth+1"
+    [selectedId]="selectedId"
+    >
   </tree-view-list>
 </div>

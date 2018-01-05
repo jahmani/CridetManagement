@@ -1,9 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const functions = require("firebase-functions");
 var fixInvalidBalance_1 = require("./fixInvalidBalance");
 exports.fixInvalidBalance = fixInvalidBalance_1.fixInvalidBalance;
+var onInvitation_1 = require("./onInvitation");
+exports.onUpdateInvite = onInvitation_1.onUpdateInvite;
+var onInvitation_2 = require("./onInvitation");
+exports.onNewInvitation = onInvitation_2.onNewInvitation;
+var onNewUser_1 = require("./onNewUser");
+exports.onNewUser = onNewUser_1.onNewUser;
 admin.initializeApp(functions.config().firebase);
 // // Start writing Firebase Functions
 // // https://firebase.google.com/functions/write-firebase-functions
@@ -11,12 +17,16 @@ admin.initializeApp(functions.config().firebase);
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // }); 
-const path = `/versions/v4/stores/{storeId}/transactions/{transactionId}`;
-const logTransactionEdited = functions.firestore.document(path).onWrite(event => {
-    console.log("Transaction Edited: old Transaction ", event.data.previous.data(), "new Transaction : ", event.data.data());
-    return Promise.resolve();
-});
 /*
+const path = `/versions/v4/stores/{storeId}/transactions/{transactionId}`
+
+const logTransactionEdited = functions.firestore.document(path).onWrite(event => {
+    console.log("Transaction Edited: old Transaction ",event.data.previous.data(),
+    "new Transaction : ",event.data.data())
+    return Promise.resolve()
+})
+
+
 exports.sendTransNotification = functions.firestore.document(path).onWrite(event => {
     const storeId = event.params.storeId;
     const userId = '569PS8cvuJT4aAauMC8RglrUcp72';

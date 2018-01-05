@@ -13,14 +13,19 @@ import { TreeNode, Extended, TransactionCatigory } from '../../interfaces/data-m
 })
 export class TreeViewRowComponent {
 
-  @Input() node:  Extended<TreeNode>
+  
+  @Input() node:  Extended<TransactionCatigory>
   @Input() depth : number
+  @Input() selectedId : string
   @Output() nodeSelected : EventEmitter<Extended<TreeNode>> = new EventEmitter<Extended<TreeNode>>()
   @Output() nodeEditClicked : EventEmitter<Extended<TreeNode>> = new EventEmitter<Extended<TreeNode>>()
   constructor() {
     console.log('Hello TreeViewRowComponent Component');
   }
-
+  isSelected(){
+    return this.selectedId && this.node.id == this.selectedId
+  }
+  
   hasSons() : boolean{
     return this.node.ext.$sons && this.node.ext.$sons.length>0
   }

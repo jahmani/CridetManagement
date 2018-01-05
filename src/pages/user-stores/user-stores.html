@@ -12,17 +12,39 @@
   
   </ion-header>
   
-  
   <ion-content padding>
-      <ion-list>
-          <ion-item-sliding *ngFor="let userStore of userStores|async">
-          <ion-item (click)="onStoreSelected(userStore)" text-wrap >
-            <ion-icon name="person" item-left></ion-icon>
-            {{userStore.data.store.name}}
-            <ion-note>{{userStore.id}}</ion-note>
-          </ion-item>
-          </ion-item-sliding>
-      </ion-list>
-      <button ion-button full (click)="createNewStore()"> new Store</button>
+    <ion-list>
+      <ion-item-sliding *ngFor="let userStore of userStores|async">
+      <ion-item text-wrap >
+        <ion-icon name="person" item-left ></ion-icon>
+        {{userStore.ext.store.storeInfo?.name }}
+        <ion-note>{{userStore.id}}</ion-note>
+        <button ion-button icon-only item-right
+        (click)="onStoreSelected(userStore)" >
+          <ion-icon name="open"></ion-icon>
+        </button>
+      </ion-item>
+      </ion-item-sliding>
+  </ion-list>
+  Pending...
+  <ion-list>
+    <ion-item-sliding >
+    <ion-item
+      *ngFor="let userStore of userPendingStores|async"
+     text-wrap >
+      <ion-icon name="person" item-left></ion-icon>
+      {{userStore.ext.store.storeInfo.name }}
+      <ion-note>{{userStore.id}} </ion-note>
+      <button ion-button icon-only item-end (click)="accept(userStore.data.inviteId)">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+      <button ion-button icon-only item-end (click)="reject(userStore.data.inviteId)">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-item>
+    </ion-item-sliding > 
+</ion-list>
+
+<button ion-button full (click)="createNewStore()"> new Store</button>
   </ion-content>
   

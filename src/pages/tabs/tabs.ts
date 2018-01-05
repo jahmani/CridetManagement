@@ -1,14 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Tabs, PopoverController } from 'ionic-angular';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { Observable } from 'rxjs/Observable';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
-import { AccountsFsRepository, TransactionsFsRepository, TCatigoriesFsRepositoryProvider, StoreUsersFsRepository, AccountsBalanceFBRepository } from '../../StoreData/index';
 import { TabServiceProvider } from '../../providers/tab-service/tab-service';
 import { Subscription } from 'rxjs/Subscription';
 import {map} from 'rxjs/Operators/map'
 import {mergeMap} from 'rxjs/Operators/mergeMap'
 import { ConnectionServiceProvider } from '../../providers/connection-service/connection-service';
+import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
+import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
+import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
+import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repository';
+import { AccountsBalanceFBRepository } from '../../StoreData/account-balance-fb-repository';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the TabsPage page.
@@ -44,7 +49,8 @@ export class TabsPage {
     public navParams: NavParams,
     private titleService: TitleServiceProvider,
     private tabService: TabServiceProvider,
-    connectionService : ConnectionServiceProvider) {
+    connectionService : ConnectionServiceProvider,
+    public popoverCtrl: PopoverController) {
       this.isConnected = connectionService.fbConnectionStatus
       
     let paramTabRoot = this.navParams.get("component")
@@ -72,7 +78,10 @@ export class TabsPage {
 
 
   }
-
+  presentUserPopover(clickEvent) {
+    let popover = this.popoverCtrl.create(HomePage);
+    popover.present({ev:clickEvent});
+  }
   ionViewDidEnter() {
     console.log('ionViewDidLoad TabsPage')
     this.tabs.setTabbarHidden(true)

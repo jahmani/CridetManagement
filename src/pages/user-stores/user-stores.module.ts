@@ -10,4 +10,5 @@ import { UserStoresPage } from './user-stores';
     IonicPageModule.forChild(UserStoresPage),
   ],
 })
+
 export class UserStoresPageModule {}

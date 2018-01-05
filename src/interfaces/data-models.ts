@@ -1,3 +1,5 @@
+
+
 /*
   Generated class for the DataModels provider.
 
@@ -12,12 +14,24 @@ export interface CatTreeNodeExtension {
   $isExpanded?: boolean
   catigory?: Extended<TransactionCatigory>
 }
+
 export interface AccountInfoExt {
   $balance?: number
   $computedLastEditedOn?: string
   $balanceObj?: Extended<AccountBalance>
 }
-export type ExtType = CatTreeNodeExtension & AccountInfoExt & {}
+
+export interface StoreUserExt {
+  user? : User
+}
+export interface UserStoreExt{
+  store?: StoreDoc  
+}
+export interface InviteExt{
+  store?: StoreDoc  
+  user?: User  
+}
+export type ExtType = CatTreeNodeExtension & AccountInfoExt & StoreUserExt & UserStoreExt & {}
 export interface Extended<T> {
   id: string
   data: T
@@ -45,8 +59,8 @@ export class ExtMap<T> {
 }
 
 export interface Editable {
-  firstCreatedOn: string
-  lastEditedOn: string
+  firstCreatedOn: string | any
+  lastEditedOn: string |any
   lastEditedByUserId: string
 }
 export interface Delteable {
@@ -73,18 +87,16 @@ export interface User extends Editable {
   role: string;
 }
 export interface StoreUser extends Editable {
-  id: string
-  user: User
-  dateTimeAdded: Date
+  dateTimeAdded: string |any
   isEnabled: true
   role: string;
   canRead: boolean
   canWrite: boolean
+  inviteId : string
 }
 
 export interface UserStore extends Editable {
-  storeId: string
-  store: StoreInfo
+  inviteId : string 
 }
 
 
@@ -124,7 +136,12 @@ export enum TransactionType {
   Credit = -1,
   Debt = 1,
 }
-
+export type InviteState = "ACCEPTED" |  "REVOKED" | "REJECTED" | "CANCELED" | "PENDING" | "LEAVED"
+export interface Invite extends Editable{
+  userId: string
+  storeId: string
+  state : InviteState
+}
 export interface StoreDoc extends Editable {
   storeInfo: StoreInfo;
 }

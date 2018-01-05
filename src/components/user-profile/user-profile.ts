@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../../interfaces/index';
+import { User } from '../../interfaces/user';
 
 
 /**

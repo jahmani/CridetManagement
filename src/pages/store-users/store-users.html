@@ -15,14 +15,34 @@
 -->
 
 <ion-content padding>
-    <ion-list>
-        <ion-item-sliding *ngFor="let storeUser of storeUsers|async">
-        <ion-item text-wrap >
-          <ion-icon name="person" item-left></ion-icon>
-          {{storeUser.data.user.displayName}}
-          <h2 >{{storeUser.data.user.email}}</h2>
-          <ion-note item-right>{{storeUser.data.role}}</ion-note>
+    <form novalidate ng-submit="onSubmit()" [formGroup]="form">
+        
+  <ion-list>
+    <ion-item-sliding *ngFor="let storeUser of storeUsers|async">
+    <ion-item text-wrap >
+      <ion-icon name="person" item-left></ion-icon>
+      {{storeUser.ext.user?.displayName}}
+      <h2 >{{storeUser.ext.user?.email}}</h2>
+      <ion-note item-right>{{storeUser.data?.role}}</ion-note>
+    </ion-item>
+    </ion-item-sliding>
+        <ion-item >
+          <ion-label >Invite Email</ion-label>
+          <ion-input  formControlName="email" type="email" ></ion-input>
         </ion-item>
-        </ion-item-sliding>
-    </ion-list>
+        <button type="submit" ion-button full (click)="onSubmit(form)" color="primary"> save</button>
+</ion-list>
+</form>
+
+invites
+<ion-list>
+  <ion-item-sliding *ngFor="let extInvite of storeInvites|async">
+  <ion-item text-wrap >
+    <ion-icon name="person" item-left></ion-icon>
+    {{extInvite.ext.user.displayName}}
+    <h2 >{{extInvite.ext.user.email}}</h2>
+    <ion-note item-right>{{extInvite.data.state}}</ion-note>
+  </ion-item>
+  </ion-item-sliding>
+</ion-list>
 </ion-content>

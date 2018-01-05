@@ -48,19 +48,28 @@ export class FsRepository<T extends Editable>  {
   snapList(coll:AngularFirestoreCollection<T>):Observable<Extended<T>[]>{
     return coll.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
-        const data = a.payload.doc.data() as T;
+        let data
+        if(a.payload.doc.exists)
+          data = a.payload.doc.data() as T;
+        else 
+          console.log("Empty doc DAta :",a.payload.doc)
         const id = a.payload.doc.id;
-        const ret = {id,data}
+        const ret = {id,data,ext:{}}
         return ret;
       });
     }));
   }
+  
   snapshotMap(coll:AngularFirestoreCollection<T>):Observable<ExtMap<Extended<T>>>{
     let _map = new ExtMap<Extended<T>>()
     
     return coll.snapshotChanges().pipe(share(),map(actions => {
       actions.forEach(a => {
-        const data = a.payload.doc.data() as T;
+        let data
+        if(a.payload.doc.exists)
+          data = a.payload.doc.data() as T;
+        else 
+          console.log("Empty doc DAta :",a.payload.doc)
         const id = a.payload.doc.id;
         _map.set(id,{id,data})
         //const ret = {id,data}
@@ -77,8 +86,12 @@ export class FsRepository<T extends Editable>  {
   get(key):  Observable<Extended<T>> {
     return this.afs.doc<T>(this.path + `/${key}`).snapshotChanges().pipe(map(
       (action)=>{ 
-        let d = action.payload.data()
-        return {id:action.payload.id, data : action.payload.data() as T }}
+        let data
+        if(action.payload.exists)
+          data = action.payload.data() as T;
+        else 
+          console.log("Empty doc DAta :",action.payload)
+        return {id:action.payload.id, data }}
     ));
   }
   

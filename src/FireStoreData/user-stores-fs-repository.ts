@@ -24,14 +24,15 @@ export class UserStoresFsRepository extends FsRepository<UserStore> {
       return Promise.all(this.getStores(stores))
     }))
   }
-
-  getStores(extUserStores: Extended<UserStore>[]) {
+  getStores( extUserStores: Extended<UserStore>[]) {
     return extUserStores.map((extUserStore) => {
       return this.storeInfoFsRepository.getOnce(extUserStore.id).then((store) => {
-        extUserStore.data.store = store.data.storeInfo
+        extUserStore.ext.store = store.data
         return extUserStore
       })
-
     })
   }
 }
+
+
+
