@@ -9,6 +9,7 @@ import { StoreDataFsRepository } from './store-data-fs-repository';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { AccountsBalanceFBRepository } from './account-balance-fb-repository';
 import { DatePipe } from '@angular/common';
+import { compareTimeStamp } from '../Util/compareDateString';
 
 
 /*
@@ -43,7 +44,7 @@ export class AccountsFsRepository extends StoreDataFsRepository<AccountInfo> imp
           if (balanceObj) {
             account.ext.$balanceObj = balanceObj
             account.ext.$balance = balanceObj.data.balance;
-            if (this.compareTimeStamp(account.ext.$computedLastEditedOn, balanceObj.data.lastEditedOn) > 0)
+            if (compareTimeStamp(account.ext.$computedLastEditedOn, balanceObj.data.lastEditedOn) > 0)
               account.ext.$computedLastEditedOn = balanceObj.data.lastEditedOn
             //   if (balanceObj.lastEditedDate > account.$computedLastEditDate)
             //     account.$computedLastEditDate = balanceObj.lastEditedDate;
@@ -52,20 +53,11 @@ export class AccountsFsRepository extends StoreDataFsRepository<AccountInfo> imp
         return accounts;
       })).pipe(map(accountsArray => {
         return accountsArray.sort((a, b) => {
-          return this.compareTimeStamp(a.ext.$computedLastEditedOn, b.ext.$computedLastEditedOn)
+          return compareTimeStamp(a.ext.$computedLastEditedOn, b.ext.$computedLastEditedOn)
         })
       }))
   }
-  private compareTimeStamp(d1, d2) {
-    let firstDate = ""
-    let secondDate = ""
-    if (d1)
-      firstDate = this.datePipe.transform(d1, "yyyy-MM-dd HH:mm:ss:SSS")
-    if (d2)
-      secondDate = this.datePipe.transform(d2, "yyyy-MM-dd HH:mm:ss:SSS")
-    return secondDate.localeCompare(firstDate)
 
-  }
 
   getExtended(accountId:string):Observable<Extended<AccountInfo>>{
     const account = super.get(accountId)

@@ -1,6 +1,6 @@
 //import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import {Observable} from 'rxjs/Observable'
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from 'angularfire2/firestore';
 import { Extended, ExtMap, Editable } from '../interfaces/data-models';
 
 import {publishReplay} from 'rxjs/operators/publishReplay'
@@ -24,7 +24,7 @@ export class FsRepository<T extends Editable>  {
   };
   dataList: Observable<Extended<T>[]>;
   protected collection : AngularFirestoreCollection<T>
-  protected dataSnapshot
+  protected dataSnapshot : Observable<DocumentChangeAction[]>
   dataMap : Observable<ExtMap<Extended<T>>>
 
   constructor(
@@ -48,18 +48,19 @@ export class FsRepository<T extends Editable>  {
   snapList(coll:AngularFirestoreCollection<T>):Observable<Extended<T>[]>{
     return coll.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
+        const meta = a.payload.doc.metadata
         let data
         if(a.payload.doc.exists)
           data = a.payload.doc.data() as T;
         else 
           console.log("Empty doc DAta :",a.payload.doc)
         const id = a.payload.doc.id;
-        const ret = {id,data,ext:{}}
+        const ret = {id,data,ext:{},meta}
         return ret;
       });
     }));
   }
-  
+
   snapshotMap(coll:AngularFirestoreCollection<T>):Observable<ExtMap<Extended<T>>>{
     let _map = new ExtMap<Extended<T>>()
     
@@ -71,7 +72,7 @@ export class FsRepository<T extends Editable>  {
         else 
           console.log("Empty doc DAta :",a.payload.doc)
         const id = a.payload.doc.id;
-        _map.set(id,{id,data})
+        _map.set(id,{id,data,meta:a.payload.doc.metadata,ext:{}})
         //const ret = {id,data}
         //return ret;
       });

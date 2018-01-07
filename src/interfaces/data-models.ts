@@ -21,6 +21,9 @@ export interface AccountInfoExt {
   $balanceObj?: Extended<AccountBalance>
 }
 
+export interface TransactionExt {
+  currentBalance? : number
+}
 export interface StoreUserExt {
   user? : User
 }
@@ -31,11 +34,13 @@ export interface InviteExt{
   store?: StoreDoc  
   user?: User  
 }
-export type ExtType = CatTreeNodeExtension & AccountInfoExt & StoreUserExt & UserStoreExt & {}
+export type ExtType = CatTreeNodeExtension & AccountInfoExt & StoreUserExt & UserStoreExt & TransactionExt & {}
+export interface Meta {fromCache:boolean,hasPendingWrites:boolean}
 export interface Extended<T> {
   id: string
   data: T
   ext?: ExtType
+  meta?:Meta
 }
 
 export class ExtMap<T> {

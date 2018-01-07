@@ -29,6 +29,7 @@
         <h2 (click)="invalidateBalance(account)" [style.color]='account.ext.$balanceObj?.data.isDirty ? "red" :""' item-right>{{account.ext?.$balance}}
           <span *ngIf="account.ext.$balanceObj?.data.isDirty"> ! </span>
         </h2>
+        <ion-spinner *ngIf="account.meta.hasPendingWrites" item-right name="bubbles"></ion-spinner>
       </button>
       <ion-item-options>
         <button (click)="presentEditAccountModal(account)" ion-button primary>

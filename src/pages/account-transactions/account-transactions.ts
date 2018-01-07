@@ -8,6 +8,8 @@ import {map} from 'rxjs/Operators/map'
 import { UTCToLocal } from '../../Util/dateTime';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
+import { combineLatest } from 'rxjs/operators/combineLatest';
+import { compareTimeStamp } from '../../Util/compareDateString';
 
 /**
  * Generated class for the AccountTransactionsPage page.
@@ -43,11 +45,17 @@ export class AccountTransactionsPage {
     })))
     this.transSnapshotsArray.subscribe(console.log)
     this.extAccount = this.accountsRep.getExtended(this.accountId)
-    /*
-    (this.accountId).then((extAccount) => {
-      this.extAccount = extAccount
-
-    })*/
+    this.transSnapshotsArray = this.transSnapshotsArray.pipe(combineLatest(this.extAccount,(extTranses,extAccount)=>{
+      let currentBalance = extAccount.ext.$balanceObj.data.balance
+      let transes = extTranses.sort((a, b) => {
+        return compareTimeStamp(a.data.date, b.data.date)
+      })
+      transes.forEach(trans=>{
+        trans.ext.currentBalance = currentBalance
+        currentBalance -= ( trans.data.type *trans.data.ammount )
+      })
+      return transes
+    }))
   }
 
   ionViewDidLoad() {
@@ -56,18 +64,10 @@ export class AccountTransactionsPage {
 
   presentEditTransactionModal(transSnapshot: Extended<Transaction>) {
     this.navCtrl.push("EditTransactionPage", { transSnapshot })
-    /*    
-        let editTransactionModal = this.modalController.create("EditTransactionPage", { transSnapshot });
-        editTransactionModal.onDidDismiss(data => {
-          console.log(data);
-        });
-         editTransactionModal.present();
-         */
   }
   ionViewDidEnter() {
     this.accountsRep.getOnce(this.accountId).then((extAccount) => {
       if (this.titleService){
-        
         this.titleService.setNav(this.navCtrl)
         this.titleService.setTitle("حساب " + extAccount.data.name)
       }
