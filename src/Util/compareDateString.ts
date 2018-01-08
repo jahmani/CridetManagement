@@ -8,6 +8,7 @@
       secondDate = new Date(d2).getTime()
     return secondDate - firstDate
   }
+  
   /*
   export function compareTimeStamp(d1, d2) {
      let firstDate = ""

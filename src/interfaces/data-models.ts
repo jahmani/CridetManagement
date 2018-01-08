@@ -102,6 +102,7 @@ export interface StoreUser extends Editable {
 
 export interface UserStore extends Editable {
   inviteId : string 
+  isDefault : boolean
 }
 
 

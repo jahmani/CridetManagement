@@ -5,17 +5,43 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { AccountsListPage } from '../pages/accounts-list/accounts-list';
 import { TabServiceProvider } from '../providers/tab-service/tab-service';
+import { AuthService } from './core/auth';
+import { UserStoresService } from '../FireStoreData/user-stores-fs-repository';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = "TabsPage";
+  rootPage: any // = "TabsPage";
   storePages: Array<{ title: string, component: any ,icon?:string }>;
   userPages: Array<{ title: string, component: any ,icon?:string}>;
   zombiedOwnerId : string
-  constructor(private tabService: TabServiceProvider) {
+  constructor(
+    private tabService: TabServiceProvider,
+    private authService : AuthService,
+    private userStoresService : UserStoresService,
+    private activeStoreService : ActiveStoreService
+  ) {
+
+    this.authService.user.subscribe(user=>{
+      if(user)
+      {
+        this.userStoresService.getSingleOrDefault().subscribe(extUserStore=>{
+          if(extUserStore)
+          {
+            this.activeStoreService.activeStoreKey = extUserStore.id
+            this.rootPage = "TabsPage"
+          }
+          else
+            this.rootPage = "UserStoresPage"
+        })
+      }
+      else{
+        this.rootPage = "LoginPage"
+      }
+    })
 
     // used for an example of ngFor and navigation
     this.storePages  = [

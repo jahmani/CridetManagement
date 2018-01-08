@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Extended, UserStore } from '../../interfaces/data-models';
 import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repository';
-import { UserStoresFsRepository } from '../../FireStoreData/user-stores-fs-repository';
+import { UserStoresService } from '../../FireStoreData/user-stores-fs-repository';
 import { StoresFsRepository } from '../../FireStoreData/stores-fs-repository';
 import { ActiveStoreService } from '../../FireStoreData/activeStore';
 import { NavController, IonicPage } from 'ionic-angular';
@@ -33,7 +33,7 @@ export class UserStoresPage {
 
   constructor(public navCtrl: NavController,
     private auth: AuthService,
-    public userStoresFsRepository: UserStoresFsRepository,
+    public userStoresFsRepository: UserStoresService,
     private userPendingStoresFsRepository: UserPendingStoresFsRepositoryProvider,
     private storesFsRepository: StoresFsRepository,
     private invitesFsRepository: InvitesFsRepository,

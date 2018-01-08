@@ -1,6 +1,6 @@
 //import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import {Observable} from 'rxjs/Observable'
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Extended, ExtMap, Editable } from '../interfaces/data-models';
 
 import {publishReplay} from 'rxjs/operators/publishReplay'
@@ -24,13 +24,11 @@ export class FsRepository<T extends Editable>  {
   };
   dataList: Observable<Extended<T>[]>;
   protected collection : AngularFirestoreCollection<T>
-  protected dataSnapshot : Observable<DocumentChangeAction[]>
   dataMap : Observable<ExtMap<Extended<T>>>
 
   constructor(
     protected afs: AngularFirestore,
     protected path: string) {
-     // super()
     console.log('Hello FBRepository Provider');
     this.initialize(path);
   }
@@ -40,8 +38,6 @@ export class FsRepository<T extends Editable>  {
     console.log(`path : ${path} `)
     
     this.collection = this.afs.collection(path);
-    this.dataSnapshot = this.collection.snapshotChanges()
-//    this.list = this.collection.snapshotChanges() as any;
     this.dataList = this.snapList(this.collection).pipe(publishReplay(1),refCount())
     this.dataMap = this.snapshotMap(this.collection).pipe(publishReplay(1),refCount())
   }

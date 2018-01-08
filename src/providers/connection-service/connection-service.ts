@@ -22,7 +22,7 @@ export class ConnectionServiceProvider {
   private fbConnectionObservable : Observable<boolean>
   constructor() {
     console.log('Hello ConnectionServiceProvider Provider');
-    firebase.initializeApp(environment.firebase)
+    //firebase.initializeApp(environment.firebase)
     this.fbConnectionObservable = new Observable(observer => {
       database().ref(".info/connected").on("value", snap => {
         observer.next(snap.val())

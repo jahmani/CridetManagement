@@ -18,6 +18,7 @@ import { compareTimeStamp } from '../../Util/compareDateString';
  * Ionic pages and navigation.
  */
 
+ 
 @IonicPage()
 @Component({
   selector: 'page-account-transactions',

@@ -19,8 +19,8 @@
   <ion-list>
     <ion-item text-wrap *ngIf="extAccount |async as account">
       <h2 style="font-weight: 800">{{account.ext?.$balance > 0 ? 'له': 'عليه'}}</h2>
-      <h2 class="trans-value" [style.color]='account.ext?.$balanceObj?.data.isDirty ? "red" :""' item-right>المبلغ
-        <span *ngIf="account.ext?.$balanceObj?.data.isDirty"> ! </span>
+      <h2 class="trans-value" [style.color]='account.ext?.$balanceObj?.data?.isDirty ? "red" :""' item-right>المبلغ
+        <span *ngIf="account.ext?.$balanceObj?.data?.isDirty"> ! </span>
 
       </h2>
       <h2 class="trans-value" item-right>الرصيد</h2>
