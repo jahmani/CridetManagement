@@ -47,7 +47,7 @@ export class AccountTransactionsPage {
     this.transSnapshotsArray.subscribe(console.log)
     this.extAccount = this.accountsRep.getExtended(this.accountId)
     this.transSnapshotsArray = this.transSnapshotsArray.pipe(combineLatest(this.extAccount,(extTranses,extAccount)=>{
-      let currentBalance = extAccount.ext.$balanceObj.data.balance
+      let currentBalance = extAccount.ext.$balanceObj.data ? extAccount.ext.$balanceObj.data.balance : 0
       let transes = extTranses.sort((a, b) => {
         return compareTimeStamp(a.data.date, b.data.date)
       })

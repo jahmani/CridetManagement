@@ -8,6 +8,8 @@ import { TabServiceProvider } from '../providers/tab-service/tab-service';
 import { AuthService } from './core/auth';
 import { UserStoresService } from '../FireStoreData/user-stores-fs-repository';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
+import { Subscription } from 'rxjs/Subscription';
+import { combineLatest } from 'rxjs/operators/combineLatest';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,6 +19,11 @@ export class MyApp {
   rootPage: any // = "TabsPage";
   storePages: Array<{ title: string, component: any ,icon?:string }>;
   userPages: Array<{ title: string, component: any ,icon?:string}>;
+  noUserPages: Array<{ title: string, component: any ,icon?:string}>;
+  autherised : boolean =false
+  haseDefaultStore : boolean =false
+  hasActiveStore : boolean =false
+  subscription : Subscription
   zombiedOwnerId : string
   constructor(
     private tabService: TabServiceProvider,
@@ -24,21 +31,31 @@ export class MyApp {
     private userStoresService : UserStoresService,
     private activeStoreService : ActiveStoreService
   ) {
-
-    this.authService.user.subscribe(user=>{
+    this.activeStoreService.activeStoreKey$.subscribe(key=>this.hasActiveStore = !!key)
+    this.subscription = this.authService.user.subscribe((user)=>{
       if(user)
       {
-        this.userStoresService.getSingleOrDefault().subscribe(extUserStore=>{
+        this.autherised = true
+        const extUserStore = this.activeStoreService.activeStoreKey
           if(extUserStore)
           {
-            this.activeStoreService.activeStoreKey = extUserStore.id
+            this.haseDefaultStore = true
+            this.hasActiveStore = true
+            this.activeStoreService.setActiveStoreKey(extUserStore.id)
             this.rootPage = "TabsPage"
           }
           else
+          {
+            this.haseDefaultStore = false
+            this.hasActiveStore = false
             this.rootPage = "UserStoresPage"
-        })
+          }
       }
       else{
+        this.autherised = false
+        this.haseDefaultStore = false
+        this.hasActiveStore = false
+        this.activeStoreService.clearActiveStoreKey()
         this.rootPage = "LoginPage"
       }
     })
@@ -46,7 +63,6 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.storePages  = [
       { title: 'StoreUsersPage', component: "StoreUsersPage" , icon:"people" },
-      { title: 'Home', component: HomePage, icon:"home" },
       { title: 'Accounts', component: "AccountsListPage" , icon:"contacts" },
       { title: "Cats", component: "TransactionCatsPage", icon:"pricetags" },
       { title: "UserSettingsPage", component: "UserSettingsPage", icon:"settings" },
@@ -55,13 +71,14 @@ export class MyApp {
       
     ];
 
+    this.noUserPages = [
+      { title: 'Login', component: "LoginPage" , icon:"log-in"},
+      { title: 'Signup', component: "SignupPage" }
+    ];
 
     this.userPages = [
-      { title: 'Login', component: "LoginPage" },
-      { title: 'Signup', component: "SignupPage" },
+      { title: 'SignOut', component: "LoginPage" , icon:"log-out"},
       { title: "UserStoresPage", component: "UserStoresPage" }
-      //  { title: "UserSettingsPage", component: "UserSettingsPage" }
-      //  { title: "UserSettingsPage", component: "UserSettingsPage" }
     ];
 
     this.zombiedOwnerId  = localStorage.getItem("firestore/[DEFAULT]/cridetmanagement/zombiedOwnerId")
@@ -76,7 +93,15 @@ export class MyApp {
     else
       this.nav.setRoot("TabsPage", page);
   }
-  openUserPage(page) {
+  openNoUserPage(page) {
     this.nav.setRoot(page.component);
+  }
+  openUserPage(page) {
+    if(page.title =='SignOut')
+    {
+      this.authService.signOut()
+    }
+    else
+     this.nav.setRoot(page.component);
   }
 }

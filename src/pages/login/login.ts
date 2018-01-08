@@ -33,12 +33,13 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
+  
   onSubmit({ value, valid }) {
     console.log(value, valid);
     this.submitAttempt = true
     if (valid)
       this.auth.signInWithEmail(value.email,value.password)
-      .then(()=>this.navCtrl.setRoot(HomePage))
+      //.then(()=>this.navCtrl.setRoot(HomePage))
 
     //throw "please take care , invalid form"
   }

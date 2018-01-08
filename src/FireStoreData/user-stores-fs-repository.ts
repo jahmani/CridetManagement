@@ -31,7 +31,7 @@ export class UserStoresService {
   }
   get FormatedList(): Observable<Extended<UserStore>[]> {
     return this.List().pipe(mergeMap((stores) => {
-      return Promise.all(this.getStores(stores))
+      return Promise.all(stores && this.getStores(stores))
     }))
   }
   getStores(extUserStores: Extended<UserStore>[]) {

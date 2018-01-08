@@ -7,7 +7,8 @@ import { switchMap } from 'rxjs/operators/switchMap'
 import { User } from '../../interfaces/user';
 
 @Injectable()
-export class AuthService {
+export class 
+AuthService {
   user: Observable<User>;
   constructor(private afAuth: AngularFireAuth,
     private afs: AngularFirestore) {

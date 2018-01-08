@@ -50,7 +50,7 @@ export class UserStoresPage {
   }
 
   onStoreSelected(extStore: Extended<UserStore>) {
-    this.activeStoreServise.activeStoreKey = extStore.id
+    this.activeStoreServise.setActiveStoreKey(extStore.id)
     const accountsPage = { title: 'Accounts', component: 'AccountsListPage' }
 
     this.navCtrl.setRoot("TabsPage", accountsPage);

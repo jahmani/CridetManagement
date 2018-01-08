@@ -28,12 +28,13 @@
   </ion-list>
   Pending...
   <ion-list>
+    
     <ion-item-sliding >
     <ion-item
       *ngFor="let userStore of userPendingStores|async"
      text-wrap >
       <ion-icon name="person" item-left></ion-icon>
-      {{userStore.ext.store.storeInfo.name }}
+      {{userStore.ext.store?.storeInfo.name }}
       <ion-note>{{userStore.id}} </ion-note>
       <button ion-button icon-only item-end (click)="accept(userStore.data.inviteId)">
         <ion-icon name="checkmark"></ion-icon>
