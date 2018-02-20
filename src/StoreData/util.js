@@ -1,3 +1,4 @@
+import { TreeNode, Extended, ExtMap, CatTreeNodeExtension, ExtType } from "../interfaces/data-models";
 export function mapToTree(NodeSnapshotMap) {
     var rootNode;
     /**/

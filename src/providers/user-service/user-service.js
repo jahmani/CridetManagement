@@ -6,15 +6,6 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 import { take } from 'rxjs/operators/take';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from '../../app/core/auth';
@@ -25,7 +16,6 @@ var UserService = /** @class */ (function () {
         this.afs = afs;
         this.auth = auth;
         this.activeStore = activeStore;
-        this.tokenKey = 'fcm_token';
         console.log('Hello UserServiceProvider Provider');
     }
     UserService.prototype.getUserSettingsPath = function (uid, storeId) {
@@ -49,6 +39,7 @@ var UserService = /** @class */ (function () {
                 //let userProfile = { fcmTokens: (userSettings && userSettings.fcmTokens) || {} }
                 if (remove) {
                     if (currentToken)
+                        //clear all user tokens
                         delete fcmTokens[currentToken];
                 }
                 else
@@ -99,12 +90,6 @@ var UserService = /** @class */ (function () {
         return localStorage.setItem(userId, JSON.stringify(userSettings));
         //    return localStorage.removeItem(this.tokenKey);
     };
-    UserService = __decorate([
-        Injectable(),
-        __metadata("design:paramtypes", [AngularFirestore,
-            AuthService,
-            ActiveStoreService])
-    ], UserService);
     return UserService;
 }());
 export { UserService };

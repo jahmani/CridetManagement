@@ -115,6 +115,7 @@ export interface Transaction extends Editable, Delteable {
   accountId: string;
   date: string;
   type: TransactionType;
+  imageSrc : string
   notice: string;
   ammount: number;
   currency: string;

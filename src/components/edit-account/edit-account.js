@@ -1,14 +1,6 @@
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, OnChanges, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Extended, AccountInfo } from '../../interfaces/data-models';
 import { Content } from 'ionic-angular';
 /*
   Generated class for the EditAccount component.
@@ -16,13 +8,15 @@ import { Content } from 'ionic-angular';
   See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
   for more info on Angular 2 Components.
 */
-var EditAccountComponent = /** @class */ (function () {
+var /*
+  Generated class for the EditAccount component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+*/
+EditAccountComponent = /** @class */ (function () {
     function EditAccountComponent(fb) {
         this.fb = fb;
-        this.update = new EventEmitter();
-        this.remove = new EventEmitter();
-        this.cancel = new EventEmitter();
-        this.submitAttempt = false;
         this.form = this.fb.group({
             name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
             city: '',
@@ -35,6 +29,7 @@ var EditAccountComponent = /** @class */ (function () {
     EditAccountComponent.prototype.ionViewDidEnter = function () {
         var _this = this;
         setTimeout(function () {
+            //Keyboard.show() // for android
             //Keyboard.show() // for android
             _this.myInput.setFocus();
         }, 1500); //a least 150ms.
@@ -76,38 +71,13 @@ var EditAccountComponent = /** @class */ (function () {
             this.onSave(value);
         //throw "please take care , invalid form"
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], EditAccountComponent.prototype, "account", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], EditAccountComponent.prototype, "update", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], EditAccountComponent.prototype, "remove", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], EditAccountComponent.prototype, "cancel", void 0);
-    __decorate([
-        ViewChild(Content),
-        __metadata("design:type", Content)
-    ], EditAccountComponent.prototype, "content", void 0);
-    __decorate([
-        ViewChild('focusInput'),
-        __metadata("design:type", Object)
-    ], EditAccountComponent.prototype, "myInput", void 0);
-    EditAccountComponent = __decorate([
-        Component({
-            selector: 'edit-account',
-            templateUrl: 'edit-account.html'
-        }),
-        __metadata("design:paramtypes", [FormBuilder])
-    ], EditAccountComponent);
     return EditAccountComponent;
 }());
+/*
+  Generated class for the EditAccount component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+*/
 export { EditAccountComponent };
 //# sourceMappingURL=edit-account.js.map

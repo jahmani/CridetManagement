@@ -5,7 +5,7 @@ export var environment = {
         authDomain: "cridetmanagement.firebaseapp.com",
         databaseURL: "https://cridetmanagement.firebaseio.com",
         projectId: "cridetmanagement",
-        storageBucket: "",
+        storageBucket: "gs://cridetmanagement.appspot.com",
         messagingSenderId: "569459372801"
     }
 };

@@ -1,0 +1,34 @@
+<!--
+  Generated template for the ImageGalleryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ImageGallery</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid >
+    <ion-row>
+      <ion-col (click)="presentImage(i)" col-6 col-md-4 col-xl-3 *ngFor="let image of images; let i=index">
+        <div class="image-container"  [style.background-image]="'url(' + image.url + ')'"></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<!--
+  <ion-content>
+    <ion-slides >
+      <ion-slide *ngFor="let img of images">
+        <img src="assets/img/{{img.url}}" class="thumb-img" />
+      </ion-slide>
+    </ion-slides>
+  </ion-content>
+
+-->

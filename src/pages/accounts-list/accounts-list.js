@@ -7,15 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, ModalController, AlertController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { combineLatest } from "rxjs/observable/combineLatest";
+import { AccountInfo, Extended, AccountBalance } from '../../interfaces/data-models';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { FormControl } from '@angular/forms';
@@ -44,10 +43,10 @@ var AccountsListPage = /** @class */ (function () {
         //
         var initializedValueChanges = this.searchControl.valueChanges.pipe(debounceTime(700)).pipe(startWith(null));
         /*
-        merged.subscribe(searcTerm => {
-          console.log("merge Eimit", searcTerm)
-        })
-        */
+            merged.subscribe(searcTerm => {
+              console.log("merge Eimit", searcTerm)
+            })
+            */
         this.filteredAccounts = combineLatest(initializedValueChanges, this.accounts, function (searcTerm, extAccounts) {
             if (!searcTerm || !searcTerm.length)
                 return extAccounts;
@@ -100,13 +99,14 @@ var AccountsListPage = /** @class */ (function () {
             this.titleService.setTitle("حساب ");
         }
     };
+    /**
+     * Generated class for the AccountsListPage page.
+     *
+     * See https://ionicframework.com/docs/components/#navigation for more info on
+     * Ionic pages and navigation.
+     */
     AccountsListPage = __decorate([
         IonicPage({ segment: 'accounts-list' }),
-        Component({
-            selector: 'page-accounts-list',
-            templateUrl: 'accounts-list.html',
-        }),
-        __param(5, Optional()),
         __metadata("design:paramtypes", [NavController,
             AccountsFsRepository,
             AccountsBalanceFBRepository,

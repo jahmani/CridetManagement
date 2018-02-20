@@ -1,5 +1,7 @@
 //import { Injectable } from '@angular/core';
 //import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Extended } from '../interfaces/data-models';
 /*
   Generated class for the IRepository provider.
 
@@ -7,7 +9,14 @@
   for more info on providers and Angular 2 DI.
 */
 //@Injectable()
-var IRepository = /** @class */ (function () {
+var /*
+  Generated class for the IRepository provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
+//@Injectable()
+IRepository = /** @class */ (function () {
     function IRepository() {
     }
     IRepository.prototype.List = function (filter) {
@@ -30,5 +39,12 @@ var IRepository = /** @class */ (function () {
     };
     return IRepository;
 }());
+/*
+  Generated class for the IRepository provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
+//@Injectable()
 export { IRepository };
 //# sourceMappingURL=i-repository.js.map

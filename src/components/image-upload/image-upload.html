@@ -1,0 +1,49 @@
+<!--
+  Generated template for the ImageUploadPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+
+  <img [src]="imgSrc || fileSrc || placeHoldereSrc" />
+
+-->
+<img [src]="data.image" #cropped [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+<input type="file" (change)="onImageSelected($event)" accept="image/*" id="file-input" #fileInput>
+<ion-card ion-fixed>
+  <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+  <div *ngIf="!imgSrc; else ShowDelete">
+    <div *ngIf="uploadState | async as state; else SelectImage">
+      <progress-bar [progress]="uploadProgress|async"></progress-bar>
+      <ion-fab *ngIf="!(downloadURL | async); else SelectImage" middle center>
+        <button ion-fab *ngIf="state === 'paused'" (click)="task.resume()">
+          <ion-icon name="play"></ion-icon>
+        </button>
+        <button ion-fab *ngIf="state === 'paused'" (click)="cancelImage($event)">
+          <ion-icon name="close"></ion-icon>
+        </button>
+        <button ion-fab *ngIf="state === 'running'" (click)="task.pause()">
+          <ion-icon name="pause"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+    <ng-template #SelectImage>
+      <ion-fab middle center>
+        <button ion-fab (click)="selectImage($event)">
+          <ion-icon name="attach"></ion-icon>
+        </button>
+      </ion-fab>
+  </ng-template>
+  </div>
+  <ng-template #ShowDelete>
+  <ion-fab right top>
+    <button ion-fab (click)="deleteImage($event)">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </ion-fab>
+</ng-template>
+<ion-fab right top>
+    <button ion-fab (click)="crop()"  *ngIf="data.image">
+      <ion-icon name="done-all"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-card>

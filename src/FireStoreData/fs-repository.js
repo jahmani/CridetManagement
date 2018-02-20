@@ -1,4 +1,7 @@
-import { ExtMap } from '../interfaces/data-models';
+//import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Extended, ExtMap, Editable } from '../interfaces/data-models';
 import { publishReplay } from 'rxjs/operators/publishReplay';
 import { refCount } from 'rxjs/operators/refCount';
 import { map } from 'rxjs/operators/map';
@@ -12,7 +15,13 @@ import { firestore } from 'firebase';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var FsRepository = /** @class */ (function () {
+var /*
+  Generated class for the FBRepository provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
+FsRepository = /** @class */ (function () {
     function FsRepository(afs, path) {
         this.afs = afs;
         this.path = path;
@@ -129,5 +138,11 @@ var FsRepository = /** @class */ (function () {
     };
     return FsRepository;
 }());
+/*
+  Generated class for the FBRepository provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
 export { FsRepository };
 //# sourceMappingURL=fs-repository.js.map

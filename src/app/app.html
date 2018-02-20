@@ -25,6 +25,7 @@
           </button>
         </div>
         <div *ngIf="autherised">
+          <ion-item-divider color="light">User</ion-item-divider>
           <button menuClose ion-item *ngFor="let p of userPages" (click)="openUserPage(p)">
             <ion-icon [name]="p.icon" item-start></ion-icon>
             {{p.title}}

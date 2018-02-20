@@ -7,9 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController, Content } from 'ionic-angular';
+import { AccountInfo, Extended } from '../../interfaces/data-models';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
+import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the EditAccountPage page.
  *
@@ -46,12 +48,14 @@ var EditAccountPage = /** @class */ (function () {
             this.dismiss(accSnapshot);
         }
     };
+    /**
+     * Generated class for the EditAccountPage page.
+     *
+     * See https://ionicframework.com/docs/components/#navigation for more info on
+     * Ionic pages and navigation.
+     */
     EditAccountPage = __decorate([
         IonicPage(),
-        Component({
-            selector: 'page-edit-account',
-            templateUrl: 'edit-account.html',
-        }),
         __metadata("design:paramtypes", [NavController,
             AccountsFsRepository,
             ViewController,

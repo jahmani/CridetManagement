@@ -3,4 +3,35 @@ page-account-transactions {
         min-width:4em;
         text-align: right;
     }
+    .item-md ion-thumbnail
+    {
+        min-width: 60px;
+        min-height: 60userpx;
+    }
+    .label-md{
+        margin-top: 1px;
+        margin-bottom: 2px;
+    }
+    .date-small{
+        font-size:small;
+    }
+    .item-md .balance{
+        display: block;
+        width: $item-md-thumbnail-size;
+    }
+
+    .gray{
+        color: #c5c5c5;
+    }
+    .note-italic{
+        font-style: italic;
+        font-size:small;
+    }
+    .ammount-bold{
+        font-weight: bold;
+    }
+    .balance-light{
+        font-weight: lighter;
+        font-size: small;
+    }
 }

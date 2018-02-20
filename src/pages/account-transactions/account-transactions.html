@@ -13,31 +13,63 @@
 </ion-header>
 -->
 
-<ion-content padding>
+<ion-content no-padding>
   <div>
   </div>
   <ion-list>
     <ion-item text-wrap *ngIf="extAccount |async as account">
-      <h2 style="font-weight: 800">{{account.ext?.$balance > 0 ? 'له': 'عليه'}}</h2>
-      <h2 class="trans-value" [style.color]='account.ext?.$balanceObj?.data?.isDirty ? "red" :""' item-right>المبلغ
-        <span *ngIf="account.ext?.$balanceObj?.data?.isDirty"> ! </span>
-
-      </h2>
-      <h2 class="trans-value" item-right>الرصيد</h2>
+      <span class="balance ammount-bold" text-end item-start>الرصيد : </span>
+      <span class="ammount-bold" [style.color]='account.ext?.$balanceObj?.data?.isDirty ? "red" :""'>
+        {{account.ext.$balanceObj.data.balance}}
+      </span>
+      <span *ngIf="account.ext?.$balanceObj?.data?.isDirty"> ! </span>
+      <span>{{account.ext?.$balance > 0 ? 'له': 'عليه'}}</span>
     </ion-item>
-    <ion-item-sliding *ngFor="let transSnapshot of transSnapshotsArray|async">
-      <ion-item text-wrap (click)="presentEditTransactionModal(transSnapshot)">
-
-        <ion-icon name="person" item-left></ion-icon>
-        <h2>{{transSnapshot.data.type == 1 ? 'له': 'عليه'}}/ {{transSnapshot.ext?.catigory?.data.name}}</h2>
-        <ion-note>{{transSnapshot.data.date | date}} </ion-note>
-        <p>{{transSnapshot.data.notice}}</p>
+    <ion-item-sliding *ngFor="let transSnapshot of transSnapshotsArray|async; let i=index">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img imageViewer src="{{transSnapshot.data.imageSrc || '../../assets/icon/attachImage.png'}}">
+        </ion-thumbnail>
+        <ion-grid no-padding  (click)="presentEditTransactionModal(transSnapshot)">
+          <ion-row>
+            <ion-col>
+              <span>
+                <ion-icon *ngIf="transSnapshot.data.type < 0 ; else plusIcon" name="remove" style="color:red"></ion-icon>
+                <ng-template #plusIcon>
+                  <ion-icon name="add" style="color:green"></ion-icon>
+                </ng-template>
+              </span>
+              <span>{{(transSnapshot.data.ammount)| number : '1.2-2'}}</span>
+            </ion-col>
+            <ion-col>
+              <span>{{transSnapshot.data.type == 1 ? 'له': 'عليه'}}</span>
+              <span>:</span>
+              <span>{{transSnapshot.ext?.catigory?.data.name}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row class=" gray">
+            <ion-col>
+              <span>
+                <ion-icon [name]="transSnapshot.ext.currentBalance < 0 ? 'remove' : 'add'"></ion-icon>
+              </span>
+              <span>{{(transSnapshot.ext.currentBalance *(transSnapshot.ext.currentBalance <0 ? -1 : 1))| number : '1.2-2'}}</span>
+            </ion-col>
+            <ion-col>
+              <span>{{"رصيد تراكمي"}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-auto>
+              <span class="note-italic" *ngIf="transSnapshot.data.notice"> \ {{transSnapshot.data.notice}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col text-end>
+              <ion-note class="date-small">{{transSnapshot.data.date | date:"shortDate"}} </ion-note>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <ion-spinner *ngIf="transSnapshot.meta.hasPendingWrites" item-right name="bubbles"></ion-spinner>
-
-        <h2 item-right  class="trans-value">{{(transSnapshot.data.type * transSnapshot.data.ammount)| number : '1.2-2'}}</h2>
-        
-        <h2 item-right class="trans-value">{{transSnapshot.ext.currentBalance| number : '1.2-2'}}</h2>
-
       </ion-item>
       <ion-item-options>
         <button (click)="presentEditTransactionModal(transSnapshot)" ion-button primary>

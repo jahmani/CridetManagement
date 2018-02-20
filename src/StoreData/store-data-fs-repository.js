@@ -8,7 +8,11 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+import { AngularFirestore } from 'angularfire2/firestore';
+import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { StorePathConfig } from './StorePathConfig';
+import { Injectable } from '@angular/core';
+import { StoreInfo, Editable } from '../interfaces/data-models';
 import { FsRepository } from '../FireStoreData/fs-repository';
 import { conatctPaths } from '../FireStoreData/util';
 /*
@@ -17,19 +21,30 @@ import { conatctPaths } from '../FireStoreData/util';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-///@Injectable()
-var StoreDataFsRepository = /** @class */ (function (_super) {
+var /*
+  Generated class for the StoreDataLoggableFbRepository provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
+StoreDataFsRepository = /** @class */ (function (_super) {
     __extends(StoreDataFsRepository, _super);
     function StoreDataFsRepository(afs, ass, dataSubPath) {
         var _this = _super.call(this, afs, conatctPaths(StorePathConfig.basePath, ass.activeStoreKey, dataSubPath)) || this;
         /* activeStoreInfoService.storeChange$.subscribe(()=>{
-           super.initialize( activeStoreInfoService.ActiveStoreReference.child(dataSubPath));
-         });
-         */
+                super.initialize( activeStoreInfoService.ActiveStoreReference.child(dataSubPath));
+              });
+              */
         console.log('Hellooooo StoreDataLoggableFbRepository Provider');
         return _this;
     }
     return StoreDataFsRepository;
 }(FsRepository));
+/*
+  Generated class for the StoreDataLoggableFbRepository provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
 export { StoreDataFsRepository };
 //# sourceMappingURL=store-data-fs-repository.js.map

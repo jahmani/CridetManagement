@@ -15,14 +15,11 @@
   <ion-content padding>
     <ion-list>
       <ion-item-sliding *ngFor="let userStore of userStores|async">
-      <ion-item text-wrap >
+      <ion-item text-wrap (click)="onStoreSelected(userStore)">
         <ion-icon name="person" item-left ></ion-icon>
-        {{userStore.ext.store.storeInfo?.name }}
+        {{userStore.ext.store?.storeInfo?.name }}
         <ion-note>{{userStore.id}}</ion-note>
-        <button ion-button icon-only item-right
-        (click)="onStoreSelected(userStore)" >
-          <ion-icon name="open"></ion-icon>
-        </button>
+          <ion-icon   item-end name="open"></ion-icon>
       </ion-item>
       </ion-item-sliding>
   </ion-list>

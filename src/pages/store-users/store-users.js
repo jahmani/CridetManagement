@@ -7,17 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 import { Component, Optional } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repository';
+import { Observable } from 'rxjs/Observable';
+import { Extended, User, StoreUser, Invite } from '../../interfaces/data-models';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { InvitesFsRepository } from '../../FireStoreData/invites-fs-repository';
 import { ActiveStoreService } from '../../FireStoreData/activeStore';
 import { UsersFsRepository } from '../../FireStoreData/users-fs-repository';
-import { FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 /**
  * Generated class for the StoreUsersPage page.
  *
@@ -62,13 +61,14 @@ var StoreUsersPage = /** @class */ (function () {
     StoreUsersPage.prototype.invite = function (userId) {
         this.invitesFsRepository.invite(userId, this.activeStoreService.activeStoreKey);
     };
+    /**
+     * Generated class for the StoreUsersPage page.
+     *
+     * See https://ionicframework.com/docs/components/#navigation for more info on
+     * Ionic pages and navigation.
+     */
     StoreUsersPage = __decorate([
         IonicPage(),
-        Component({
-            selector: 'page-store-users',
-            templateUrl: 'store-users.html',
-        }),
-        __param(1, Optional()),
         __metadata("design:paramtypes", [NavController,
             TitleServiceProvider,
             UsersFsRepository,

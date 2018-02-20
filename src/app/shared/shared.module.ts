@@ -26,4 +26,5 @@ import { IonicModule } from 'ionic-angular';
     /* our own custom components */
   ]
 })
+
 export class SharedModule { }

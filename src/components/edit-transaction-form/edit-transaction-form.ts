@@ -31,7 +31,8 @@ export class EditTransactionFormComponent {
         date: '',
         ammount: ['', Validators.compose([Validators.required, Validators.min(0.00001), Validators.max(999999999)])],
         notice: '',
-        catigoryId: ''
+        catigoryId: '',
+        imageSrc : ''
       }
     );
   }

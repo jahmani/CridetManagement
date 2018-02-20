@@ -62,12 +62,10 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.storePages  = [
-      { title: 'StoreUsersPage', component: "StoreUsersPage" , icon:"people" },
+    //  { title: 'StoreUsersPage', component: "StoreUsersPage" , icon:"people" },
       { title: 'Accounts', component: "AccountsListPage" , icon:"contacts" },
-      { title: "Cats", component: "TransactionCatsPage", icon:"pricetags" },
-      { title: "UserSettingsPage", component: "UserSettingsPage", icon:"settings" },
-      //  { title: "UserSettingsPage", component: "UserSettingsPage" }
-      //  { title: "UserSettingsPage", component: "UserSettingsPage" }
+      { title: "StoreSettingsPage", component: "StoreSettingsPage", icon:"settings" },
+      { title: "ImageGalleryPage", component: "ImageGalleryPage" }
       
     ];
 
@@ -78,7 +76,9 @@ export class MyApp {
 
     this.userPages = [
       { title: 'SignOut', component: "LoginPage" , icon:"log-out"},
-      { title: "UserStoresPage", component: "UserStoresPage" }
+      { title: "UserStoresPage", component: "UserStoresPage" },
+      { title: "ImageCropperPage", component: "ImageCropperPage", icon:"pricetags" },
+
     ];
 
     this.zombiedOwnerId  = localStorage.getItem("firestore/[DEFAULT]/cridetmanagement/zombiedOwnerId")

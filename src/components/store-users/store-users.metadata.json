@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{"StoreUsersComponent":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Component"},"arguments":[{"selector":"store-users","templateUrl":"store-users.html"}]}],"members":{"__ctor__":[{"__symbolic":"constructor"}]}}}}]

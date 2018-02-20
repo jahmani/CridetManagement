@@ -11,7 +11,9 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Tabs, PopoverController } from 'ionic-angular';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { Observable } from 'rxjs/Observable';
+import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { TabServiceProvider } from '../../providers/tab-service/tab-service';
+import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/Operators/map';
 import { mergeMap } from 'rxjs/Operators/mergeMap';
 import { ConnectionServiceProvider } from '../../providers/connection-service/connection-service';
@@ -35,8 +37,6 @@ var TabsPage = /** @class */ (function () {
         this.titleService = titleService;
         this.tabService = tabService;
         this.popoverCtrl = popoverCtrl;
-        this.canGoBack = Observable.of(false);
-        this.tabRoot = "AccountsListPage";
         this.isConnected = connectionService.fbConnectionStatus;
         var paramTabRoot = this.navParams.get("component");
         if (this.subNavCtrl)
@@ -65,17 +65,17 @@ var TabsPage = /** @class */ (function () {
         console.log('ionViewDidLoad TabsPage');
         this.tabs.setTabbarHidden(true);
         /*
-        console.log(this.tabs)
-        const childNavs: Tabs[] = this.navCtrl.getActiveChildNavs()
-        //even in the template we used 1 tabs component
-        //at run time we might get 2 tabs components
-        // the second tabs component is the new active one
-        // if we have 2 tabs component use the second
-    
-        const tabs: Tabs = childNavs[childNavs.length-1]
+            console.log(this.tabs)
+            const childNavs: Tabs[] = this.navCtrl.getActiveChildNavs()
+            //even in the template we used 1 tabs component
+            //at run time we might get 2 tabs components
+            // the second tabs component is the new active one
+            // if we have 2 tabs component use the second
         
-        tabs.setTabbarHidden(true)
-        */
+            const tabs: Tabs = childNavs[childNavs.length-1]
+            
+            tabs.setTabbarHidden(true)
+            */
     };
     TabsPage.prototype.ionViewWillUnload = function () {
         if (this.tabServiceSub)
@@ -85,20 +85,14 @@ var TabsPage = /** @class */ (function () {
         if (this.subNavCtrl)
             return this.subNavCtrl.pop();
     };
-    __decorate([
-        ViewChild(Tabs),
-        __metadata("design:type", Tabs)
-    ], TabsPage.prototype, "tabs", void 0);
+    /**
+     * Generated class for the TabsPage page.
+     *
+     * See https://ionicframework.com/docs/components/#navigation for more info on
+     * Ionic pages and navigation.
+     */
     TabsPage = __decorate([
         IonicPage({ segment: 'tabs' }),
-        Component({
-            selector: 'page-tabs',
-            templateUrl: 'tabs.html',
-            providers: [TitleServiceProvider,
-                AccountsFsRepository, TransactionsFsRepository,
-                TCatigoriesFsRepositoryProvider, StoreUsersFsRepository,
-                AccountsBalanceFBRepository]
-        }),
         __metadata("design:paramtypes", [NavController,
             NavParams,
             TitleServiceProvider,
