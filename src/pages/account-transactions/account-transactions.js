@@ -7,14 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
-import { Transaction, Extended, ExtMap, AccountInfo } from '../../interfaces/data-models';
-import { Observable } from 'rxjs/Observable';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { map } from 'rxjs/Operators/map';
-import { UTCToLocal } from '../../Util/dateTime';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
 import { combineLatest } from 'rxjs/operators/combineLatest';
@@ -36,11 +36,9 @@ var AccountTransactionsPage = /** @class */ (function () {
         this.titleService = titleService;
         this.accountId = this.navParams.get('accountId');
         this.transSnapshots = this.transactionsRep.forAccount(this.accountId);
-        this.transSnapshotsArray = this.transSnapshots.pipe(map(function (m) {
-            return m.toArray().sort(function (a, b) {
-                return Date.parse(a.data.date) - Date.parse(b.data.date);
-            });
-        }));
+        this.transSnapshotsArray = this.transSnapshots.pipe(map(function (m) { return m.toArray().sort(function (a, b) {
+            return Date.parse(a.data.date) - Date.parse(b.data.date);
+        }); }));
         this.transSnapshotsArray.subscribe(console.log);
         this.extAccount = this.accountsRep.getExtended(this.accountId);
         this.transSnapshotsArray = this.transSnapshotsArray.pipe(combineLatest(this.extAccount, function (extTranses, extAccount) {
@@ -60,6 +58,16 @@ var AccountTransactionsPage = /** @class */ (function () {
     };
     AccountTransactionsPage.prototype.presentEditTransactionModal = function (transSnapshot) {
         this.navCtrl.push("EditTransactionPage", { transSnapshot: transSnapshot });
+    };
+    AccountTransactionsPage.prototype.showTransactionImage = function (transSnapshot) {
+        if (transSnapshot.ext.imageFile) {
+            var modal = this.modalController.create("PhotoDetailPage", {
+                canDelete: false,
+                canSelect: false,
+                images: [transSnapshot.ext.imageFile]
+            });
+            modal.present();
+        }
     };
     AccountTransactionsPage.prototype.ionViewDidEnter = function () {
         var _this = this;
@@ -95,14 +103,13 @@ var AccountTransactionsPage = /** @class */ (function () {
         };
         return this.presentEditTransactionModal({ id: null, data: newTransaction });
     };
-    /**
-     * Generated class for the AccountTransactionsPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     AccountTransactionsPage = __decorate([
         IonicPage(),
+        Component({
+            selector: 'page-account-transactions',
+            templateUrl: 'account-transactions.html',
+        }),
+        __param(6, Optional()),
         __metadata("design:paramtypes", [NavController,
             NavParams,
             AlertController,

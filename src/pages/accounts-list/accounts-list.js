@@ -7,18 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 import { Component, Optional } from '@angular/core';
-import { IonicPage, NavController, ModalController, AlertController } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
+import { IonicPage, NavController, ModalController, AlertController, ViewController, NavParams } from 'ionic-angular';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { combineLatest } from "rxjs/observable/combineLatest";
-import { AccountInfo, Extended, AccountBalance } from '../../interfaces/data-models';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { FormControl } from '@angular/forms';
-import { AccountsBalanceFBRepository } from '../../StoreData/account-balance-fb-repository';
 /**
  * Generated class for the AccountsListPage page.
  *
@@ -26,14 +26,17 @@ import { AccountsBalanceFBRepository } from '../../StoreData/account-balance-fb-
  * Ionic pages and navigation.
  */
 var AccountsListPage = /** @class */ (function () {
-    function AccountsListPage(navCtrl, afsr, abfsr, modalController, alertController, titleService) {
+    function AccountsListPage(navCtrl, viewCtrl, navParams, accountsFsRepository, modalController, alertController, titleService) {
         this.navCtrl = navCtrl;
-        this.afsr = afsr;
-        this.abfsr = abfsr;
+        this.viewCtrl = viewCtrl;
+        this.navParams = navParams;
+        this.accountsFsRepository = accountsFsRepository;
         this.modalController = modalController;
         this.alertController = alertController;
         this.titleService = titleService;
-        this.accounts = this.afsr.FormatedList;
+        this.accountsFsRepository =
+            this.accountsFsRepository || this.navParams.get("accountsFsRepository");
+        this.accounts = this.accountsFsRepository.FormatedList;
         this.searchControl = new FormControl();
         // this.accounts.subscribe(console.log)
     }
@@ -43,10 +46,10 @@ var AccountsListPage = /** @class */ (function () {
         //
         var initializedValueChanges = this.searchControl.valueChanges.pipe(debounceTime(700)).pipe(startWith(null));
         /*
-            merged.subscribe(searcTerm => {
-              console.log("merge Eimit", searcTerm)
-            })
-            */
+        merged.subscribe(searcTerm => {
+          console.log("merge Eimit", searcTerm)
+        })
+        */
         this.filteredAccounts = combineLatest(initializedValueChanges, this.accounts, function (searcTerm, extAccounts) {
             if (!searcTerm || !searcTerm.length)
                 return extAccounts;
@@ -64,12 +67,22 @@ var AccountsListPage = /** @class */ (function () {
             }, { balance: 0, isDirty: false });
         }));
     };
+    AccountsListPage.prototype.onClick = function (extAccount) {
+        var canSelect = this.navParams.get("canSelect");
+        if (canSelect)
+            this.selectAccount(extAccount);
+        else
+            this.showAccountTransactions(extAccount);
+    };
     AccountsListPage.prototype.showAccountTransactions = function (accSnapshot) {
         this.navCtrl.push("AccountTransactionsPage", { accountId: accSnapshot.id });
     };
+    AccountsListPage.prototype.selectAccount = function (extAccount) {
+        this.viewCtrl.dismiss(extAccount);
+    };
     AccountsListPage.prototype.invalidateBalance = function (accSnapshot) {
         if (accSnapshot.ext.$balanceObj.data.isDirty)
-            return this.abfsr.setAccountBalanceInvalid(accSnapshot.id);
+            return this.accountsFsRepository.setAccountBalanceInvalid(accSnapshot.id);
     };
     AccountsListPage.prototype.presentEditAccountModal = function (accSnapshot) {
         this.navCtrl.push("EditAccountPage", { accSnapshot: accSnapshot });
@@ -81,10 +94,10 @@ var AccountsListPage = /** @class */ (function () {
         var _this = this;
         var alert = this.alertController.create({
             message: "Are u sure. deleting " + accSnapshot.data.name + " information",
-            title: "Deleting Account Info",
+            title: "Deleting AccountInfo Info",
             buttons: [{
                     text: "Ok",
-                    handler: function () { _this.afsr.remove(accSnapshot); }
+                    handler: function () { _this.accountsFsRepository.remove(accSnapshot); }
                 },
                 {
                     text: "Cancel"
@@ -99,17 +112,18 @@ var AccountsListPage = /** @class */ (function () {
             this.titleService.setTitle("حساب ");
         }
     };
-    /**
-     * Generated class for the AccountsListPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     AccountsListPage = __decorate([
         IonicPage({ segment: 'accounts-list' }),
+        Component({
+            selector: 'page-accounts-list',
+            templateUrl: 'accounts-list.html',
+        }),
+        __param(3, Optional()),
+        __param(6, Optional()),
         __metadata("design:paramtypes", [NavController,
+            ViewController,
+            NavParams,
             AccountsFsRepository,
-            AccountsBalanceFBRepository,
             ModalController,
             AlertController,
             TitleServiceProvider])

@@ -58,7 +58,9 @@ export class AccountsFsRepository extends StoreDataFsRepository<AccountInfo> imp
       }))
   }
 
-
+  setAccountBalanceInvalid(accountId: string){
+    return this.accountsBalanceFBRepository.setAccountBalanceInvalid(accountId)
+  }
   getExtended(accountId:string):Observable<Extended<AccountInfo>>{
     const account = super.get(accountId)
     const balance = this.accountsBalanceFBRepository.get(accountId)

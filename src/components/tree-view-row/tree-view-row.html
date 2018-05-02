@@ -1,33 +1,11 @@
 <!-- Generated template for the TreeViewRowComponent component -->
-<!--
-<ion-grid no-padding [style.padding-left]="(depth * 20) + 'px'" style="height:20px; padding-bottom: 0px;  padding-top: 0px">
-  <ion-row class="my-item" >
-    <ion-col col-2>
-      <ion-icon style="padding-right: 5px" [name]="getIconName()" (click)="toggleExpand()"></ion-icon>
-    </ion-col>
-    <ion-col>
-      <span (click)="onNodeClicked(node)" class="node-title">{{node.data.name}}</span>
-    </ion-col>
-  </ion-row>
-  <hr class="style14" />
-</ion-grid>
--->
-<!--
-<ion-item-sliding no-padding [style.padding-left]="(depth * 20) + 'px'">
--->
-  <ion-item [style.padding-left]="(depth * 20) + 'px'" [color]="isSelected() ? 'primary':''">
-    <ion-icon style="padding-right: 5px" [name]="getIconName()" (click)="toggleExpand()"></ion-icon>
+
+  <ion-item [style.padding-right]="(depth * 20) + 'px'" [color]="isSelected() ? 'primary':''">
+    <ion-icon class="node-icon" [name]="getIconName()" (click)="toggleExpand()"></ion-icon>
     <span (click)="onNodeClicked(node)" class="node-title">{{node.data.name}}</span>
   </ion-item>
-  <!--
-  <ion-item-options>
-    <button primary (click)="onNodeEditClicked(node)">
-      <ion-icon name="text"></ion-icon>
-      Edit
-    </button>
-  </ion-item-options>
-</ion-item-sliding>
--->
+
+  
 <div>
   <tree-view-list *ngIf="hasSons() && node.ext.$isExpanded" [nodes]="node.ext.$sons" (nodeSelected)="onNodeClicked($event)"
     (nodeEditClicked)="onNodeEditClicked($event)" 

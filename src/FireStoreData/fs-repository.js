@@ -1,7 +1,4 @@
-//import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
-import { Observable } from 'rxjs/Observable';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Extended, ExtMap, Editable } from '../interfaces/data-models';
+import { ExtMap } from '../interfaces/data-models';
 import { publishReplay } from 'rxjs/operators/publishReplay';
 import { refCount } from 'rxjs/operators/refCount';
 import { map } from 'rxjs/operators/map';
@@ -9,19 +6,14 @@ import { first } from 'rxjs/operators/first';
 import { share } from 'rxjs/operators/share';
 import * as firebase from "firebase/app";
 import { firestore } from 'firebase';
+import { compareTimeStamp } from '../Util/compareDateString';
 /*
   Generated class for the FBRepository provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var /*
-  Generated class for the FBRepository provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
-FsRepository = /** @class */ (function () {
+var FsRepository = /** @class */ (function () {
     function FsRepository(afs, path) {
         this.afs = afs;
         this.path = path;
@@ -55,6 +47,8 @@ FsRepository = /** @class */ (function () {
                 var id = a.payload.doc.id;
                 var ret = { id: id, data: data, ext: {}, meta: meta };
                 return ret;
+            }).sort(function (a, b) {
+                return compareTimeStamp(a.data.lastEditedOn, b.data.lastEditedOn);
             });
         }));
     };
@@ -111,15 +105,12 @@ FsRepository = /** @class */ (function () {
         throw err;
     };
     FsRepository.prototype.saveNew = function (item, key) {
+        key = key || this.newKey();
         this.parseBeforeSave(item);
         item.data.lastEditedOn = firebase.firestore.FieldValue.serverTimestamp();
         item.data.firstCreatedOn = firebase.firestore.FieldValue.serverTimestamp();
         if (key)
-            return this.collection.doc(key).set(item.data).catch(this.catch);
-        else
-            return this.collection.add(item.data).then(function () {
-                return;
-            }).catch(this.catch);
+            return this.collection.doc(key).set(item.data).then(function () { return key; }).catch(this.catch);
     };
     FsRepository.prototype.remove = function (item) {
         // this.parseBeforeSave(item);
@@ -128,6 +119,9 @@ FsRepository = /** @class */ (function () {
     };
     FsRepository.prototype.getNewDocId = function () {
         return firestore().collection(this.path).doc().id;
+    };
+    FsRepository.prototype.newKey = function () {
+        return this.collection.ref.firestore.collection(this.collection.ref.path).doc().id;
     };
     FsRepository.prototype.saveOld = function (editedItem) {
         // let key = editedItem.$key;
@@ -138,11 +132,5 @@ FsRepository = /** @class */ (function () {
     };
     return FsRepository;
 }());
-/*
-  Generated class for the FBRepository provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 export { FsRepository };
 //# sourceMappingURL=fs-repository.js.map

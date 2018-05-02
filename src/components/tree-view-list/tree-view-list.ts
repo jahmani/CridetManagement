@@ -24,8 +24,8 @@ export class TreeViewListComponent {
   
 
   constructor() {
-    console.log('Hello TreeViewListComponent Component');
-    console.log(this.nodes)
+  //  console.log('Hello TreeViewListComponent Component');
+  //  console.log(this.nodes)
   }
   onNodeClicked(node: Extended<TransactionCatigory>){
     this.nodeSelected.emit(node);

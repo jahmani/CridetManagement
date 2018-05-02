@@ -1,0 +1,16 @@
+<!-- Generated template for the ImageSelectComponent component -->
+<ion-card ion-fixed>
+  <img [src]="displayImageSrc">
+  <ion-fab *ngIf="imgFile; else SelectImage" right top>
+    <button ion-fab (click)="removeImage($event)">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </ion-fab>
+  <ng-template #SelectImage>
+    <ion-fab middle center>
+      <button ion-fab (click)="selectImage($event)">
+        <ion-icon name="attach"></ion-icon>
+      </button>
+    </ion-fab>
+  </ng-template>
+</ion-card>

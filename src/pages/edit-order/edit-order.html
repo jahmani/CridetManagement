@@ -1,0 +1,73 @@
+<!--
+  Generated template for the EditOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>EditOrder</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form novalidate *ngIf="order$|async as p" ng-submit="onSubmit()" [formGroup]="form">
+      <ion-list>
+        <ion-item>
+          <account-picker autofocus formControlName="accountId"></account-picker>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Ammount</ion-label>
+          <ion-input autofocus formControlName="ammount" type="number"></ion-input>
+        </ion-item>
+  
+  
+        <ion-item>
+          <ion-label>CBM</ion-label>
+          <ion-input autofocus formControlName="cbm" type="number"></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-datetime autofocus formControlName="date" type="text"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>deliveryDate</ion-label>
+          <ion-datetime autofocus formControlName="deliveryDate" type="text"></ion-datetime>
+        </ion-item>
+        <packing-list  *ngIf="orderPlLines$|async as lines" 
+        [lines]="lines"
+        (plLineWantEdit)="presentEditPlLine($event)"
+        ></packing-list>
+        <button ion-button (click)="presentNewPLLineModal()">Add</button>
+
+        <pl-list-table *ngIf="orderPlLines$|async as lines" 
+        [lines]="lines"
+        (plLineWantEdit)="presentEditPlLine($event)"></pl-list-table>
+        <pl-line-list *ngIf="orderPlLines$|async as lines" 
+        [plLines]="lines"
+        (plLineWantEdit)="presentEditPlLine($event)"></pl-line-list>
+
+        
+        <image-select formControlName="imageUrl"></image-select>
+  
+      </ion-list>
+    </form>
+  </ion-content>
+  
+  <ion-footer>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button type="button" ion-button full (click)="onCancel()" color="light">cancel</button>
+        </ion-col>
+        <ion-col>
+          <button type="submit" ion-button full (click)="onSubmit(form)" color="primary"> save</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+  

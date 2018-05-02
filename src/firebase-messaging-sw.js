@@ -44,8 +44,9 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
+
 messaging.setBackgroundMessageHandler(function(payload) {
-  console.log('Received background message ', payload);
+  console.log('Received background message 2', payload);
   // here you can override some options describing what's in the message; 
   // however, the actual content will come from the Webtask
   const notificationOptions = {

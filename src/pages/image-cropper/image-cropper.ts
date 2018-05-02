@@ -5,19 +5,22 @@ import {
   NavParams,
   ViewController
 } from "ionic-angular";
-import Cropper from "cropperjs";
+import * as Cropper from "cropperjs";
 import {
   AngularFireStorage,
   AngularFireUploadTask,
   AngularFireStorageReference
 } from "angularfire2/storage";
 import { Observable } from "rxjs/Observable";
+import { ImageServiceProvider, ImageMeta } from "../../providers/image-service/image-service";
 /**
  * Generated class for the ImageCropperPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
+
 
 @IonicPage()
 @Component({
@@ -43,7 +46,8 @@ export class ImageCropperPage {
     size: 0
   };
   editor = { cropping: false, rotating: false };
-  private extractExt(fileName: string) {
+  private extractExt() {
+    const fileName: string = this.loader.name;
     const dotIndex = fileName.lastIndexOf(".");
     const ext = fileName.substring(dotIndex);
     return ext;
@@ -51,7 +55,8 @@ export class ImageCropperPage {
   constructor(
     public viewCtrl: ViewController,
     private afStorage: AngularFireStorage,
-    public navParams: NavParams
+    public navParams: NavParams,
+    private imageService: ImageServiceProvider
   ) {
     this.imageB64 = this.navParams.get("imageB64String");
     if (this.imageB64)
@@ -59,10 +64,12 @@ export class ImageCropperPage {
   }
 
   ionViewDidLoad() {
+    
     console.log("ionViewDidLoad ImageCropperPage");
+    this.selectImage();
   }
-  ionViewWillUnload(){
-   this.clear()
+  ionViewWillUnload() {
+    this.clear();
   }
 
   imageLoaded() {
@@ -79,7 +86,7 @@ export class ImageCropperPage {
         background: true,
         autoCropArea: 0.8,
         responsive: true,
-        crop: (e: Cropper.CropperCustomEvent) => {
+        crop: (e: Cropper.CropperCropEvent) => {
           //  if (!this.editor.cropping) this.editor.cropping = true;
         }
       });
@@ -115,20 +122,34 @@ export class ImageCropperPage {
     if (this.editor.cropping || this.editor.rotating) {
       this.editor.cropping = false;
       this.editor.rotating = false;
-      let croppedImgB64String: string = this.cropper
-        .getCroppedCanvas(
-          this.loader.type == "image/png"
-            ? {}
-            : {
-                fillColor: "#fff"
-              }
-        )
-        .toDataURL(this.loader.type, 100 / 100); // 90 / 100 = photo quality
+      let croppedImgB64String: string = this.getCroppedImage().imageString;
       //this.imageB64Tagged = croppedImgB64Strming
       this.loader.previousUrl = this.loader.url;
       this.loader.url = croppedImgB64String;
       this.cropper.replace(croppedImgB64String);
     }
+  }  upload2() {
+
+    let imageData = this.getCroppedImage()
+    return this.viewCtrl.dismiss({imageData})
+  }
+  getCroppedImage() {
+    let croppedCanava = this.cropper.getCroppedCanvas(
+      this.loader.type == "image/png"
+        ? {}
+        : {
+            fillColor: "#fff"
+          }
+    );
+    let imageData : Partial<ImageMeta> = {}
+    imageData.imageString = croppedCanava.toDataURL(this.loader.type); // 90 / 100 = photo quality
+    imageData.width = croppedCanava.width;
+    imageData.height = croppedCanava.height;
+    imageData.type = this.loader.type;
+    imageData.ext = this.extractExt();
+    imageData.size = this.imageService.getImageSize(imageData.imageString)
+    //this.cropper.setCropBoxData({})
+    return imageData;
   }
   onImageSelected(event) {
     event.stopPropagation();
@@ -140,7 +161,7 @@ export class ImageCropperPage {
     var myReader: FileReader = new FileReader();
     var that = this;
     myReader.onloadend = function(loadEvent: any) {
-       that.loader = {
+      that.loader = {
         loaded: true,
         name: file.name,
         type: file.type,
@@ -148,21 +169,11 @@ export class ImageCropperPage {
         url: myReader.result
       };
       that.cropper.replace(loadEvent.target.result);
+      that.cropper.setCanvasData({ left: 0, top: 0, width: 100, height: 100 });
     };
 
     myReader.readAsDataURL(file);
   }
-  upload() {
-    const randomId = Math.random()
-      .toString(36)
-      .substring(2);
-    this.ref = this.afStorage.ref(randomId + this.extractExt(this.loader.name));
-    this.input.nativeElement.src;
-    this.task = this.ref.putString(this.input.nativeElement.src, "data_url");
-    this.uploadProgress = this.task.percentageChanges();
-    /*
-    this.downloadURL = this.task.downloadURL();
-    this.uploadState = this.task.snapshotChanges().pipe(map(s => s.state));
-    */
-  }
+
+
 }

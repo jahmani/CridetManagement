@@ -1,0 +1,41 @@
+pl-list-table {
+
+    .datatable-header {
+        background: rgba(164, 192, 214,1);
+     }
+  
+     .datatable-header-cell {
+        font-weight: bold;
+     }
+  
+     .datatable-body-row {
+        padding: 0;
+     }
+  
+     .datatable-row-even,  .datatable-row-even + .datatable-row-detail {
+        background: rgba(240, 240, 240, 1);
+     }
+     .datatable-row-wrapper{
+        .item.item-block.item-md{
+            background-color: transparent;
+            .label.label-md{
+                padding: 0;
+                margin: 0px;
+            }
+
+        }
+     }
+     .datatable-row-odd, .datatable-row-odd + .datatable-row-detail
+      {
+        background: rgba(255, 255, 255,1);
+     }
+     .datatable-row-even.active, .datatable-row-even.active + .datatable-row-detail
+      {
+        background: rgb(210, 239, 253);
+     }
+     .datatable-row-odd.active, .datatable-row-odd.active + .datatable-row-detail
+     {
+        background: rgb(210, 239, 253);
+    }
+ 
+}

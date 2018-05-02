@@ -1,5 +1,5 @@
 import { Component, Optional } from '@angular/core';
-import { IonicPage, NavController, ModalController, AlertController} from 'ionic-angular';
+import { IonicPage, NavController, ModalController, AlertController, ViewController, NavParams} from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import {debounceTime} from 'rxjs/operators/debounceTime'
 import {map} from 'rxjs/operators/map'
@@ -11,6 +11,7 @@ import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { FormControl } from '@angular/forms';
 import { AccountsBalanceFBRepository } from '../../StoreData/account-balance-fb-repository';
+import { ImagesFsRepository } from '../../StoreData/images-fs-repository';
 
 /**
  * Generated class for the AccountsListPage page.
@@ -31,13 +32,17 @@ export class AccountsListPage {
   searchControl : FormControl
   totalBalanceObj : Observable<AccountBalance>
   constructor(
-      public navCtrl: NavController
-      , private afsr : AccountsFsRepository
-      , private abfsr : AccountsBalanceFBRepository 
+      public navCtrl: NavController,
+      private viewCtrl : ViewController,
+      private navParams : NavParams
+      , @Optional() private accountsFsRepository : AccountsFsRepository
       , private modalController : ModalController
     , private alertController : AlertController
     , @Optional() private titleService: TitleServiceProvider) {
-    this.accounts = this.afsr.FormatedList;
+
+      this.accountsFsRepository =
+       this.accountsFsRepository || this.navParams.get("accountsFsRepository")
+    this.accounts = this.accountsFsRepository.FormatedList;
     this.searchControl = new FormControl();
    // this.accounts.subscribe(console.log)
   }
@@ -74,14 +79,24 @@ export class AccountsListPage {
     }))
   }
   
-  
+  onClick(extAccount:Extended<AccountInfo>){
+    let canSelect = this.navParams.get("canSelect")
+    if(canSelect)
+      this.selectAccount(extAccount)
+    else
+      this.showAccountTransactions(extAccount)
+  }
   showAccountTransactions(accSnapshot : Extended<AccountInfo>) {
     this.navCtrl.push("AccountTransactionsPage",{accountId:accSnapshot.id})
+  }
+
+  selectAccount(extAccount:Extended<AccountInfo>){
+    this.viewCtrl.dismiss(extAccount)
   }
   
   invalidateBalance(accSnapshot : Extended<AccountInfo>) {
     if(accSnapshot.ext.$balanceObj.data.isDirty)
-      return this.abfsr.setAccountBalanceInvalid(accSnapshot.id)
+      return this.accountsFsRepository.setAccountBalanceInvalid(accSnapshot.id)
   }
 
   presentEditAccountModal(accSnapshot : Extended<AccountInfo>) {
@@ -95,10 +110,10 @@ export class AccountsListPage {
     
     const alert = this.alertController.create({
       message:`Are u sure. deleting ${accSnapshot.data.name} information`
-      ,title:"Deleting Account Info"
+      ,title:"Deleting AccountInfo Info"
       ,buttons:[{
         text:"Ok",
-        handler:()=>{this.afsr.remove(accSnapshot)}
+        handler:()=>{this.accountsFsRepository.remove(accSnapshot)}
       }
     ,{
       text : "Cancel"

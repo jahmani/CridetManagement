@@ -22,7 +22,7 @@
       </h2>
     </ion-item>
     <ion-item-sliding *ngFor="let account of filteredAccounts |async">
-      <button (click)='showAccountTransactions(account)' ion-item text-wrap>
+      <button (click)='onClick(account)' ion-item text-wrap>
         <ion-icon name="person" item-left></ion-icon>
         <span >{{account.data.name}}</span>
         <ion-note>/{{account.data.city}}</ion-note>

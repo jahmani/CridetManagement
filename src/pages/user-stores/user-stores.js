@@ -8,9 +8,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Extended, UserStore } from '../../interfaces/data-models';
-import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repository';
 import { UserStoresService } from '../../FireStoreData/user-stores-fs-repository';
 import { StoresFsRepository } from '../../FireStoreData/stores-fs-repository';
 import { ActiveStoreService } from '../../FireStoreData/activeStore';
@@ -18,9 +15,6 @@ import { NavController, IonicPage } from 'ionic-angular';
 import { take } from 'rxjs/operators/take';
 import { AuthService } from '../../app/core/auth';
 import { UserPendingStoresFsRepositoryProvider } from '../../FireStoreData/user-pending-stores-fs-repository';
-import { FormGroup } from '@angular/forms';
-import { FormBuilder } from '@angular/forms/src/form_builder';
-import { UsersFsRepository } from '../../FireStoreData/users-fs-repository';
 import { InvitesFsRepository } from '../../FireStoreData/invites-fs-repository';
 /**
  * Generated class for the UserStoresPage page.
@@ -60,14 +54,12 @@ var UserStoresPage = /** @class */ (function () {
     UserStoresPage.prototype.reject = function (inviteId) {
         this.invitesFsRepository.rejectInvite(inviteId);
     };
-    /**
-     * Generated class for the UserStoresPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     UserStoresPage = __decorate([
         IonicPage(),
+        Component({
+            selector: 'page-user-stores',
+            templateUrl: 'user-stores.html',
+        }),
         __metadata("design:paramtypes", [NavController,
             AuthService,
             UserStoresService,

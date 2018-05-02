@@ -8,10 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import { IonicPage, NavController, NavParams, ViewController } from "ionic-angular";
-import Cropper from "cropperjs";
-import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from "angularfire2/storage";
-import { Observable } from "rxjs/Observable";
+import { IonicPage, NavParams, ViewController } from "ionic-angular";
+import * as Cropper from "cropperjs";
+import { AngularFireStorage } from "angularfire2/storage";
+import { ImageServiceProvider } from "../../providers/image-service/image-service";
 /**
  * Generated class for the ImageCropperPage page.
  *
@@ -19,21 +19,34 @@ import { Observable } from "rxjs/Observable";
  * Ionic pages and navigation.
  */
 var ImageCropperPage = /** @class */ (function () {
-    function ImageCropperPage(viewCtrl, afStorage, navParams) {
+    function ImageCropperPage(viewCtrl, afStorage, navParams, imageService) {
         this.viewCtrl = viewCtrl;
         this.afStorage = afStorage;
         this.navParams = navParams;
+        this.imageService = imageService;
+        this.imageB64Tagged = "../../assets/img/10.jpg";
+        this.loader = {
+            previousUrl: null,
+            loaded: false,
+            name: "",
+            type: "",
+            url: null,
+            size: 0
+        };
+        this.editor = { cropping: false, rotating: false };
         this.imageB64 = this.navParams.get("imageB64String");
         if (this.imageB64)
             this.imageB64Tagged = "data:image/jpeg;base64," + this.imageB64;
     }
-    ImageCropperPage.prototype.extractExt = function (fileName) {
+    ImageCropperPage.prototype.extractExt = function () {
+        var fileName = this.loader.name;
         var dotIndex = fileName.lastIndexOf(".");
         var ext = fileName.substring(dotIndex);
         return ext;
     };
     ImageCropperPage.prototype.ionViewDidLoad = function () {
         console.log("ionViewDidLoad ImageCropperPage");
+        this.selectImage();
     };
     ImageCropperPage.prototype.ionViewWillUnload = function () {
         this.clear();
@@ -86,18 +99,32 @@ var ImageCropperPage = /** @class */ (function () {
         if (this.editor.cropping || this.editor.rotating) {
             this.editor.cropping = false;
             this.editor.rotating = false;
-            var croppedImgB64String = this.cropper
-                .getCroppedCanvas(this.loader.type == "image/png"
-                ? {}
-                : {
-                    fillColor: "#fff"
-                })
-                .toDataURL(this.loader.type, 100 / 100); // 90 / 100 = photo quality
+            var croppedImgB64String = this.getCroppedImage().imageString;
             //this.imageB64Tagged = croppedImgB64Strming
             this.loader.previousUrl = this.loader.url;
             this.loader.url = croppedImgB64String;
             this.cropper.replace(croppedImgB64String);
         }
+    };
+    ImageCropperPage.prototype.upload2 = function () {
+        var imageData = this.getCroppedImage();
+        return this.viewCtrl.dismiss({ imageData: imageData });
+    };
+    ImageCropperPage.prototype.getCroppedImage = function () {
+        var croppedCanava = this.cropper.getCroppedCanvas(this.loader.type == "image/png"
+            ? {}
+            : {
+                fillColor: "#fff"
+            });
+        var imageData = {};
+        imageData.imageString = croppedCanava.toDataURL(this.loader.type); // 90 / 100 = photo quality
+        imageData.width = croppedCanava.width;
+        imageData.height = croppedCanava.height;
+        imageData.type = this.loader.type;
+        imageData.ext = this.extractExt();
+        imageData.size = this.imageService.getImageSize(imageData.imageString);
+        //this.cropper.setCropBoxData({})
+        return imageData;
     };
     ImageCropperPage.prototype.onImageSelected = function (event) {
         event.stopPropagation();
@@ -117,33 +144,28 @@ var ImageCropperPage = /** @class */ (function () {
                 url: myReader.result
             };
             that.cropper.replace(loadEvent.target.result);
+            that.cropper.setCanvasData({ left: 0, top: 0, width: 100, height: 100 });
         };
         myReader.readAsDataURL(file);
     };
-    ImageCropperPage.prototype.upload = function () {
-        var randomId = Math.random()
-            .toString(36)
-            .substring(2);
-        this.ref = this.afStorage.ref(randomId + this.extractExt(this.loader.name));
-        this.input.nativeElement.src;
-        this.task = this.ref.putString(this.input.nativeElement.src, "data_url");
-        this.uploadProgress = this.task.percentageChanges();
-        /*
-            this.downloadURL = this.task.downloadURL();
-            this.uploadState = this.task.snapshotChanges().pipe(map(s => s.state));
-            */
-    };
-    /**
-     * Generated class for the ImageCropperPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
+    __decorate([
+        ViewChild("imageSrc"),
+        __metadata("design:type", ElementRef)
+    ], ImageCropperPage.prototype, "input", void 0);
+    __decorate([
+        ViewChild("fileInput"),
+        __metadata("design:type", ElementRef)
+    ], ImageCropperPage.prototype, "fileInput", void 0);
     ImageCropperPage = __decorate([
         IonicPage(),
+        Component({
+            selector: "page-image-cropper",
+            templateUrl: "image-cropper.html"
+        }),
         __metadata("design:paramtypes", [ViewController,
             AngularFireStorage,
-            NavParams])
+            NavParams,
+            ImageServiceProvider])
     ], ImageCropperPage);
     return ImageCropperPage;
 }());

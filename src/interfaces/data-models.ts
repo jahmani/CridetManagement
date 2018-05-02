@@ -23,6 +23,7 @@ export interface AccountInfoExt {
 
 export interface TransactionExt {
   currentBalance? : number
+  imageFile? : Extended<ImageFile>
 }
 export interface StoreUserExt {
   user? : User
@@ -34,7 +35,17 @@ export interface InviteExt{
   store?: StoreDoc  
   user?: User  
 }
-export type ExtType = CatTreeNodeExtension & AccountInfoExt & StoreUserExt & UserStoreExt & TransactionExt & {}
+export interface OrderExt{
+  account?: Extended<AccountInfo>  
+}
+
+
+export interface OrderPLLineExt{
+  Product?: Extended<Product>  
+}
+
+export type ExtType = CatTreeNodeExtension & AccountInfoExt & StoreUserExt & UserStoreExt 
+& TransactionExt & OrderExt & OrderPLLineExt & {}
 export interface Meta {fromCache:boolean,hasPendingWrites:boolean}
 export interface Extended<T> {
   id: string
@@ -42,6 +53,7 @@ export interface Extended<T> {
   ext?: ExtType
   meta?:Meta
 }
+
 
 export class ExtMap<T> {
   map: Map<string, T>
@@ -71,7 +83,19 @@ export interface Editable {
 export interface Delteable {
   isDelted: boolean
 }
-
+export interface Product  extends Editable{
+  name: string,
+  translatedName:{
+    ar?:string,
+    en?:string,
+    ch?:string
+  };
+  code: string
+  style:string
+  notice:string
+  thumbUrl:string
+  images:string[]
+}
 export interface AccountInfo extends Editable {
   name: string;
   code: string;
@@ -111,6 +135,15 @@ export enum AccountType {
   GeneralDebt = 1,
 }
 
+export interface ImageFile extends Editable, Delteable {
+  name : string
+  url: string;
+  thumbUrl: string;
+  size: number;
+  width: number;
+  height: number;
+  tags:string[]
+}
 export interface Transaction extends Editable, Delteable {
   accountId: string;
   date: string;
@@ -120,6 +153,28 @@ export interface Transaction extends Editable, Delteable {
   ammount: number;
   currency: string;
   catigoryId: string;
+}
+export interface Order extends Editable, Delteable {
+  accountId: string;
+  date: string;
+  deliveryDate : string,
+  imageUrl : string
+  notice: string;
+  ammount: number;
+  currency: string;
+  cbm: number
+}
+export interface PLLine extends Editable, Delteable {
+  orderId: string;
+  productId: string;
+  shippingMark : string;
+  notice: string;
+  price: number;
+  ammount: number;
+  packing: number;
+  ctns : number;
+  qty : number;
+  siblingPLLineId : string;
 }
 export interface AccountBalance extends Editable {
   balance: number

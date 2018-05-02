@@ -20,7 +20,7 @@ export class TreeViewRowComponent {
   @Output() nodeSelected : EventEmitter<Extended<TreeNode>> = new EventEmitter<Extended<TreeNode>>()
   @Output() nodeEditClicked : EventEmitter<Extended<TreeNode>> = new EventEmitter<Extended<TreeNode>>()
   constructor() {
-    console.log('Hello TreeViewRowComponent Component');
+ //   console.log('Hello TreeViewRowComponent Component');
   }
   isSelected(){
     return this.selectedId && this.node.id == this.selectedId

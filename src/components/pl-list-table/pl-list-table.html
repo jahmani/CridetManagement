@@ -1,0 +1,35 @@
+<!-- Generated template for the PlListTableComponent component -->
+<div *ngIf="flatPLLines" dir="ltr">
+  <ngx-datatable #myTable
+  [selected]="selected"
+  [selectionType]="'single'"
+
+  (select)="onSelect($event)" 
+  [scrollbarH]="true"
+  [rowHeight]="'auto'"
+  [rows]="flatPLLines" 
+  [columnMode]="'force'" 
+  [columns]="columns2">
+    <!-- Row Detail Template -->
+    <ngx-datatable-row-detail [rowHeight]="22.5" #myDetailRow (toggle)="onDetailToggle($event)">
+      <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+        <div style="padding-left:35px;">
+          <div>
+              <button (click)="onWantEdit(row.id)" ion-button icon-start><ion-icon name="create"></ion-icon></button>
+              <strong>{{row.productName}}</strong>/{{row.style}}
+          </div>
+        </div>
+      </ng-template>
+    </ngx-datatable-row-detail>
+    <!-- Column Templates -->
+
+  </ngx-datatable>
+</div>
+<!--
+
+<ng-template #rowDropDownTemplate let-row="row" ngx-datatable-cell-template>
+  <a [class.datatable-icon-right]="!row.$$expanded" [class.datatable-icon-down]="row.$$expanded" title="Expand/Collapse Details"
+     (click)="toggleExpandRow(row)">hi
+  </a>
+</ng-template>
+-->

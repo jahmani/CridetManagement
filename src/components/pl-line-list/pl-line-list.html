@@ -1,0 +1,57 @@
+<!-- Generated template for the PlLineListComponent component -->
+<div >
+  <button ion-button (click)="presentNewPlLineModal()">Add</button>
+
+  <ion-list  *ngIf="plLines">
+      <ion-card no-padding *ngFor="let plLine of plLines, let i=index">
+          <ion-card-header no-padding>
+            <ion-item>
+                <ion-thumbnail item-start>
+                    <img [src]="plLine.ext.Product.data.thumbUrl">
+                  </ion-thumbnail>
+    
+                <span>{{plLine.ext.Product.data.name}}</span>
+                <ion-note *ngIf="plLine.ext.Product.data.style">- {{plLine.ext.Product.data.style}}</ion-note>
+  
+            </ion-item>
+           </ion-card-header>
+          <ion-card-content  no-padding>
+              <ion-item-sliding 
+              >
+          
+            <ion-item  
+            (click)="presentEditPlLineModal(plLine)"
+            >
+             <ion-row>
+                <span item-start>{{plLine.data.shippingMark || "xxx" }}</span>
+
+                <ion-col>Ctns: {{plLine.data.ctns || "xxx"}}</ion-col>
+                <ion-col>packing : {{plLine.data.packing || "xxx" }}</ion-col>
+                <ion-col>qty: {{plLine.data.qty || "xxx"}}</ion-col>
+                <ion-col>Price: {{plLine.data.price || "xxx"}}</ion-col>
+                <ion-col>Ammount : {{plLine.data.ammount || "xxx" }}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-auto>
+                  <span class="note-italic" *ngIf="plLine.data.notice">{{plLine.data.notice}}</span>
+                </ion-col>
+              </ion-row>    
+            </ion-item>
+            <ion-item-options side="right">
+          
+                <button ion-button color="primary" (click)="presentEditPlLineModal(plLine.id)">
+                <ion-icon name="edit"></ion-icon>
+                Edit
+              </button>
+                <button ion-button color="danger"  (click)="presentEditPlLineModal(plLine.id)">
+                <ion-icon name="trash"></ion-icon>
+                Delete
+              </button>
+              </ion-item-options>
+          </ion-item-sliding>
+                    </ion-card-content>
+        </ion-card>
+ 
+</ion-list>
+
+</div>

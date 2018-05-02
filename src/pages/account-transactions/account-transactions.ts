@@ -66,6 +66,18 @@ export class AccountTransactionsPage {
   presentEditTransactionModal(transSnapshot: Extended<Transaction>) {
     this.navCtrl.push("EditTransactionPage", { transSnapshot })
   }
+  showTransactionImage(transSnapshot: Extended<Transaction>){
+    if(transSnapshot.ext.imageFile){
+    let modal =this.modalController.create("PhotoDetailPage",
+    {
+      canDelete:false,
+      canSelect : false,
+      images : [transSnapshot.ext.imageFile]
+    })
+    modal.present()      
+  }
+
+  }
   ionViewDidEnter() {
     this.accountsRep.getOnce(this.accountId).then((extAccount) => {
       if (this.titleService){

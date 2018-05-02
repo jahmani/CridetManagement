@@ -8,10 +8,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { IonicPage, NavController } from 'ionic-angular';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../app/core/auth';
-import { HomePage } from '../home/home';
 /**
  * Generated class for the LoginPage page.
  *
@@ -23,6 +22,7 @@ var LoginPage = /** @class */ (function () {
         this.fb = fb;
         this.auth = auth;
         this.navCtrl = navCtrl;
+        this.submitAttempt = false;
         this.form = this.fb.group({
             email: ['', Validators.compose([Validators.required, Validators.email])],
             password: '',
@@ -43,14 +43,12 @@ var LoginPage = /** @class */ (function () {
     LoginPage.prototype.createAccount = function () {
         this.navCtrl.setRoot("SignupPage");
     };
-    /**
-     * Generated class for the LoginPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     LoginPage = __decorate([
         IonicPage(),
+        Component({
+            selector: 'page-login',
+            templateUrl: 'login.html',
+        }),
         __metadata("design:paramtypes", [FormBuilder,
             AuthService,
             NavController])

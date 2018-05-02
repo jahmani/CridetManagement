@@ -21,6 +21,8 @@ import { TitleServiceProvider } from "../providers/title-service/title-service";
 import { TabServiceProvider } from "../providers/tab-service/tab-service";
 import { ConnectionServiceProvider } from "../providers/connection-service/connection-service";
 import { environment } from "../environments/environment";
+import { ImageServiceProvider } from '../providers/image-service/image-service';
+import { AppErrorHandler } from "./error-handler";
 
 @NgModule({
   declarations: [MyApp, HomePage, ListPage],
@@ -38,15 +40,16 @@ import { environment } from "../environments/environment";
     FirestoreDataModule,
 
   ],
-  bootstrap: [IonicApp],
+  bootstrap: [IonicApp], 
   entryComponents: [MyApp, HomePage, ListPage],
   providers: [
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: ErrorHandler, useClass: AppErrorHandler },
     UserService,
     MessagingService,
     TitleServiceProvider,
     TabServiceProvider,
     ConnectionServiceProvider,
+    ImageServiceProvider,
   ]
 })
 export class AppModule {}

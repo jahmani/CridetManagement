@@ -14,6 +14,10 @@ import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs
 import { StoreUsersFsRepository } from '../../StoreData/store-users-fb-repository';
 import { AccountsBalanceFBRepository } from '../../StoreData/account-balance-fb-repository';
 import { HomePage } from '../home/home';
+import { ImagesFsRepository } from '../../StoreData/images-fs-repository';
+import { ProductsFsRepository } from '../../StoreData/products-fs-repository';
+import { OrdersFsRepository } from '../../StoreData/orders-fs-repository';
+import { PLLinesFsRepository } from '../../StoreData/orderPLLines-fs-repository';
 
 /**
  * Generated class for the TabsPage page.
@@ -30,8 +34,11 @@ import { HomePage } from '../home/home';
   providers: [TitleServiceProvider
     , AccountsFsRepository, TransactionsFsRepository
     , TCatigoriesFsRepositoryProvider, StoreUsersFsRepository
-    , AccountsBalanceFBRepository]
+    , AccountsBalanceFBRepository,ImagesFsRepository,
+      ProductsFsRepository,OrdersFsRepository,
+    PLLinesFsRepository]
 })
+
 
 
 export class TabsPage {
@@ -40,7 +47,7 @@ export class TabsPage {
   subNavCtrl: NavController
   canGoBack: Observable<boolean> = Observable.of(false)
   private tabServiceSub: Subscription
-  tabRoot = "AccountsListPage"
+  tabRoot = "OrdersListPage"
   isConnected
  
 

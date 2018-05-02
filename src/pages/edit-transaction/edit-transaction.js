@@ -15,11 +15,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Transaction, Extended, TransactionCatigory, ExtMap, AccountInfo, TransactionType } from '../../interfaces/data-models';
+import { TransactionType } from '../../interfaces/data-models';
 import { TransactionsFsRepository } from '../../StoreData/transactions-fs-repository';
-import { Observable } from 'rxjs/Observable';
 import { AccountsFsRepository } from '../../StoreData/accounts-fb-repository';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
@@ -76,14 +78,13 @@ var EditTransactionPage = /** @class */ (function () {
             this.dismiss(this.transSnapshot);
         }
     };
-    /**
-     * Generated class for the EditTransactionPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     EditTransactionPage = __decorate([
         IonicPage(),
+        Component({
+            selector: 'page-edit-transaction',
+            templateUrl: 'edit-transaction.html',
+        }),
+        __param(6, Optional()),
         __metadata("design:paramtypes", [NavController,
             TransactionsFsRepository,
             AccountsFsRepository,

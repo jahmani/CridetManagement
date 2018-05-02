@@ -7,21 +7,42 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ImageGallery</ion-title>
+    <ion-title>ImageGallery2</ion-title>
+    <ion-buttons left>
+        <button *ngIf="canGoBack" ion-button icon-only (click)="close()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+
+    <ion-buttons right>
+      <button ion-button (click)="AddNewImage()">add</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-
+<!--
   <ion-grid >
     <ion-row>
-      <ion-col (click)="presentImage(i)" col-6 col-md-4 col-xl-3 *ngFor="let image of images; let i=index">
+      <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of storeImages|async; let i=index">
         <div class="image-container"  [style.background-image]="'url(' + image.url + ')'"></div>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+-->
+<ion-content>		
+  <div class="image__grid">		
+    <div class="image__square" *ngFor="let image of storeImages|async as images; let i = index" 
+    (click)="onClick(i,images)"
+    (dblclick)="onDoubleClick(image)">
+
+      <img [src]="image.data.thumbUrl" />				
+    </div>			
+  </div>		
+</ion-content>
+
 <!--
   <ion-content>
     <ion-slides >

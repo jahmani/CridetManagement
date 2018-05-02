@@ -19,11 +19,15 @@ import * as i11 from "../../components/trans-cats-picker-list/trans-cats-picker-
 import * as i12 from "./edit-account.ngfactory";
 import * as i13 from "@angular/common";
 import * as i14 from "@angular/forms";
-import * as i15 from "ionic-angular/module";
-import * as i16 from "ngx-img-cropper/src/imageCropperModule";
-import * as i17 from "../../components/components.module";
-import * as i18 from "ionic-angular/util/module-loader";
-import * as i19 from "./edit-account";
-var EditAccountPageModuleNgFactory = i0.ɵcmf(i1.EditAccountPageModule, [], function (_l) { return i0.ɵmod([i0.ɵmpd(512, i0.ComponentFactoryResolver, i0.ɵCodegenComponentFactoryResolver, [[8, [i2.ActionSheetCmpNgFactory, i3.AlertCmpNgFactory, i4.IonicAppNgFactory, i5.LoadingCmpNgFactory, i6.ModalCmpNgFactory, i7.PickerCmpNgFactory, i8.PopoverCmpNgFactory, i9.SelectPopoverNgFactory, i10.ToastCmpNgFactory, i11.TransCatsPickerListComponentNgFactory, i12.EditAccountPageNgFactory]], [3, i0.ComponentFactoryResolver], i0.NgModuleRef]), i0.ɵmpd(4608, i13.NgLocalization, i13.NgLocaleLocalization, [i0.LOCALE_ID, [2, i13.ɵa]]), i0.ɵmpd(4608, i14.ɵi, i14.ɵi, []), i0.ɵmpd(4608, i14.FormBuilder, i14.FormBuilder, []), i0.ɵmpd(4608, i13.DatePipe, i13.DatePipe, [i0.LOCALE_ID]), i0.ɵmpd(512, i13.CommonModule, i13.CommonModule, []), i0.ɵmpd(512, i14.ɵba, i14.ɵba, []), i0.ɵmpd(512, i14.FormsModule, i14.FormsModule, []), i0.ɵmpd(512, i14.ReactiveFormsModule, i14.ReactiveFormsModule, []), i0.ɵmpd(512, i15.IonicModule, i15.IonicModule, []), i0.ɵmpd(512, i15.IonicPageModule, i15.IonicPageModule, []), i0.ɵmpd(512, i16.ImageCropperModule, i16.ImageCropperModule, []), i0.ɵmpd(512, i17.ComponentsModule, i17.ComponentsModule, []), i0.ɵmpd(512, i1.EditAccountPageModule, i1.EditAccountPageModule, []), i0.ɵmpd(256, i18.LAZY_LOADED_TOKEN, i19.EditAccountPage, [])]); });
+import * as i15 from "@swimlane/ngx-datatable/release/services/scrollbar-helper.service";
+import * as i16 from "@angular/platform-browser";
+import * as i17 from "@swimlane/ngx-datatable/release/services/dimensions-helper.service";
+import * as i18 from "ionic-angular/module";
+import * as i19 from "ngx-img-cropper/src/imageCropperModule";
+import * as i20 from "@swimlane/ngx-datatable/release/datatable.module";
+import * as i21 from "../../components/components.module";
+import * as i22 from "ionic-angular/util/module-loader";
+import * as i23 from "./edit-account";
+var EditAccountPageModuleNgFactory = i0.ɵcmf(i1.EditAccountPageModule, [], function (_l) { return i0.ɵmod([i0.ɵmpd(512, i0.ComponentFactoryResolver, i0.ɵCodegenComponentFactoryResolver, [[8, [i2.ActionSheetCmpNgFactory, i3.AlertCmpNgFactory, i4.IonicAppNgFactory, i5.LoadingCmpNgFactory, i6.ModalCmpNgFactory, i7.PickerCmpNgFactory, i8.PopoverCmpNgFactory, i9.SelectPopoverNgFactory, i10.ToastCmpNgFactory, i11.TransCatsPickerListComponentNgFactory, i12.EditAccountPageNgFactory]], [3, i0.ComponentFactoryResolver], i0.NgModuleRef]), i0.ɵmpd(4608, i13.NgLocalization, i13.NgLocaleLocalization, [i0.LOCALE_ID, [2, i13.ɵa]]), i0.ɵmpd(4608, i14.ɵi, i14.ɵi, []), i0.ɵmpd(4608, i14.FormBuilder, i14.FormBuilder, []), i0.ɵmpd(4608, i15.ScrollbarHelper, i15.ScrollbarHelper, [i16.DOCUMENT]), i0.ɵmpd(4608, i17.DimensionsHelper, i17.DimensionsHelper, []), i0.ɵmpd(4608, i13.DatePipe, i13.DatePipe, [i0.LOCALE_ID]), i0.ɵmpd(512, i13.CommonModule, i13.CommonModule, []), i0.ɵmpd(512, i14.ɵba, i14.ɵba, []), i0.ɵmpd(512, i14.FormsModule, i14.FormsModule, []), i0.ɵmpd(512, i14.ReactiveFormsModule, i14.ReactiveFormsModule, []), i0.ɵmpd(512, i18.IonicModule, i18.IonicModule, []), i0.ɵmpd(512, i18.IonicPageModule, i18.IonicPageModule, []), i0.ɵmpd(512, i19.ImageCropperModule, i19.ImageCropperModule, []), i0.ɵmpd(512, i20.NgxDatatableModule, i20.NgxDatatableModule, []), i0.ɵmpd(512, i21.ComponentsModule, i21.ComponentsModule, []), i0.ɵmpd(512, i1.EditAccountPageModule, i1.EditAccountPageModule, []), i0.ɵmpd(256, i22.LAZY_LOADED_TOKEN, i23.EditAccountPage, [])]); });
 export { EditAccountPageModuleNgFactory as EditAccountPageModuleNgFactory };
 //# sourceMappingURL=edit-account.module.ngfactory.js.map

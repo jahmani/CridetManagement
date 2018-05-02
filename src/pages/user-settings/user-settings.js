@@ -7,10 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 import { Component, Optional } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { MessagingService } from '../../providers/messaging-service/messaging-service';
-import { Alert } from 'ionic-angular/components/alert/alert';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 /**
  * Generated class for the UserSettingsPage page.
@@ -23,6 +25,8 @@ var UserSettingsPage = /** @class */ (function () {
         this.messagingService = messagingService;
         this.navCtrl = navCtrl;
         this.titleService = titleService;
+        this.notificationChecked = false;
+        this.notificationDenied = false;
         this.init();
     }
     UserSettingsPage.prototype.init = function () {
@@ -49,14 +53,13 @@ var UserSettingsPage = /** @class */ (function () {
             this.titleService.setTitle("User Settings ");
         }
     };
-    /**
-     * Generated class for the UserSettingsPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     UserSettingsPage = __decorate([
         IonicPage(),
+        Component({
+            selector: 'page-user-settings',
+            templateUrl: 'user-settings.html',
+        }),
+        __param(2, Optional()),
         __metadata("design:paramtypes", [MessagingService,
             NavController,
             TitleServiceProvider])

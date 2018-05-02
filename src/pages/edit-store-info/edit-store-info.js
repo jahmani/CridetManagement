@@ -17,10 +17,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { StoresFsRepository } from '../../FireStoreData/stores-fs-repository';
-import { StoreDoc, Extended, StoreInfo } from '../../interfaces/data-models';
 import { ActiveStoreService } from '../../FireStoreData/activeStore';
 /**
  * Generated class for the EditStoreInfoPage page.
@@ -36,6 +35,7 @@ var EditStoreInfoPage = /** @class */ (function () {
         this.activeStoreService = activeStoreService;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.submitAttempt = false;
         this.form = this.fb.group({
             name: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
             currency: ['', Validators.compose([Validators.required])],
@@ -81,14 +81,12 @@ var EditStoreInfoPage = /** @class */ (function () {
     EditStoreInfoPage.prototype.onCancel = function () {
         this.navCtrl.pop();
     };
-    /**
-     * Generated class for the EditStoreInfoPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     EditStoreInfoPage = __decorate([
         IonicPage(),
+        Component({
+            selector: 'page-edit-store-info',
+            templateUrl: 'edit-store-info.html',
+        }),
         __metadata("design:paramtypes", [FormBuilder,
             TitleServiceProvider,
             StoresFsRepository,

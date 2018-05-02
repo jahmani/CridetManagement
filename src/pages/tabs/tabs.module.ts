@@ -9,6 +9,7 @@ import { StoreDataModule } from '../../StoreData/storeData.module';
     TabsPage,
   ],
   imports: [
+    
     IonicPageModule.forChild(TabsPage),
     StoreDataModule
   ],

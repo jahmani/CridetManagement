@@ -9,12 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TransactionCatigory, Extended, ExtMap } from '../../interfaces/data-models';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
-import { TransactionCatsPage } from '../transaction-cats/transaction-cats';
-import { Subscription } from 'rxjs/Subscription';
 import { TitleServiceProvider } from '../../providers/title-service/title-service';
 import { TCatigoriesFsRepositoryProvider } from '../../StoreData/t-catigories-fs-repository';
 /**
@@ -31,6 +28,7 @@ var EditTransactionCatPage = /** @class */ (function () {
         this.titleService = titleService;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.submitAttempt = false;
         this.transactionCatId = this.navParams.get('transactionCatId');
         this.transCatsRoot$ = this.tCatsFSR.treeRoot;
         this.transCatsMap$ = this.tCatsFSR.dataMap;
@@ -96,14 +94,12 @@ var EditTransactionCatPage = /** @class */ (function () {
             this.tCatsFSR.saveNew(extTransCat);
         this.dismiss(extTransCat);
     };
-    /**
-     * Generated class for the EditTransactionCatPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     EditTransactionCatPage = __decorate([
         IonicPage(),
+        Component({
+            selector: 'page-edit-transaction-cat',
+            templateUrl: 'edit-transaction-cat.html',
+        }),
         __metadata("design:paramtypes", [FormBuilder,
             TCatigoriesFsRepositoryProvider,
             TitleServiceProvider,

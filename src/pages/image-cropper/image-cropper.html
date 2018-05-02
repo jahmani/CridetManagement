@@ -37,7 +37,7 @@
       </button>
     </ion-buttons>
       <ion-buttons padding-left padding-right end>
-          <button   [disabled] ="editor.cropping || editor.rotating" ion-button icon-only (click)="upload()">
+          <button   [disabled] ="editor.cropping || editor.rotating" ion-button icon-only (click)="upload2()">
             <ion-icon name='cloud-upload'></ion-icon>
           </button>
         </ion-buttons>
@@ -46,7 +46,6 @@
 </ion-header>
 <ion-content>
 
-  <progress-bar *ngIf="uploadProgress|async as progress" [progress]="progress"></progress-bar>
 
   <input type="file" (change)="onImageSelected($event)" accept="image/*" id="file-input" #fileInput>
 

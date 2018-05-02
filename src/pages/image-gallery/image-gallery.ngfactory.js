@@ -5,37 +5,49 @@
 * tslint:disable
 */ 
 import * as i0 from "@angular/core";
-import * as i1 from "ionic-angular/components/grid/col";
-import * as i2 from "ionic-angular/components/toolbar/toolbar-header";
+import * as i1 from "../../../node_modules/ionic-angular/components/button/button.ngfactory";
+import * as i2 from "ionic-angular/components/button/button";
 import * as i3 from "ionic-angular/config/config";
-import * as i4 from "ionic-angular/navigation/view-controller";
-import * as i5 from "../../../node_modules/ionic-angular/components/toolbar/navbar.ngfactory";
-import * as i6 from "ionic-angular/components/toolbar/navbar";
-import * as i7 from "ionic-angular/components/app/app";
-import * as i8 from "ionic-angular/navigation/nav-controller";
-import * as i9 from "../../../node_modules/ionic-angular/components/toolbar/toolbar-title.ngfactory";
-import * as i10 from "ionic-angular/components/toolbar/toolbar-title";
-import * as i11 from "ionic-angular/components/toolbar/toolbar";
-import * as i12 from "../../../node_modules/ionic-angular/components/content/content.ngfactory";
-import * as i13 from "ionic-angular/components/content/content";
-import * as i14 from "ionic-angular/platform/platform";
-import * as i15 from "ionic-angular/platform/dom-controller";
-import * as i16 from "ionic-angular/platform/keyboard";
-import * as i17 from "ionic-angular/components/grid/grid";
-import * as i18 from "ionic-angular/components/grid/row";
-import * as i19 from "@angular/common";
-import * as i20 from "./image-gallery";
-import * as i21 from "ionic-angular/navigation/nav-params";
-import * as i22 from "ionic-angular/components/modal/modal-controller";
+import * as i4 from "ionic-angular/components/icon/icon";
+import * as i5 from "ionic-angular/components/toolbar/toolbar-header";
+import * as i6 from "ionic-angular/navigation/view-controller";
+import * as i7 from "../../../node_modules/ionic-angular/components/toolbar/navbar.ngfactory";
+import * as i8 from "ionic-angular/components/toolbar/navbar";
+import * as i9 from "ionic-angular/components/app/app";
+import * as i10 from "ionic-angular/navigation/nav-controller";
+import * as i11 from "../../../node_modules/ionic-angular/components/toolbar/toolbar-title.ngfactory";
+import * as i12 from "ionic-angular/components/toolbar/toolbar-title";
+import * as i13 from "ionic-angular/components/toolbar/toolbar";
+import * as i14 from "ionic-angular/components/toolbar/toolbar-item";
+import * as i15 from "@angular/common";
+import * as i16 from "../../../node_modules/ionic-angular/components/content/content.ngfactory";
+import * as i17 from "ionic-angular/components/content/content";
+import * as i18 from "ionic-angular/platform/platform";
+import * as i19 from "ionic-angular/platform/dom-controller";
+import * as i20 from "ionic-angular/platform/keyboard";
+import * as i21 from "./image-gallery";
+import * as i22 from "ionic-angular/navigation/nav-params";
+import * as i23 from "ionic-angular/components/modal/modal-controller";
+import * as i24 from "../../StoreData/images-fs-repository";
 var styles_ImageGalleryPage = [];
 var RenderType_ImageGalleryPage = i0.ɵcrt({ encapsulation: 2, styles: styles_ImageGalleryPage, data: {} });
 export { RenderType_ImageGalleryPage as RenderType_ImageGalleryPage };
-function View_ImageGalleryPage_1(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 4, "ion-col", [["class", "col"], ["col-6", ""], ["col-md-4", ""], ["col-xl-3", ""]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
-        var pd_0 = (_co.presentImage(_v.context.index) !== false);
+function View_ImageGalleryPage_1(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 5, "button", [["icon-only", ""], ["ion-button", ""]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+        var pd_0 = (_co.close() !== false);
         ad = (pd_0 && ad);
-    } return ad; }, null, null)), i0.ɵdid(1, 16384, null, 0, i1.Col, [], null, null), (_l()(), i0.ɵted(-1, null, ["\n        "])), (_l()(), i0.ɵeld(3, 0, null, null, 0, "div", [["class", "image-container"]], [[4, "background-image", null]], null, null, null, null)), (_l()(), i0.ɵted(-1, null, ["\n      "]))], null, function (_ck, _v) { var currVal_0 = (("url(" + _v.context.$implicit.url) + ")"); _ck(_v, 3, 0, currVal_0); }); }
-export function View_ImageGalleryPage_0(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵted(-1, null, ["\n"])), (_l()(), i0.ɵeld(1, 0, null, null, 10, "ion-header", [], null, null, null, null, null)), i0.ɵdid(2, 16384, null, 0, i2.Header, [i3.Config, i0.ElementRef, i0.Renderer, [2, i4.ViewController]], null, null), (_l()(), i0.ɵted(-1, null, ["\n\n  "])), (_l()(), i0.ɵeld(4, 0, null, null, 6, "ion-navbar", [["class", "toolbar"]], [[8, "hidden", 0], [2, "statusbar-padding", null]], null, null, i5.View_Navbar_0, i5.RenderType_Navbar)), i0.ɵdid(5, 49152, null, 0, i6.Navbar, [i7.App, [2, i4.ViewController], [2, i8.NavController], i3.Config, i0.ElementRef, i0.Renderer], null, null), (_l()(), i0.ɵted(-1, 3, ["\n    "])), (_l()(), i0.ɵeld(7, 0, null, 3, 2, "ion-title", [], null, null, null, i9.View_ToolbarTitle_0, i9.RenderType_ToolbarTitle)), i0.ɵdid(8, 49152, null, 0, i10.ToolbarTitle, [i3.Config, i0.ElementRef, i0.Renderer, [2, i11.Toolbar], [2, i6.Navbar]], null, null), (_l()(), i0.ɵted(-1, 0, ["ImageGallery"])), (_l()(), i0.ɵted(-1, 3, ["\n  "])), (_l()(), i0.ɵted(-1, null, ["\n\n"])), (_l()(), i0.ɵted(-1, null, ["\n\n"])), (_l()(), i0.ɵeld(13, 0, null, null, 13, "ion-content", [["padding", ""]], [[2, "statusbar-padding", null], [2, "has-refresher", null]], null, null, i12.View_Content_0, i12.RenderType_Content)), i0.ɵdid(14, 4374528, null, 0, i13.Content, [i3.Config, i14.Platform, i15.DomController, i0.ElementRef, i0.Renderer, i7.App, i16.Keyboard, i0.NgZone, [2, i4.ViewController], [2, i8.NavController]], null, null), (_l()(), i0.ɵted(-1, 1, ["\n\n  "])), (_l()(), i0.ɵeld(16, 0, null, 1, 9, "ion-grid", [["class", "grid"]], null, null, null, null, null)), i0.ɵdid(17, 16384, null, 0, i17.Grid, [], null, null), (_l()(), i0.ɵted(-1, null, ["\n    "])), (_l()(), i0.ɵeld(19, 0, null, null, 5, "ion-row", [["class", "row"]], null, null, null, null, null)), i0.ɵdid(20, 16384, null, 0, i18.Row, [], null, null), (_l()(), i0.ɵted(-1, null, ["\n      "])), (_l()(), i0.ɵand(16777216, null, null, 1, null, View_ImageGalleryPage_1)), i0.ɵdid(23, 802816, null, 0, i19.NgForOf, [i0.ViewContainerRef, i0.TemplateRef, i0.IterableDiffers], { ngForOf: [0, "ngForOf"] }, null), (_l()(), i0.ɵted(-1, null, ["\n    "])), (_l()(), i0.ɵted(-1, null, ["\n  "])), (_l()(), i0.ɵted(-1, 1, ["\n"])), (_l()(), i0.ɵted(-1, null, ["\n"])), (_l()(), i0.ɵted(-1, null, ["\n"]))], function (_ck, _v) { var _co = _v.component; var currVal_4 = _co.images; _ck(_v, 23, 0, currVal_4); }, function (_ck, _v) { var currVal_0 = i0.ɵnov(_v, 5)._hidden; var currVal_1 = i0.ɵnov(_v, 5)._sbPadding; _ck(_v, 4, 0, currVal_0, currVal_1); var currVal_2 = i0.ɵnov(_v, 14).statusbarPadding; var currVal_3 = i0.ɵnov(_v, 14)._hasRefresher; _ck(_v, 13, 0, currVal_2, currVal_3); }); }
-export function View_ImageGalleryPage_Host_0(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 1, "page-image-gallery", [], null, null, null, View_ImageGalleryPage_0, RenderType_ImageGalleryPage)), i0.ɵdid(1, 49152, null, 0, i20.ImageGalleryPage, [i8.NavController, i21.NavParams, i22.ModalController], null, null)], null, null); }
-var ImageGalleryPageNgFactory = i0.ɵccf("page-image-gallery", i20.ImageGalleryPage, View_ImageGalleryPage_Host_0, {}, {}, []);
+    } return ad; }, i1.View_Button_0, i1.RenderType_Button)), i0.ɵdid(1, 1097728, [[1, 4]], 0, i2.Button, [[8, ""], i3.Config, i0.ElementRef, i0.Renderer], null, null), (_l()(), i0.ɵted(-1, 0, ["\n          "])), (_l()(), i0.ɵeld(3, 0, null, 0, 1, "ion-icon", [["name", "close"], ["role", "img"]], [[2, "hide", null]], null, null, null, null)), i0.ɵdid(4, 147456, null, 0, i4.Icon, [i3.Config, i0.ElementRef, i0.Renderer], { name: [0, "name"] }, null), (_l()(), i0.ɵted(-1, 0, ["\n        "]))], function (_ck, _v) { var currVal_1 = "close"; _ck(_v, 4, 0, currVal_1); }, function (_ck, _v) { var currVal_0 = i0.ɵnov(_v, 4)._hidden; _ck(_v, 3, 0, currVal_0); }); }
+function View_ImageGalleryPage_2(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 3, "div", [["class", "image__square"]], null, [[null, "click"], [null, "dblclick"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+        var pd_0 = (_co.onClick(_v.context.index, _v.context.ngForOf) !== false);
+        ad = (pd_0 && ad);
+    } if (("dblclick" === en)) {
+        var pd_1 = (_co.onDoubleClick(_v.context.$implicit) !== false);
+        ad = (pd_1 && ad);
+    } return ad; }, null, null)), (_l()(), i0.ɵted(-1, null, ["\n\n      "])), (_l()(), i0.ɵeld(2, 0, null, null, 0, "img", [], [[8, "src", 4]], null, null, null, null)), (_l()(), i0.ɵted(-1, null, ["\t\t\t\t\n    "]))], null, function (_ck, _v) { var currVal_0 = _v.context.$implicit.data.thumbUrl; _ck(_v, 2, 0, currVal_0); }); }
+export function View_ImageGalleryPage_0(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵted(-1, null, ["\n"])), (_l()(), i0.ɵeld(1, 0, null, null, 27, "ion-header", [], null, null, null, null, null)), i0.ɵdid(2, 16384, null, 0, i5.Header, [i3.Config, i0.ElementRef, i0.Renderer, [2, i6.ViewController]], null, null), (_l()(), i0.ɵted(-1, null, ["\n\n  "])), (_l()(), i0.ɵeld(4, 0, null, null, 23, "ion-navbar", [["class", "toolbar"]], [[8, "hidden", 0], [2, "statusbar-padding", null]], null, null, i7.View_Navbar_0, i7.RenderType_Navbar)), i0.ɵdid(5, 49152, null, 0, i8.Navbar, [i9.App, [2, i6.ViewController], [2, i10.NavController], i3.Config, i0.ElementRef, i0.Renderer], null, null), (_l()(), i0.ɵted(-1, 3, ["\n    "])), (_l()(), i0.ɵeld(7, 0, null, 3, 2, "ion-title", [], null, null, null, i11.View_ToolbarTitle_0, i11.RenderType_ToolbarTitle)), i0.ɵdid(8, 49152, null, 0, i12.ToolbarTitle, [i3.Config, i0.ElementRef, i0.Renderer, [2, i13.Toolbar], [2, i8.Navbar]], null, null), (_l()(), i0.ɵted(-1, 0, ["ImageGallery2"])), (_l()(), i0.ɵted(-1, 3, ["\n    "])), (_l()(), i0.ɵeld(11, 0, null, 0, 6, "ion-buttons", [["left", ""]], null, null, null, null, null)), i0.ɵdid(12, 16384, null, 1, i14.ToolbarItem, [i3.Config, i0.ElementRef, i0.Renderer, [2, i13.Toolbar], [2, i8.Navbar]], null, null), i0.ɵqud(603979776, 1, { _buttons: 1 }), (_l()(), i0.ɵted(-1, null, ["\n        "])), (_l()(), i0.ɵand(16777216, null, null, 1, null, View_ImageGalleryPage_1)), i0.ɵdid(16, 16384, null, 0, i15.NgIf, [i0.ViewContainerRef, i0.TemplateRef], { ngIf: [0, "ngIf"] }, null), (_l()(), i0.ɵted(-1, null, ["\n      "])), (_l()(), i0.ɵted(-1, 3, ["\n\n    "])), (_l()(), i0.ɵeld(19, 0, null, 2, 7, "ion-buttons", [["right", ""]], null, null, null, null, null)), i0.ɵdid(20, 16384, null, 1, i14.ToolbarItem, [i3.Config, i0.ElementRef, i0.Renderer, [2, i13.Toolbar], [2, i8.Navbar]], null, null), i0.ɵqud(603979776, 2, { _buttons: 1 }), (_l()(), i0.ɵted(-1, null, ["\n      "])), (_l()(), i0.ɵeld(23, 0, null, null, 2, "button", [["ion-button", ""]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+        var pd_0 = (_co.AddNewImage() !== false);
+        ad = (pd_0 && ad);
+    } return ad; }, i1.View_Button_0, i1.RenderType_Button)), i0.ɵdid(24, 1097728, [[2, 4]], 0, i2.Button, [[8, ""], i3.Config, i0.ElementRef, i0.Renderer], null, null), (_l()(), i0.ɵted(-1, 0, ["add"])), (_l()(), i0.ɵted(-1, null, ["\n    "])), (_l()(), i0.ɵted(-1, 3, ["\n  "])), (_l()(), i0.ɵted(-1, null, ["\n\n"])), (_l()(), i0.ɵted(-1, null, ["\n\n"])), (_l()(), i0.ɵeld(30, 0, null, null, 15, "ion-content", [["padding", ""]], [[2, "statusbar-padding", null], [2, "has-refresher", null]], null, null, i16.View_Content_0, i16.RenderType_Content)), i0.ɵdid(31, 4374528, null, 0, i17.Content, [i3.Config, i18.Platform, i19.DomController, i0.ElementRef, i0.Renderer, i9.App, i20.Keyboard, i0.NgZone, [2, i6.ViewController], [2, i10.NavController]], null, null), (_l()(), i0.ɵted(-1, 1, ["\n"])), (_l()(), i0.ɵted(-1, 1, ["\n"])), (_l()(), i0.ɵeld(34, 0, null, 1, 9, "ion-content", [], [[2, "statusbar-padding", null], [2, "has-refresher", null]], null, null, i16.View_Content_0, i16.RenderType_Content)), i0.ɵdid(35, 4374528, null, 0, i17.Content, [i3.Config, i18.Platform, i19.DomController, i0.ElementRef, i0.Renderer, i9.App, i20.Keyboard, i0.NgZone, [2, i6.ViewController], [2, i10.NavController]], null, null), (_l()(), i0.ɵted(-1, 1, ["\t\t\n  "])), (_l()(), i0.ɵeld(37, 0, null, 1, 5, "div", [["class", "image__grid"]], null, null, null, null, null)), (_l()(), i0.ɵted(-1, null, ["\t\t\n    "])), (_l()(), i0.ɵand(16777216, null, null, 2, null, View_ImageGalleryPage_2)), i0.ɵdid(40, 802816, null, 0, i15.NgForOf, [i0.ViewContainerRef, i0.TemplateRef, i0.IterableDiffers], { ngForOf: [0, "ngForOf"] }, null), i0.ɵpid(131072, i15.AsyncPipe, [i0.ChangeDetectorRef]), (_l()(), i0.ɵted(-1, null, ["\t\t\t\n  "])), (_l()(), i0.ɵted(-1, 1, ["\t\t\n"])), (_l()(), i0.ɵted(-1, 1, ["\n\n"])), (_l()(), i0.ɵted(-1, 1, ["\n"]))], function (_ck, _v) { var _co = _v.component; var currVal_2 = _co.canGoBack; _ck(_v, 16, 0, currVal_2); var currVal_7 = i0.ɵunv(_v, 40, 0, i0.ɵnov(_v, 41).transform(_co.storeImages)); _ck(_v, 40, 0, currVal_7); }, function (_ck, _v) { var currVal_0 = i0.ɵnov(_v, 5)._hidden; var currVal_1 = i0.ɵnov(_v, 5)._sbPadding; _ck(_v, 4, 0, currVal_0, currVal_1); var currVal_3 = i0.ɵnov(_v, 31).statusbarPadding; var currVal_4 = i0.ɵnov(_v, 31)._hasRefresher; _ck(_v, 30, 0, currVal_3, currVal_4); var currVal_5 = i0.ɵnov(_v, 35).statusbarPadding; var currVal_6 = i0.ɵnov(_v, 35)._hasRefresher; _ck(_v, 34, 0, currVal_5, currVal_6); }); }
+export function View_ImageGalleryPage_Host_0(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 1, "page-image-gallery", [], null, null, null, View_ImageGalleryPage_0, RenderType_ImageGalleryPage)), i0.ɵdid(1, 49152, null, 0, i21.ImageGalleryPage, [i10.NavController, i22.NavParams, i6.ViewController, i23.ModalController, [2, i24.ImagesFsRepository]], null, null)], null, null); }
+var ImageGalleryPageNgFactory = i0.ɵccf("page-image-gallery", i21.ImageGalleryPage, View_ImageGalleryPage_Host_0, {}, {}, []);
 export { ImageGalleryPageNgFactory as ImageGalleryPageNgFactory };
 //# sourceMappingURL=image-gallery.ngfactory.js.map

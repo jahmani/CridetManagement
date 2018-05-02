@@ -10,6 +10,8 @@ import {first} from 'rxjs/operators/first';
 import {share} from 'rxjs/operators/share';
 import * as firebase from "firebase/app"
 import { firestore } from 'firebase';
+import { compareDates } from 'ionic-angular/util/datetime-util';
+import { compareTimeStamp } from '../Util/compareDateString';
 
 /*
   Generated class for the FBRepository provider.
@@ -22,7 +24,7 @@ export class FsRepository<T extends Editable>  {
   get FormatedList(): Observable<any[]>{
     return this.dataList;
   };
-  dataList: Observable<Extended<T>[]>;
+  private dataList: Observable<Extended<T>[]>;
   protected collection : AngularFirestoreCollection<T>
   dataMap : Observable<ExtMap<Extended<T>>>
 
@@ -45,7 +47,7 @@ export class FsRepository<T extends Editable>  {
     return coll.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const meta = a.payload.doc.metadata
-        let data
+        let data : T
         if(a.payload.doc.exists)
           data = a.payload.doc.data() as T;
         else 
@@ -53,7 +55,8 @@ export class FsRepository<T extends Editable>  {
         const id = a.payload.doc.id;
         const ret = {id,data,ext:{},meta}
         return ret;
-      });
+      }).sort((a,b)=>{
+        return compareTimeStamp(a.data.lastEditedOn,b.data.lastEditedOn)});
     }));
   }
 
@@ -119,16 +122,13 @@ export class FsRepository<T extends Editable>  {
     throw err
   }
 
-  saveNew(item: Extended<T>, key?) {
+  saveNew(item: Extended<T>, key?:string) {
+    key = key || this.newKey()
     this.parseBeforeSave(item);
     item.data.lastEditedOn = firebase.firestore.FieldValue.serverTimestamp() as string
     item.data.firstCreatedOn = firebase.firestore.FieldValue.serverTimestamp() as string
     if(key)
-      return this.collection.doc(key).set(item.data).catch(this.catch)
-    else
-      return this.collection.add(item.data).then(()=>{
-        return
-      }).catch(this.catch);
+      return this.collection.doc(key).set(item.data).then(()=>key).catch(this.catch)
   }
 
   public remove(item: Extended<T>) {
@@ -138,6 +138,9 @@ export class FsRepository<T extends Editable>  {
   }
   public getNewDocId():string{
     return firestore().collection(this.path).doc().id
+  }
+  newKey(){
+    return this.collection.ref.firestore.collection(this.collection.ref.path).doc().id
   }
   saveOld(editedItem:Extended< T>) {
    // let key = editedItem.$key;

@@ -1,3 +1,13 @@
 tree-view-row {
-
+    .node-icon{
+        @include ltr() {
+            // Custom ltr style goes here
+            padding-right: 5px;
+        }
+    
+        @include rtl() {
+            // Custom rtl style goes here
+            padding-left: 5px;
+        }       
+    }
 }

@@ -27,8 +27,8 @@
     </ion-item>
     <ion-item-sliding *ngFor="let transSnapshot of transSnapshotsArray|async; let i=index">
       <ion-item>
-        <ion-thumbnail item-start>
-          <img imageViewer src="{{transSnapshot.data.imageSrc || '../../assets/icon/attachImage.png'}}">
+        <ion-thumbnail item-start (click)=" showTransactionImage(transSnapshot)">
+          <img src="{{transSnapshot.data.imageSrc || '../../assets/icon/attachImage.png'}}">
         </ion-thumbnail>
         <ion-grid no-padding  (click)="presentEditTransactionModal(transSnapshot)">
           <ion-row>

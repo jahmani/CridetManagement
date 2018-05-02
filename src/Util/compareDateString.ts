@@ -1,7 +1,7 @@
 
  export function compareTimeStamp(d1:string, d2:string) {
-    let firstDate = 0
-    let secondDate  = 0
+    let firstDate = Number.MAX_VALUE
+    let secondDate  = Number.MAX_VALUE
     if (d1)
       firstDate = new Date(d1).getTime()
     if (d2)

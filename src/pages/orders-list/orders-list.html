@@ -1,0 +1,57 @@
+<!--
+  Generated template for the OrdersListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>OrdersList</ion-title>
+    <ion-buttons start><button (click)="presentNewOrderModal()" ion-button icon-only><ion-icon name="add"></ion-icon></button></ion-buttons>
+    
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+
+    
+      <ion-card  *ngFor="let order of orders|async, let i=index"
+      (click)="presentEditOrderModal(order.id)"      >
+
+        <ion-card-header class="noBottomPadding">
+          <ion-item no-padding>
+              <ion-icon item-start name="person"></ion-icon>
+              <span class="accountName">{{order.ext?.account?.data.name}}</span>
+              <span  class="accountDetails" *ngIf="order.ext?.account?.data.city">
+                - {{order.ext?.account?.data.city}}
+              </span>
+          </ion-item>
+    
+        </ion-card-header>
+        <ion-card-content >
+          <ion-item no-padding>
+              <ion-thumbnail *ngIf="order.data.imageUrl" item-start>
+                  <img  [src]="order.data.imageUrl">
+                </ion-thumbnail>
+                <ion-row>
+                  <ion-col>Ammount : {{order.data.ammount || "xxx" }}</ion-col>
+                  <ion-col>CBM: {{order.data.cbm || "xxx"}}</ion-col>
+                  <ion-col>date : {{order.data.date || "xxx" }}</ion-col>
+                  <ion-col>delivery: {{order.data.deliveryDate || "xxx"}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col col-auto>
+                    <span class="note-italic" *ngIf="order.data.notice">{{order.data.notice}}</span>
+                  </ion-col>
+                </ion-row>    
+                </ion-item>
+          </ion-card-content>
+      </ion-card>
+
+    </ion-list>
+
+</ion-content>

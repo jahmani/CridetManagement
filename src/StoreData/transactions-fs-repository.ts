@@ -9,6 +9,7 @@ import { TCatigoriesFsRepositoryProvider } from './t-catigories-fs-repository';
 import 'rxjs/add/observable/combineLatest';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { AccountsBalanceFBRepository } from './account-balance-fb-repository';
+import { ImagesFsRepository } from './images-fs-repository';
 
 /*
   Generated class for the AccountsFBRepository provider.
@@ -24,6 +25,7 @@ export class TransactionsFsRepository extends StoreDataFsRepository<Transaction>
     afs: AngularFirestore,
     activeStoreService: ActiveStoreService,
     private accountsRep: AccountsFsRepository,
+    private imagesFsRepository: ImagesFsRepository,
     private tCatFsRep: TCatigoriesFsRepositoryProvider,
     private balanceFsRep:AccountsBalanceFBRepository
     )  {
@@ -39,12 +41,14 @@ export class TransactionsFsRepository extends StoreDataFsRepository<Transaction>
   }
 
   extendedDataMap(transactionsMap:Observable<ExtMap<Extended<Transaction>>>):Observable<ExtMap<Extended<Transaction>>> {
-    const extendedTranses =Observable.combineLatest(transactionsMap,this.tCatFsRep.dataMap,(transs,cats)=>{
+    const extendedTranses =Observable.combineLatest(transactionsMap,this.tCatFsRep.dataMap,this.imagesFsRepository.dataMap,(transs,cats,images)=>{
       transs.forEach((trans)=>{
         
         trans.ext = trans.ext || {} as ExtType
 
         trans.ext.catigory = cats.get(trans.data.catigoryId)
+        if(trans.data.imageSrc && !trans.data.imageSrc.includes("//"))
+        trans.ext.imageFile = images.get(trans.data.imageSrc)
       })
       return transs
     })

@@ -1,0 +1,48 @@
+<!--
+  Generated template for the PhotoDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar color="dark">
+      <ion-buttons right>
+          <button ion-button icon-only (click)="close()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+          <button *ngIf="canDelete" ion-button icon-only (click)="delete()">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-buttons>
+        
+        <ion-buttons left>
+            <button *ngIf="canSelect" ion-button icon-only (click)="select()">
+              <ion-icon name="checkmark"></ion-icon>
+            </button>
+          </ion-buttons>
+            </ion-navbar>
+</ion-header>
+
+<ion-content no-badding color="dark" dir="ltr">
+  <ion-slides zoom pager="true" [initialSlide]="open_at_index">
+    <ion-slide *ngFor="let image of images"
+      >
+      <div class="swiper-zoom-container">
+        <img [src]="image.data.url">
+      </div>
+ 
+ <!--    
+        class="im"  
+      [style.background-image]="'url(' + image.data.url + ')'"
+ 
+  
+  <div class="im"  [style.background-image]="'url(' + image.data.url + ')'"></div>
+ 
+      <img [src]="image.data.url" class="slider__image" />
+
+
+      <p class="slider__imagecaption">{{ image.data.url }}</p>
+      -->
+    </ion-slide>
+  </ion-slides>
+</ion-content>

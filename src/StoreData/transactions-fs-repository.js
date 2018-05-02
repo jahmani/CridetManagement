@@ -8,34 +8,38 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { StoreDataFsRepository } from './store-data-fs-repository';
 import { AccountsFsRepository } from './accounts-fb-repository';
 import { StorePathConfig } from './StorePathConfig';
-import { Transaction, Extended, ExtMap, CatTreeNodeExtension, ExtType } from '../interfaces/data-models';
 import { Observable } from 'rxjs/Observable';
 import { TCatigoriesFsRepositoryProvider } from './t-catigories-fs-repository';
 import 'rxjs/add/observable/combineLatest';
 import { ActiveStoreService } from '../FireStoreData/activeStore';
 import { AccountsBalanceFBRepository } from './account-balance-fb-repository';
+import { ImagesFsRepository } from './images-fs-repository';
 /*
   Generated class for the AccountsFBRepository provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var /*
-  Generated class for the AccountsFBRepository provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
-TransactionsFsRepository = /** @class */ (function (_super) {
+var TransactionsFsRepository = /** @class */ (function (_super) {
     __extends(TransactionsFsRepository, _super);
-    function TransactionsFsRepository(afs, activeStoreService, accountsRep, tCatFsRep, balanceFsRep) {
+    function TransactionsFsRepository(afs, activeStoreService, accountsRep, imagesFsRepository, tCatFsRep, balanceFsRep) {
         var _this = _super.call(this, afs, activeStoreService, StorePathConfig.Transactions) || this;
         _this.accountsRep = accountsRep;
+        _this.imagesFsRepository = imagesFsRepository;
         _this.tCatFsRep = tCatFsRep;
         _this.balanceFsRep = balanceFsRep;
         console.log('Hello TransactionsFsRepository Provider');
@@ -49,10 +53,12 @@ TransactionsFsRepository = /** @class */ (function (_super) {
         return this.extendedDataMap(transactionsMap);
     };
     TransactionsFsRepository.prototype.extendedDataMap = function (transactionsMap) {
-        var extendedTranses = Observable.combineLatest(transactionsMap, this.tCatFsRep.dataMap, function (transs, cats) {
+        var extendedTranses = Observable.combineLatest(transactionsMap, this.tCatFsRep.dataMap, this.imagesFsRepository.dataMap, function (transs, cats, images) {
             transs.forEach(function (trans) {
                 trans.ext = trans.ext || {};
                 trans.ext.catigory = cats.get(trans.data.catigoryId);
+                if (trans.data.imageSrc && !trans.data.imageSrc.includes("//"))
+                    trans.ext.imageFile = images.get(trans.data.imageSrc);
             });
             return transs;
         });
@@ -108,13 +114,16 @@ TransactionsFsRepository = /** @class */ (function (_super) {
         var deltaAmmount = newAmmount - oldAmmount;
         return deltaAmmount;
     };
+    TransactionsFsRepository = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AngularFirestore,
+            ActiveStoreService,
+            AccountsFsRepository,
+            ImagesFsRepository,
+            TCatigoriesFsRepositoryProvider,
+            AccountsBalanceFBRepository])
+    ], TransactionsFsRepository);
     return TransactionsFsRepository;
 }(StoreDataFsRepository));
-/*
-  Generated class for the AccountsFBRepository provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 export { TransactionsFsRepository };
 //# sourceMappingURL=transactions-fs-repository.js.map

@@ -1,0 +1,37 @@
+page-photo-detail {
+	ion-slides{
+	}
+  .content {
+    background-color: color($colors, dark);
+  }
+  .slider__image {
+  }
+  .slider__imagecaption {
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.8em;
+  }
+  .swiper-pagination-bullet {
+    background: #969696;
+  }
+  .swiper-pagination-bullet-active {
+    background: #fff;
+  }
+  .bounding-box {
+  }
+  .im {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+  .swiper-container {
+
+	width: 100%;
+	}
+  .swiper-slide {		
+	overflow: hidden;
+  }
+  .slide-zoom{
+	  height: 100%;
+  }
+}

@@ -23,14 +23,12 @@ var FilesPage = /** @class */ (function () {
     FilesPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad FilesPage');
     };
-    /**
-     * Generated class for the FilesPage page.
-     *
-     * See https://ionicframework.com/docs/components/#navigation for more info on
-     * Ionic pages and navigation.
-     */
     FilesPage = __decorate([
         IonicPage(),
+        Component({
+            selector: 'page-files',
+            templateUrl: 'files.html',
+        }),
         __metadata("design:paramtypes", [NavController, NavParams])
     ], FilesPage);
     return FilesPage;
